@@ -1,0 +1,138 @@
+\section{Introduction to Lebesgue Measure}
+
+What we understood from the example of \textit{Vitali Set} in the last section is that we cannot assign it measure like \textit{length}. We will only assign measures to the \textit{Borel sets}. This gives us the understanding that the entire collection of subsets $2^\Omega$, where $\Omega = (0, 1]$, is not measureable. So, we can say $(\Omega, \mathcal{B})$ is the \textit{measurable space}. Now, we want to assign each Borel set a measure. \\
+
+Consider \( \Omega = (0, 1] \). Let \( \mathcal{F}_0 \) consist of the empty set and all sets that are finite unions of intervals of the form \( (a, b] \). A typical element of this set is of the form
+\[
+F = (a_1, b_1] \cup (a_2, b_2] \cup \dots \cup (a_n, b_n]
+\]
+where \( 0 \leq a_1 < b_1 \leq a_2 < b_2 \leq \dots \leq a_n < b_n \) and \( n \in \mathbb{N} \).
+
+\begin{lemma}
+    \begin{itemize}
+        \item[(a)] \( \mathcal{F}_0 \) is an algebra.
+        \item[(b)] \( \mathcal{F}_0 \) is not a \( \sigma \)-algebra.
+        \item[(c)] \( \sigma(\mathcal{F}_0) = \mathcal{B} \), where \( \mathcal{B} \) denotes the Borel \( \sigma \)-algebra.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    \begin{itemize}
+        \item[(a)] By definition, \( \emptyset \in \mathcal{F}_0 \). Also, \( \emptyset^C = (0, 1] \in \mathcal{F}_0 \). The complement of \( (a_1, b_1] \cup (a_2, b_2] \) is \( (0, a_1] \cup (b_1, a_2] \cup (b_2, 1] \), which also belongs to \( \mathcal{F}_0 \). \\ Furthermore, the union of finitely many sets, each of which is a finite union of intervals of the form \( (a, b] \), is also a set that is a union of a finite number of intervals, and thus belongs to \( \mathcal{F}_0 \).
+        
+        \item[(b)] To see this, note that \( \left(0, \frac{n}{n+1}\right] \in \mathcal{F}_0 \) for every \( n \), but \( \bigcup_{n=1}^{\infty} \left(0, \frac{n}{n+1}\right] = (0, 1) \notin \mathcal{F}_0 \). This shows that \( \mathcal{F}_0 \) is not closed under countable unions, and thus it is not a \( \sigma \)-algebra.
+    
+        \item[(c)] First, the null set is clearly a Borel set. Next, we have already seen that every interval of the form \( (a, b] \) is a Borel set. Hence, every element of \( \mathcal{F}_0 \) (other than the null set), which is a finite union of such intervals, is also a Borel set. Therefore, \( \mathcal{F}_0 \subseteq \mathcal{B} \). This implies \( \sigma(\mathcal{F}_0) \subseteq \mathcal{B} \).
+    
+        Next, we show that \( \mathcal{B} \subseteq \sigma(\mathcal{F}_0) \). For any interval of the form \( (a, b) \) in \( \mathcal{C}_0 \), we can write
+        \[
+        (a, b) = \bigcup_{n=1}^{\infty} \left(a, b - \frac{1}{n}\right) \cap \Omega.
+        \]
+        Since every interval of the form \( \left(a, b - \frac{1}{n}\right) \in \mathcal{F}_0 \), a countable union of such intervals belongs to \( \sigma(\mathcal{F}_0) \). Therefore, \( (a, b) \in \sigma(\mathcal{F}_0) \) and consequently, \( \mathcal{C}_0 \subseteq \sigma(\mathcal{F}_0) \). This gives \( \sigma(\mathcal{C}_0) \subseteq \sigma(\mathcal{F}_0) \). Using the fact that \( \sigma(\mathcal{C}_0) = \mathcal{B} \) proves the required result.
+    \end{itemize}
+    
+\end{proof}
+
+
+Now, recall that we wanted to give subset $(a, b)$ a measure that is proportional to $b-a$. While this makes sense for the intervals, it doesn't make sense for singleton sets and complex sets like \textit{Cantor set}. What we want to do now is - extend the idea of this measure to other Borel sets. This is achieved by using \textbf{Caratheodory's Extension Theorem}.
+
+\begin{theorem}
+    Let \( \mathcal{F}_0 \) be an algebra of subsets of \( \Omega \), and let \( \mathcal{F} = \sigma(\mathcal{F}_0) \) be the \( \sigma \)-algebra that it generates. Suppose that \( P_0 \) is a mapping from \( \mathcal{F}_0 \) to \([0, 1]\) that satisfies:
+    \begin{enumerate}
+        \item \( P_0(\Omega) = 1 \)
+        \item \( P_0 \) is countably additive on \( \mathcal{F}_0 \). 
+    \end{enumerate}
+    Then, \( P_0 \) can be extended uniquely to a probability measure on \( (\Omega, \mathcal{F}) \). That is, there exists a unique probability measure \( P \) on \( (\Omega, \mathcal{F}) \) such that \( P(A) = P_0(A) \) for all \( A \in \mathcal{F}_0 \).
+    \end{theorem}
+    
+    \begin{proof}
+    We proceed in several steps to establish the existence and uniqueness of the extension.\\
+    
+    \textbf{Step 1: Construction of an Outer Measure}\\
+    
+    Define an outer measure \( \mu \) on the power set \( \mathcal{P}(\Omega) \) as follows:
+    \[
+    \mu(A) = \inf\left\{\sum_{n=1}^{\infty} P_0(E_n) : A \subseteq \bigcup_{n=1}^{\infty} E_n, \; E_n \in \mathcal{F}_0\right\}.
+    \]
+    This definition uses the idea of covering \( A \) with a countable union of sets from \( \mathcal{F}_0 \). The sum of the measures of these covering sets provides an upper bound for \( \mu(A) \). \\
+    
+    The infimum ensures that we take the smallest possible value, making \( \mu \) as small as possible while still covering \( A \).\\
+    
+    To show that \( \mu \) is indeed an outer measure, we verify three properties:
+    \begin{itemize}
+        \item \( \mu(\emptyset) = 0 \) by definition.
+        \item \( \mu \) is monotone: if \( A \subseteq B \), then \( \mu(A) \leq \mu(B) \).
+        \item \( \mu \) satisfies countable subadditivity: for any sequence of sets \( \{A_n\}_{n=1}^{\infty} \), \( \mu\left(\bigcup_{n=1}^{\infty} A_n\right) \leq \sum_{n=1}^{\infty} \mu(A_n) \).
+    \end{itemize}
+    
+    \textbf{Step 2: Countable Additivity and Carathéodory's Extension Theorem}\\
+    
+    Since \( P_0 \) is countably additive on \( \mathcal{F}_0 \), it follows that \( \mu \) is countably additive on \( \mathcal{F}_0 \). Specifically, for any sequence of disjoint sets \( \{A_n\}_{n=1}^{\infty} \subseteq \mathcal{F}_0 \), we have:
+    \[
+    \mu\left(\bigcup_{n=1}^{\infty} A_n\right) = \sum_{n=1}^{\infty} \mu(A_n) = \sum_{n=1}^{\infty} P_0(A_n).
+    \]
+    This equality holds because the definition of \( \mu \) coincides with \( P_0 \) on \( \mathcal{F}_0 \). \\
+    
+    By Carathéodory's Extension Theorem, if an outer measure \( \mu \) is countably additive on a collection of sets (here, \( \mathcal{F}_0 \)), then \( \mu \) can be extended to a measure \( P \) on the \( \sigma \)-algebra generated by those sets. Thus, there exists a unique measure \( P \) on \( \mathcal{F} \) such that \( P(A) = P_0(A) \) for all \( A \in \mathcal{F}_0 \).\\
+    
+    \textbf{Step 3: Verification of the Extension on \( \mathcal{F} \)}\\
+    
+    Since \( \mathcal{F} \) is the \( \sigma \)-algebra generated by \( \mathcal{F}_0 \), every set in \( \mathcal{F} \) can be expressed through countable unions, intersections, and complements of sets in \( \mathcal{F}_0 \). The measure \( P \) extends \( P_0 \) while preserving countable additivity. Therefore, for any \( A \in \mathcal{F}_0 \), we have:
+    \[
+    P(A) = \mu(A) = P_0(A).
+    \]
+    
+    \textbf{Step 4: Uniqueness of the Extension}\\
+    
+    Suppose there exists another probability measure \( Q \) on \( (\Omega, \mathcal{F}) \) that agrees with \( P_0 \) on \( \mathcal{F}_0 \). Let \( A \in \mathcal{F} \). We can approximate \( A \) using sets from \( \mathcal{F}_0 \). Given that both \( P \) and \( Q \) agree with \( P_0 \) on \( \mathcal{F}_0 \), for any such approximation, the measures \( P \) and \( Q \) must produce the same value. Therefore:
+    \[
+    P(A) \leq Q(A) \quad \text{and} \quad Q(A) \leq P(A).
+    \]
+    This implies \( P(A) = Q(A) \). Since \( A \) was arbitrary in \( \mathcal{F} \), \( P \) and \( Q \) must be the same measure on \( \mathcal{F} \).\\
+    
+    Thus, \( P \) is the unique probability measure extending \( P_0 \) to \( \mathcal{F} \).
+    
+    \end{proof}
+
+    For every $F \in F_0$ of the form
+    \[
+    F = (a_1, b_1] \cup (a_2, b_2] \cup \dots \cup (a_n, b_n],
+    \]
+    we define a function $P_0 : F_0 \rightarrow [0, 1]$ such that $P_0 (\emptyset) = 0$ and 
+    \[
+    P_0 (F) = \sum_{i=1}^{n} (b_i - a_i).
+    \]
+    
+    Note that $P_0 (\Omega) = P_0 ((0, 1]) = 1$. Also, if $(a_1, b_1], (a_2, b_2], \dots, (a_n, b_n]$ are disjoint sets, then
+    \[
+    P_0 \left(\bigcup_{i=1}^{n} (a_i, b_i]\right) = \sum_{i=1}^{n} P_0 ((a_i, b_i]) = \sum_{i=1}^{n} (b_i - a_i),
+    \]
+    implying the finite additivity of $P_0$. It turns out that $P_0$ is countably additive on $F_0$ as well; that is, if $(a_1, b_1], (a_2, b_2], \dots$ are disjoint sets such that $\bigcup_{i=1}^{\infty} (a_i, b_i] \in F_0$, then
+    \[
+    P_0 \left(\bigcup_{i=1}^{\infty} (a_i, b_i]\right) = \sum_{i=1}^{\infty} P_0 ((a_i, b_i]) = \sum_{i=1}^{\infty} (b_i - a_i).
+    \]
+    
+    From Carathéodory's extension theorem, there exists a unique probability measure $P$ on $((0, 1], \mathcal{B})$ which is the same as $P_0$ on $F_0$. This unique probability measure on $(0, 1]$ is called the \textit{Lebesgue} or \textit{uniform measure}.\\
+
+    The Lebesgue measure formalizes the notion of length. Specifically, it extends the intuitive idea of length of intervals to a broader set of subsets of $\mathbb{R}$, including sets that are not necessarily intervals. The Lebesgue measure assigns to each set a non-negative value that represents its \textit{size} in terms of length.\\
+
+This suggests that the Lebesgue measure of a singleton should be zero. To demonstrate this, let $b \in (0, 1]$. Using the definition of the measure, we write
+\[
+P(\{b\}) = P\left(\bigcap_{n=1}^{\infty} \left(b - \frac{1}{n}, b\right] \cap \Omega\right).
+\]
+Let $A_n = \left(b - \frac{1}{n}, b\right]$. For each $n$, the Lebesgue measure of $A_n$ is
+\[
+P(A_n) = \frac{1}{n}.
+\]
+Since $\{A_n\}$ is a decreasing sequence of nested sets,
+\[
+P(\{b\}) = P\left(\bigcap_{n=1}^{\infty} A_n\right) = \lim_{n \to \infty} P(A_n) = \lim_{n \to \infty} \frac{1}{n} = 0,
+\]
+where the second equality follows from the continuity of probability measures.\\
+
+Since any countable set is a countable union of singletons, the probability of a countable set is zero.\\
+
+For example, under the uniform measure on $(0, 1]$, the probability of the set of rationals is zero, since the rational numbers in $(0, 1]$ form a countable set.\\
+
+For $\Omega = (0, 1]$, the Lebesgue measure is also a probability measure because $P((0, 1]) = 1$. However, for other intervals (for example, $\Omega = (0, 2]$), the Lebesgue measure is only a finite measure. In such cases, the measure can be normalized as appropriate to obtain a uniform probability measure. For instance, if $\Omega = (0, 2]$, the Lebesgue measure of this interval is $2$. By dividing by $2$, we can create a uniform probability measure over $(0, 2]$.
+
