@@ -1,0 +1,71 @@
+\section{Discrete Probability Spaces}
+
+
+Discrete probability spaces correspond to the case when the sample space $\Omega$ is countable. This is the most conceptually straightforward case, since it is possible to assign probabilities to all subsets of $\Omega$.
+
+\begin{definition}
+    A probability space $(\Omega, \mathcal{F}, P)$ is said to be a discrete probability space if the following conditions hold:
+\begin{itemize}
+    \item[(a)] The sample space $\Omega$ is finite or countably infinite,
+    \item[(b)] The $\sigma$-algebra is the set of all subsets of $\Omega$, i.e., $\mathcal{F} = 2^\Omega$, and
+    \item[(c)] The probability measure, $P$, is defined for every subset of $\Omega$. In particular, it can be defined in terms of the probabilities $P(\{\omega\})$ of the singletons corresponding to each of the elementary outcomes $\omega$, and satisfies for every $A \in \mathcal{F}$,
+\[
+P(A) = \sum_{\omega \in A} P(\{\omega\}),
+\]
+and
+\[
+\sum_{\omega \in \Omega} P(\{\omega\}) = 1.
+\]
+\end{itemize}
+\end{definition}
+
+The above definition highlights that it is possible to assign probabilities to each singleton set of $\Omega$, but it doesn't say about \textit{what probabilities to assign?} This depends on our use-case and what we want to model. 
+
+\subsubsection{Examples of Discrete Probability Spaces}
+
+\textbf{1.} Let us consider a coin toss experiment with the probability of getting a head as \( p \) and the probability of getting a tail as \( (1 - p) \). The sample space and the \(\sigma\)-algebra are defined as follows:
+\[
+\Omega = \{H, T\} \equiv \{0, 1\}, \quad \mathcal{F} = 2^{\Omega} = \{\emptyset, \{H\}, \{T\}, \Omega\}.
+\]
+The probability measure is given by:
+\[
+P(\{H\}) \equiv P(\{0\}) = p, \quad P(\{T\}) \equiv P(\{1\}) = 1 - p.
+\]
+In this case, we say that \( P(.) \) is a Bernoulli measure on \( \{\{0, 1\}, \, 2^{\{0, 1\}}\}\).\\
+
+\textbf{2.} Let \( \Omega = \mathbb{N} \) and \( \mathcal{F} = 2^{\mathbb{N}} \). We can define the probability of a singleton as:
+\[
+P(\{k\}) = a_k \geq 0, \quad k \in \mathbb{N},
+\]
+under the constraint that:
+\[
+\sum_{k \in \mathbb{N}} P(\{k\}) = 1.
+\]
+For example, if we let \( a_k = \frac{1}{2^k}, \, k \in \mathbb{N} \), this is a valid measure, since:
+\[
+\sum_{k \in \mathbb{N}} \frac{1}{2^k} = 1.
+\]
+As another example, consider \( a_k = (1 - p)^{k-1} p \) for \( 0 < p < 1 \) and \( k \in \mathbb{N} \). This is known as a geometric measure with parameter \( p \). It is a valid probability measure since:
+\[
+\sum_{k \in \mathbb{N}} (1 - p)^{k-1} p = 1.
+\]
+
+\textbf{3.} Let \( \Omega = \mathbb{N} \cup \{0\} \) and \( \mathcal{F} = 2^{\Omega} \). We define the probability measure as:
+\[
+P(\{k\}) = \frac{e^{-\lambda} \lambda^k}{k!}, \quad \lambda > 0.
+\]
+This probability measure is called a Poisson measure with parameter \( \lambda \) on \( \{\Omega, \, 2^{\Omega}\}  \). This is a valid probability measure, since:
+\[
+\sum_{k=0}^{\infty} P(\{k\}) = \sum_{k=0}^{\infty} \frac{e^{-\lambda} \lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} = e^{-\lambda} e^{\lambda} = 1.
+\]
+
+\textbf{4.} Let \( \Omega = \{0, 1, 2, \ldots, N\} \), where \( N \in \mathbb{N} \) and \( \mathcal{F} = 2^{\Omega} \). We define the probability measure as:
+\[
+P(\{k\}) = \binom{N}{k} p^k (1 - p)^{N-k}, \quad 0 < p < 1.
+\]
+This probability measure is called a Binomial measure with parameters \( (N, p) \) on \( \{\Omega, \, 2^{\Omega}\} \). This can be verified to be a valid probability measure as follows:
+\[
+\sum_{k \in \Omega} \binom{N}{k} p^k (1 - p)^{N-k} = (p + (1 - p))^N = 1.
+\]
+
+Note that in all the examples above, we have not explicitly specified an expression for \( P(A) \) for every \( A \subset \Omega \). Since the sample space is countable, the probability of any subset of the sample space can be obtained as the sum of probabilities of the corresponding elementary outcomes. In other words, for discrete probability spaces, it suffices to specify the probabilities of singletons corresponding to each of the elementary outcomes.

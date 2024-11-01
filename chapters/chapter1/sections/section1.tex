@@ -1,0 +1,424 @@
+\section{Introduction to $\sigma-algebra$}
+
+In the early chapters of \textit{Real Analyis}, we introduced the concept of a \textit{field}. A field is an ordered triple, for example, $(\mathbb{Q}, +, \times)$, consisting of the set of rational numbers $\mathbb{Q}$ and two binary operations, $+$ and $\times$, defined on them. These operations follow specific properties, such as having an identity element, the existence of an inverse element for each non-zero element, and distributivity, among others. This structure forms what is commonly referred to as \textit{arithmetic or numeric algebra}.\\
+
+But what if we change the set and the operations? Suppose instead of $\mathbb{Q}$, we take the set $\{0, 1\}^{\infty}$ (the set of all binary sequences) and define appropriate binary operations, such as $+$ and $\cdot$. The resulting structure is called a \textit{boolean algebra}. Similarly, if we take the set of matrices $M$ and define addition and multiplication operations on them, we obtain what is known as \textit{matrix algebra}. These examples illustrate that the notion of algebra is not restricted to numbers; it can be generalized to other sets with appropriate operations.\\
+
+Now, consider a large set with many subsets as its elements, and define two operations: union $\cup$ and intersection $\cap$. This leads to what is known as a \textit{set algebra}, which is central to our discussion.\\
+
+\begin{definition}
+    Let $\Omega$ be a sample space and let $\mathcal{F}_0$ be a collection of subsets of $\Omega$. Then, $\mathcal{F}_0$ is said to be an algebra (or a field) if the following conditions hold:
+\begin{enumerate}
+    \item $\emptyset \in \mathcal{F}_0$.
+    \item If $A \in \mathcal{F}_0$, then $A^c \in \mathcal{F}_0$.
+    \item If $A \in \mathcal{F}_0$ and $B \in \mathcal{F}_0$, then $A \cup B \in \mathcal{F}_0$.
+\end{enumerate}
+\end{definition}
+
+While the terms \textit{field} and \textit{algebra} are sometimes used interchangeably in the context of sets, there is a subtle difference when we generalize to other structures. A \textit{field} refers specifically to a set with two binary operations (like $+$ and $\times$) that satisfy a complete set of properties such as associativity, commutativity, distributivity, and the existence of identity and inverse elements. \\
+
+On the other hand, an \textit{algebra} is a broader concept. It is a structure consisting of a set and operations that may or may not satisfy all the properties required of a field. For instance, in set theory, a set algebra satisfies closure under union, intersection, and complement, but it does not necessarily satisfy all the numeric properties of a field, such as the existence of multiplicative inverses. Thus, while all fields can be considered a type of algebra, not all algebras are fields. The key distinction lies in the specific operations and properties defined on the set.\\
+
+\begin{theorem}
+    An algebra is closed under finite union and finite intersection.
+\end{theorem}
+
+
+\begin{proof}
+
+\textbf{Closed Under Finite Union:} \\
+
+To prove that $\mathcal{F}_0$ is closed under finite union, we proceed by induction. \\
+
+\textbf{Base Case:} Let $A_1, A_2 \in \mathcal{F}_0$. By definition of an algebra, $A_1 \cup A_2 \in \mathcal{F}_0$. This shows that the union of two sets in $\mathcal{F}_0$ is also in $\mathcal{F}_0$. \\
+
+\textbf{Induction Step:} Suppose for some $n \in \mathbb{N}$, the union of $n$ sets in $\mathcal{F}_0$, say $A_1, A_2, \ldots, A_n$, is also in $\mathcal{F}_0$. That is,
+\[
+A_1 \cup A_2 \cup \ldots \cup A_n \in \mathcal{F}_0.
+\]
+
+Now, consider $A_1 \cup A_2 \cup \ldots \cup A_n \cup A_{n+1}$. We can rewrite this as:
+\[
+(A_1 \cup A_2 \cup \ldots \cup A_n) \cup A_{n+1}.
+\]
+By the induction hypothesis, $(A_1 \cup A_2 \cup \ldots \cup A_n) \in \mathcal{F}_0$. Since $A_{n+1} \in \mathcal{F}_0$ and $\mathcal{F}_0$ is closed under the union of two sets, it follows that:
+\[
+(A_1 \cup A_2 \cup \ldots \cup A_n) \cup A_{n+1} \in \mathcal{F}_0.
+\]
+By the principle of mathematical induction, $\mathcal{F}_0$ is closed under finite union. \\
+
+\textbf{Closed Under Finite Intersection:} \\
+
+To show closure under finite intersection, note that for any sets $A, B \in \mathcal{F}_0$, we have $A^c, B^c \in \mathcal{F}_0$ because complements of sets in an algebra are also in the algebra. \\
+
+Using De Morgan's laws, we know that:
+\[
+A \cap B = (A^c \cup B^c)^c.
+\]
+
+Since $A^c, B^c \in \mathcal{F}_0$ and $\mathcal{F}_0$ is closed under finite union, it follows that $A^c \cup B^c \in \mathcal{F}_0$. Therefore, $(A^c \cup B^c)^c \in \mathcal{F}_0$, meaning $A \cap B \in \mathcal{F}_0$. \\
+
+By similar reasoning and using induction, it can be shown that $\mathcal{F}_0$ is closed under the intersection of any finite number of sets. Thus, $\mathcal{F}_0$ is closed under finite intersection.
+
+\end{proof}
+
+We have not defined the concept of \textit{event} yet. Informally, for now consider that an event is an subset of sample space that is of our interest. A natural question that arises at this point is \textit{Is the structure of an algebra enough to study events of typical interest in probability theory?} 
+
+\subsubsection{An Event Not Included in an Algebra}
+
+Consider the following example. Toss a coin repeatedly until the first heads appears. The sample space is:
+\[
+\Omega = \{H, TH, TTH, \ldots\}
+\]
+where $H$ represents heads appearing on the first toss, $TH$ represents tails followed by heads, $TTH$ represents two tails followed by heads, and so on. \\
+
+Now, suppose we are interested in determining whether the number of tosses before seeing a head is even. Let $E$ denote this event. Then,
+\[
+E = \{TH, TTTH, TTTTTH, \ldots\}
+\]
+which includes all outcomes where heads appears after an even number of tosses. \\
+
+Notice that $E$ is a countably infinite union of individual outcomes:
+\[
+E = \{TH\} \cup \{TTTH\} \cup \{TTTTTH\} \cup \ldots
+\]
+
+However, an \textit{algebra} is defined to contain only finite unions of subsets. Since $E$ involves a countably infinite union, it cannot be part of the algebra of subsets of $\Omega$. This shows that our \textit{event} of interest is not included in the algebra. \\
+
+This limitation motivates the need for a more comprehensive structure called a \textit{$\sigma$-algebra}. A $\sigma$-algebra extends the notion of an algebra by allowing countably infinite unions of subsets, ensuring that events like $E$ are included within the framework of probability theory.
+
+
+\begin{definition}
+    A collection $\mathcal{F}$ of subsets of $\Omega$ is called a \textit{$\sigma$-algebra} (or \textit{$\sigma$-field}) if:
+
+\begin{enumerate}
+    \item $\emptyset \in \mathcal{F}$.
+    \item If $A \in \mathcal{F}$, then $A^c \in \mathcal{F}$ (i.e., the complement of $A$ is also in $\mathcal{F}$).
+    \item If $A_1, A_2, A_3, \ldots$ is a countable collection of subsets in $\mathcal{F}$, then $\bigcup\limits_{i=1}^{\infty} A_i \in \mathcal{F}$.
+\end{enumerate}
+\end{definition}
+
+\noindent Note that, unlike an algebra, a $\sigma$-algebra is closed under countable union and countable intersection.
+
+\subsubsection{Examples of $\sigma-algebras$:}
+
+Here are some intuitive examples of $\sigma$-algebras:
+
+\begin{enumerate}
+    \item \textbf{Trivial $\sigma$-algebra:} The smallest $\sigma$-algebra on a sample space $\Omega$ is $\mathcal{F} = \{\emptyset, \Omega\}$. This is known as the trivial $\sigma$-algebra and contains only the empty set and the entire sample space.
+
+    \item \textbf{Power Set $\sigma$-algebra:} The largest $\sigma$-algebra on a sample space $\Omega$ is the power set of $\Omega$, denoted as $2^{\Omega}$. It includes all possible subsets of $\Omega$. This is the most comprehensive $\sigma$-algebra possible on $\Omega$.
+
+    \item \textbf{Finite and Countable $\sigma$-algebras:} Consider a finite or countable sample space, such as $\Omega = \{1, 2, 3, \ldots\}$. The collection of all subsets of $\Omega$ forms a $\sigma$-algebra, as it is closed under countable unions, intersections, and complements.\\
+\end{enumerate}
+
+
+\begin{theorem}
+    \textit{Every $\sigma$-algebra is an algebra, but the converse is not true.} 
+\end{theorem} 
+
+\begin{proof}
+    
+\textbf{Part 1: Every $\sigma$-algebra is an algebra}\\
+
+Let $\mathcal{F}$ be a $\sigma$-algebra.
+
+\begin{enumerate}
+    \item \textbf{Contains the empty set:} By the definition of a $\sigma$-algebra, we have $\emptyset \in \mathcal{F}$.
+    
+    \item \textbf{Closed under complementation:} If $A \in \mathcal{F}$, then by definition, $A^c \in \mathcal{F}$.
+    
+    \item \textbf{Closed under finite unions:} Let $A, B \in \mathcal{F}$. We can consider the finite union:
+    \[
+    A \cup B = A \cup B = \bigcup_{i=1}^{2} A_i.
+    \]
+    Here, we can denote $A_1 = A$ and $A_2 = B$. Since $\mathcal{F}$ is closed under countable unions, we have:
+    \[
+    A \cup B \in \mathcal{F}.
+    \]
+\end{enumerate}
+
+Since $\mathcal{F}$ satisfies all three properties of an algebra, we conclude that every $\sigma$-algebra is indeed an algebra.\\
+
+\textbf{Part 2: The converse is not true}\\
+
+To show that not every algebra is a $\sigma$-algebra, we can provide a counterexample.\\
+
+Consider the set $\Omega = \{1, 2, 3\}$ and the algebra $\mathcal{A} = \{ \emptyset, \{1\}, \{2\}, \{3\}, \{1, 2\}, \{1, 3\}, \{2, 3\},$
+$ \{1, 2, 3\} \}$.
+
+\begin{enumerate}
+    \item \textbf{Contains the empty set:} $\emptyset \in \mathcal{A}$.
+    
+    \item \textbf{Closed under complementation:} The complement of each set in $\mathcal{A}$ is also in $\mathcal{A}$.
+    
+    \item \textbf{Closed under finite unions:} The union of any finite number of sets in $\mathcal{A}$ is also in $\mathcal{A}$.
+\end{enumerate}
+
+However, the collection $\mathcal{A}$ is not a $\sigma$-algebra because it is not closed under countable unions. For instance, if we consider the countable collection of subsets:
+\[
+A_1 = \{1\}, \quad A_2 = \{2\}, \quad A_3 = \{3\}, \quad \ldots
+\]
+the union $\bigcup_{i=1}^{\infty} A_i = \{1, 2, 3\} = \Omega$, which is included, but if we consider an infinite union of disjoint sets from $\mathcal{A}$ that leads to more than three elements, it will not be contained within $\mathcal{A}$.\\
+
+Thus, we conclude that not every algebra is a $\sigma$-algebra.
+\end{proof}
+
+\subsubsection{Examples of algebras which are not $\sigma$-algebras:}
+
+Below are some simple examples of an algebra that is not a $\sigma$-algebra: \\
+
+\textbf{Example 1: The Finite Subsets of $\mathbb{N}$}\\
+
+Consider the set $\Omega = \mathbb{N}$, the set of all natural numbers. Let $\mathcal{A}$ be the collection of all finite subsets of $\mathbb{N}$ along with $\mathbb{N}$ itself. This collection forms an \textbf{algebra} because:
+\begin{itemize}
+    \item The union or intersection of any two finite sets is finite (or possibly $\mathbb{N}$).
+    \item The complement of any finite subset is also an infinite subset, and in this case, it is $\mathbb{N}$ (which belongs to $\mathcal{A}$).
+\end{itemize}
+
+However, $\mathcal{A}$ is \textbf{not a $\sigma$-algebra} because it is not closed under countable union. For instance, if we take a sequence of singletons $\{1\}, \{2\}, \{3\}, \ldots$, the union of these singletons is $\mathbb{N}$, which is an infinite set. While $\mathbb{N}$ is in $\mathcal{A}$, the complement of this countable union would not necessarily belong to $\mathcal{A}$, as it may not be finite.\\
+
+\textbf{Example 2: Intervals on the Real Line}\\
+
+Consider $\Omega = [0, 1]$ and let $\mathcal{A}$ be the collection of all finite unions of intervals of the form $[a, b]$, where $0 \leq a \leq b \leq 1$. This collection $\mathcal{A}$ forms an \textbf{algebra} because:
+\begin{itemize}
+    \item The union and intersection of a finite number of intervals of this form are again finite unions of intervals of this form.
+    \item The complement of a finite union of such intervals is also a finite union of intervals.
+\end{itemize}
+
+However, $\mathcal{A}$ is \textbf{not a $\sigma$-algebra} because it is not necessarily closed under countable unions. For example, if we take a sequence of intervals $\left[0, \frac{1}{2}\right], \left[\frac{1}{2}, \frac{3}{4}\right], \left[\frac{3}{4}, \frac{7}{8}\right], \ldots$ such that they cover $[0, 1]$ as a whole, their countable union would be $[0, 1]$. Although $[0, 1]$ is in $\mathcal{A}$, the structure of $\mathcal{A}$ doesn’t guarantee closure under all such countable unions. \\
+
+\textbf{Example 3: The Power Set of a Finite Set} \\
+
+Let $\Omega = \{a, b, c\}$ be a finite set. The collection $\mathcal{A}$ of all subsets of $\Omega$ (also known as the power set of $\Omega$) forms an \textbf{algebra} because:
+\begin{itemize}
+    \item Any union, intersection, or complement of subsets of a finite set remains a subset of that finite set.
+\end{itemize}
+
+However, even though this is a trivial example, it demonstrates that an algebra is not necessarily a $\sigma$-algebra because $\sigma$-algebras are designed to handle infinite cases. In this finite scenario, $\mathcal{A}$ satisfies the properties of both an algebra and a $\sigma$-algebra, but it shows that if the set $\Omega$ were infinite, $\mathcal{A}$ would not generally be closed under countable operations.
+
+
+\begin{example}
+    Consider the random experiment of throwing a die. If a statistician is interested in the occurrence of either an odd or an even outcome, construct a sample space and a $\sigma$-algebra of subsets of this sample space.\\
+
+    \textbf{Sample Space (\(\Omega\))}:  The sample space consists of all possible outcomes when throwing a six-sided die. Therefore, we can define the sample space as:
+\[
+\Omega = \{1, 2, 3, 4, 5, 6\}
+\]
+
+\textbf{Events of Interest}:  The statistician is interested in the occurrence of either an odd or an even outcome. We can categorize the outcomes as follows:
+\begin{itemize}
+    \item \textbf{Odd Outcomes}: \( \{1, 3, 5\} \)
+    \item \textbf{Even Outcomes}: \( \{2, 4, 6\} \)
+\end{itemize}
+
+\textbf{Constructing the \(\sigma\)-Algebra (\(\mathcal{F}\))}: A \(\sigma\)-algebra is a collection of subsets of \(\Omega\) that satisfies the following properties:
+\begin{itemize}
+    \item It contains the empty set and the sample space itself.
+    \item It is closed under complementation.
+    \item It is closed under countable unions.
+\end{itemize}
+
+Given the events of interest, we can construct the \(\sigma\)-algebra as follows:
+\[
+\mathcal{F} = \{ \emptyset, \{1\}, \{2\}, \{3\}, \{4\}, \{5\}, \{6\}, \{1, 3, 5\}, \{2, 4, 6\}, \{1, 2, 3, 4, 5, 6\} \}
+\]
+
+\textbf{Checking the Properties of the \(\sigma\)-Algebra}:\\
+
+ \textbf{Contains the Empty Set and Sample Space}: \(\emptyset \in \mathcal{F}\) and \(\Omega = \{1, 2, 3, 4, 5, 6\} \in \mathcal{F}\).\\
+    
+\textbf{Closed under Complementation}: 
+    \begin{itemize}
+        \item The complement of \(\emptyset\) is \(\{1, 2, 3, 4, 5, 6\}\), which is in \(\mathcal{F}\).
+        \item The complement of \(\{1, 3, 5\}\) is \(\{2, 4, 6\}\), which is in \(\mathcal{F}\).
+        \item The complement of \(\{2, 4, 6\}\) is \(\{1, 3, 5\}\), which is in \(\mathcal{F}\).
+    \end{itemize}
+    
+\textbf{Closed under Countable Unions}: For any events in \(\mathcal{F}\), the union will also be in \(\mathcal{F}\). For instance, 
+    \(\{1\} \cup \{2\} = \{1, 2\} \in \mathcal{F}\), and 
+    \(\{1, 3, 5\} \cup \{2, 4, 6\} = \{1, 2, 3, 4, 5, 6\} \in \mathcal{F}\).\\
+
+\end{example}
+
+\begin{example}
+    Let \( A_1, A_2, \ldots, A_n \) be arbitrary subsets of \( \Omega \). Describe (explicitly) the smallest \(\sigma\)-algebra \( \mathcal{F} \) containing \( A_1, A_2, \ldots, A_n \). How many sets are there in \( \mathcal{F} \)? (Give an attainable upper bound under certain conditions). List all the sets in \( \mathcal{F} \) for \( n = 2 \).\\
+
+    \textbf{Smallest \(\sigma\)-algebra containing \( A_1, A_2, \ldots, A_n \):}  \\
+
+The smallest \(\sigma\)-algebra \( \mathcal{F} \) containing the subsets \( A_1, A_2, \ldots, A_n \) is generated by these sets. This means \( \mathcal{F} \) includes all possible unions, intersections, and complements of these sets.\\
+
+To explicitly describe \( \mathcal{F} \):\\
+1. Include \( A_1, A_2, \ldots, A_n \).\\
+2. Include the complements of each set: \( A_1^c, A_2^c, \ldots, A_n^c \).\\
+3. Include all possible unions and intersections of these sets and their complements.\\
+
+\textbf{Counting the Sets in \( \mathcal{F} \):}  \\
+
+In the worst-case scenario, if \( A_1, A_2, \ldots, A_n \) are arbitrary subsets with no restrictions, the number of distinct sets that can be formed is determined by the combinations of unions and intersections. An attainable upper bound for the number of sets in \( \mathcal{F} \) can be given by:
+\[
+|\mathcal{F}| \leq 2^{2^n}
+\]
+This upper bound arises from considering all subsets of \( \Omega \) formed by the possible intersections of the \( 2n \) sets (including both original sets and their complements).\\
+
+\textbf{Example for \( n = 2 \):} \\
+
+Let \( A_1 \) and \( A_2 \) be two arbitrary subsets of \( \Omega \). The smallest \(\sigma\)-algebra \( \mathcal{F} \) generated by \( A_1 \) and \( A_2 \) contains the following sets: \( A_1 \), \( A_2 \), \( A_1^c \), \( A_2^c \), \( A_1 \cap A_2 \), \( A_1 \cap A_2^c \), \( A_1^c \cap A_2 \) and \( A_1^c \cap A_2^c \).\\
+
+Thus, the sets in \( \mathcal{F} \) when \( n = 2 \) are:
+\[
+\mathcal{F} = \{ A_1, A_2, A_1^c, A_2^c, A_1 \cap A_2, A_1 \cap A_2^c, A_1^c \cap A_2, A_1^c \cap A_2^c \}\\
+\]
+\end{example}
+
+\begin{example}
+    Let \( F \) and \( G \) be two \(\sigma\)-algebras of subsets of \(\Omega\). \\
+    \textbf{(a)} Is \( F \cup G \), the collection of subsets of \(\Omega\) lying in either \( F \) or \( G \), a \(\sigma\)-algebra?\\
+    \textbf{(b)} Show that \( F \cap G \), the collection of subsets of \(\Omega\) lying in both \( F \) and \( G \), is a \(\sigma\)-algebra.\\
+    \textbf{(c)} Generalize (b) to arbitrary intersections as follows. Let \( I \) be an arbitrary index set (possibly uncountable), and let \( \{F_i\}_{i \in I} \) be a collection of \(\sigma\)-algebras on \(\Omega\). Show that \( \bigcap_{i \in I} F_i \) is also a \(\sigma\)-algebra. \\
+
+To determine whether \( F \cup G \) is a \(\sigma\)-algebra, we need to check the three properties:\\
+
+\textbf{Contains the empty set and sample space:} Since both \( F \) and \( G \) are \(\sigma\)-algebras, they each contain \( \emptyset \) and \( \Omega \). Thus, \( F \cup G \) contains both \( \emptyset \) and \( \Omega \).\\
+    
+\textbf{Closed under complementation:} Let \( A \in F \cup G \). If \( A \in F \), then \( A^c \in F \) (since \( F \) is a \(\sigma\)-algebra), and similarly for \( G \). However, \( A^c \) might not be in \( F \cup G \) if \( A \) is in one algebra but not in the other. Thus, \( F \cup G \) is not closed under complementation.\\
+
+\textbf{Closed under countable unions:} Let \( A_1, A_2, \ldots \in F \cup G \). If all \( A_i \) are in \( F \), then \( \bigcup_{i=1}^\infty A_i \in F \). If all \( A_i \) are in \( G \), then \( \bigcup_{i=1}^\infty A_i \in G \). However, if some \( A_i \) are in \( F \) and some in \( G \), \( \bigcup_{i=1}^\infty A_i \) may not be in \( F \cup G \). Therefore, \( F \cup G \) is not closed under countable unions.\\
+
+Hence, \( F \cup G \) is \textbf{not a \(\sigma\)-algebra}.\\
+
+To show that \( F \cap G \) is a \(\sigma\)-algebra, we verify the three properties:\\
+
+\textbf{Contains the empty set and sample space:} Since both \( F \) and \( G \) contain \( \emptyset \) and \( \Omega \), we have \( \emptyset \in F \cap G \) and \( \Omega \in F \cap G \).\\
+    
+\textbf{Closed under complementation:} Let \( A \in F \cap G \). Then \( A \in F \) and \( A \in G \). Thus, \( A^c \in F \) and \( A^c \in G \), which implies \( A^c \in F \cap G \).\\
+    
+\textbf{Closed under countable unions:} Let \( A_1, A_2, \ldots \in F \cap G \). Then \( A_i \in F \) for all \( i \) and \( A_i \in G \) for all \( i \). Thus, \( \bigcup_{i=1}^\infty A_i \in F \) and \( \bigcup_{i=1}^\infty A_i \in G \), which implies \( \bigcup_{i=1}^\infty A_i \in F \cap G \).\\
+
+Therefore, \( F \cap G \) \textbf{is a \(\sigma\)-algebra}.\\
+
+To prove that \( \bigcap_{i \in I} F_i \) is a \(\sigma\)-algebra, we check the three properties:\\
+
+\textbf{Contains the empty set and sample space:} Since each \( F_i \) contains \( \emptyset \) and \( \Omega \), we have \( \emptyset \in \bigcap_{i \in I} F_i \) and \( \Omega \in \bigcap_{i \in I} F_i \).\\
+    
+\textbf{Closed under complementation:} Let \( A \in \bigcap_{i \in I} F_i \). Then \( A \in F_i \) for all \( i \). Thus, \( A^c \in F_i \) for all \( i \), which implies \( A^c \in \bigcap_{i \in I} F_i \).\\
+
+\textbf{Closed under countable unions:} Let \( A_1, A_2, \ldots \in \bigcap_{i \in I} F_i \). Then \( A_j \in F_i \) for all \( j \) and for all \( i \). Thus, \( \bigcup_{j=1}^\infty A_j \in F_i \) for all \( i \), which implies \( \bigcup_{j=1}^\infty A_j \in \bigcap_{i \in I} F_i \).\\
+
+Therefore, \( \bigcap_{i \in I} F_i \) \textbf{is a \(\sigma\)-algebra}.\\
+
+\end{example}
+
+\begin{example}
+    Let \(\Omega\) be an arbitrary set. Answer the following questions:\\
+    \textbf{(a)} Is the collection \(F_1\) consisting of all finite subsets of \(\Omega\) an algebra?\\
+    \textbf{(b)} Let \(F_2\) consist of all finite subsets of \(\Omega\) and all subsets of \(\Omega\) having a finite complement.\\
+    Is \(F_2\) an algebra?\\
+    \textbf{(c)} Is \(F_2\) a \(\sigma\)-algebra?\\
+    \textbf{(d)} Let \(F_3\) consist of all countable subsets of \(\Omega\) and all subsets of \(\Omega\) having a countable complement. Is \(F_3\) a \(\sigma\)-algebra?\\
+
+
+To determine if \(F_1\) is an algebra, we must check the three properties:
+
+    \begin{enumerate}
+        \item \textbf{Contains the empty set:} \(\emptyset \in F_1\) since the empty set is a finite subset.
+        
+        \item \textbf{Closed under complementation:} If \(A \in F_1\) (i.e., \(A\) is a finite subset of \(\Omega\)), then its complement \(A^c\) may not be finite. Therefore, \(F_1\) is not closed under complementation.
+        
+        \item \textbf{Closed under finite unions:} If \(A, B \in F_1\), then \(A \cup B\) is also finite, so \(F_1\) is closed under finite unions.
+    \end{enumerate}
+
+    Since \(F_1\) fails to be closed under complementation, we conclude that \(F_1\) is \textbf{not an algebra}.\\
+
+To check if \(F_2\) is an algebra, we verify the properties:
+
+\begin{enumerate}
+    \item \textbf{Contains the empty set:} \(\emptyset \in F_2\) since it is a finite subset.
+    
+    \item \textbf{Closed under complementation:}
+    \begin{itemize}
+        \item If \(A \in F_2\) is finite, then \(A^c\) has a finite complement, which is infinite. Thus, it is in \(F_2\).
+        \item If \(B \in F_2\) has a finite complement, then \(B^c\) is finite. Therefore, \(B^c \in F_2\).
+    \end{itemize}
+    Hence, \(F_2\) is closed under complementation.
+
+    \item \textbf{Closed under finite unions:}
+    \begin{itemize}
+        \item If \(A, B \in F_2\) are both finite, then \(A \cup B\) is finite.
+        \item If \(A\) is finite and \(B\) has a finite complement, then \(A \cup B\) has a finite complement.
+        \item If both \(A\) and \(B\) have finite complements, then \((A \cup B)^c = A^c \cap B^c\), which is finite.
+    \end{itemize}
+\end{enumerate}
+
+Thus, \(F_2\) is closed under finite unions.\\
+
+To determine if \(F_2\) is a \(\sigma\)-algebra, we need to check the closure under countable unions.\\
+
+Consider the countable union of finite sets:
+\[
+A_1 = \{1\}, A_2 = \{2\}, A_3 = \{3\}, \ldots
+\]
+Then,
+\[
+\bigcup_{i=1}^{\infty} A_i = \{1, 2, 3, \ldots\}
+\]
+which is not finite. Therefore, \(F_2\) is not closed under countable unions.\\
+
+Thus, \(F_2\) is \textbf{not a \(\sigma\)-algebra}.\\
+
+To check if \(F_3\) is a \(\sigma\)-algebra, we verify:
+
+\begin{enumerate}
+    \item \textbf{Contains the empty set:} \(\emptyset \in F_3\) since it is countable.
+
+    \item \textbf{Closed under complementation:}
+    \begin{itemize}
+        \item If \(A \in F_3\) is countable, then \(A^c\) has a countable complement.
+        \item If \(B \in F_3\) has a countable complement, then \(B^c\) is countable.
+    \end{itemize}
+    Hence, \(F_3\) is closed under complementation.
+
+    \item \textbf{Closed under countable unions:}
+    \begin{itemize}
+        \item If \(A_1, A_2, A_3, \ldots\) are countable sets, then
+        \[
+        \bigcup_{i=1}^{\infty} A_i
+        \]
+        is also countable.
+        \item If \(B\) has a countable complement, then
+        \[
+        B^c \in F_3 \implies B^c = \bigcup_{i=1}^{\infty} C_i \quad \text{for } C_i \text{ countable}.
+        \]
+        Therefore, \(B\) itself is in \(F_3\).
+    \end{itemize}
+\end{enumerate}
+
+Since \(F_3\) satisfies all properties, we conclude that \(F_3\) is \textbf{a \(\sigma\)-algebra}.\\
+
+\end{example}
+
+\begin{example}
+    Let \( X \) and \( Y \) be two sets and let \( f: X \rightarrow Y \) be a function. If \( F \) is a \(\sigma\)-algebra over the subsets of \( Y \), and \( G = \{ A \mid \exists B \in F \text{ such that } f^{-1}(B) = A \} \), does \( G \) form a \(\sigma\)-algebra of subsets of \( X \)?  Note that \( f^{-1}(N) \) is the notation used for the pre-image of set \( N \) under the function \( f \) for some \( N \subseteq Y \). That is, \( f^{-1}(N) = \{x \in X \mid f(x) \in N\} \) for some \( N \subseteq Y \).\\
+
+    To show that \( G \) forms a \(\sigma\)-algebra of subsets of \( X \), we need to verify that \( G \) satisfies the three properties of a \(\sigma\)-algebra:\\
+
+\textbf{Contains the empty set}:  The \(\sigma\)-algebra \( F \) over \( Y \) contains the empty set, \( \emptyset \). Let \( B = \emptyset \in F \). Then the pre-image under \( f \), \( f^{-1}(\emptyset) = \emptyset \), is also in \( G \). Therefore, \( \emptyset \in G \).\\
+
+\textbf{Closed under complementation}:  Let \( A \in G \). By definition of \( G \), there exists a set \( B \in F \) such that \( f^{-1}(B) = A \). We need to show that \( A^c \in G \). Consider the complement of \( B \) in \( F \), denoted as \( B^c \). Since \( F \) is a \(\sigma\)-algebra, \( B^c \in F \).  \\
+
+    Now, observe that:
+    \[
+    f^{-1}(B^c) = \{x \in X \mid f(x) \notin B\} = A^c
+    \]
+    Hence, \( A^c \in G \), showing that \( G \) is closed under complementation.\\
+
+    \textbf{Closed under countable unions}: Let \( \{A_i\}_{i=1}^{\infty} \) be a countable collection of sets in \( G \). For each \( A_i \in G \), there exists \( B_i \in F \) such that \( f^{-1}(B_i) = A_i \). Since \( F \) is a \(\sigma\)-algebra, it is closed under countable unions, so \( \bigcup_{i=1}^{\infty} B_i \in F \). \\
+
+    Now, consider the pre-image:
+    \[
+    f^{-1}\left(\bigcup_{i=1}^{\infty} B_i\right) = \bigcup_{i=1}^{\infty} f^{-1}(B_i) = \bigcup_{i=1}^{\infty} A_i
+    \]
+    Therefore, \( \bigcup_{i=1}^{\infty} A_i \in G \), showing that \( G \) is closed under countable unions.
+
+\end{example}
+
