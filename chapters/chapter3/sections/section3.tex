@@ -1,0 +1,405 @@
+\section{Borel-Cantelli Lemmas}
+
+Let's imagine we’re playing a game of chance over and over again, like flipping a coin or drawing cards, and we want to understand if certain events will happen \textit{infinitely often} or just a \textit{finite} number of times. In probability, we often ask questions like, \textit{If I keep playing this game, will I see a particular outcome repeatedly?}\\
+
+Now, that’s where the Borel-Cantelli Lemmas come into play! These lemmas help us decide, based on probabilities, if an event is bound to happen over and over or only occasionally.\\
+
+The Borel-Cantelli Lemmas are two parts that answer different versions of our question. \\
+
+\textit{Part 1} tells us that if the sum of probabilities of all events \( A_n \) is \textit{finite}, then almost surely only a finite number of these events will occur. In simpler terms, if the probabilities of each event happening are so small that their total barely adds up to anything, then we shouldn’t expect to see these events happening infinitely often. Mathematically, if 
+\[
+\sum_{n=1}^{\infty} P(A_n) < \infty
+\] 
+then the probability that infinitely many of the \( A_n \) happen is zero. In notation:
+\[
+P\left( \limsup_{n \to \infty} A_n \right) = 0,
+\]
+where \(\limsup_{n \to \infty} A_n\) represents the event that infinitely many of the \( A_n \) occur.\\
+
+Now, what if the probabilities of the events don’t just add up to something finite but actually keep adding up indefinitely? If the events are \textit{independent}, then \textit{Part 2} of the Borel-Cantelli Lemma kicks in and tells us that, in this case, infinitely many of these events will indeed occur. That is, if 
+\[
+\sum_{n=1}^{\infty} P(A_n) = \infty
+\] 
+and the events \(A_n\) are independent, then:
+\[
+P\left( \limsup_{n \to \infty} A_n \right) = 1.
+\]
+This means that as we keep going, we’re \textit{guaranteed} to see infinitely many occurrences of the events \( A_n \).\\
+
+If you’re flipping a fair coin forever, the event \textit{heads on flip \(n\)} is independent for each \(n\) and has a fixed probability of \(\frac{1}{2}\). According to \textit{Part 2} of Borel-Cantelli, because the total sum of probabilities grows infinitely (since \(\sum \frac{1}{2}\) diverges), we’ll keep seeing heads infinitely often as we flip the coin forever.\\
+
+\begin{lemma}
+    \textbf{First Borel-Cantelli Lemma.} Suppose we have a sequence of events, \(\{A_n\}_{n=1}^{\infty}\), and their probabilities \(P(A_n)\) add up to something finite:
+    \[
+    \sum_{n=1}^{\infty} P(A_n) < \infty.
+    \]
+
+    Then the first Borel-Cantelli lemma tells us that in this case, only a finite number of the events \(A_n\) will occur with probability 1, or \textbf{almost surely}. This means that as \(n\) grows, we reach a point where none of the remaining \(A_n\) events happen, essentially \textit{running out} of events that can occur.
+\end{lemma}
+
+\begin{lemma}
+    \textbf{Second Borel-Cantelli Lemma.} Now, if we change our setup slightly and assume that the sequence \(\{A_n\}_{n=1}^{\infty}\) consists of \textbf{independent} events, and if the probabilities \(P(A_n)\) now add up to infinity:
+
+    \[
+    \sum_{n=1}^{\infty} P(A_n) = \infty,
+    \]
+    
+    then the second Borel-Cantelli lemma says that infinitely many of the \(A_n\) events will occur almost surely. Independence is key here. Without it, this conclusion might not hold.    
+\end{lemma}
+
+The statement \(\{A_n \text{ i.o.}\}\), meaning \(\{A_n \text{ occurs infinitely often}\}\), represents the set of all outcomes \(\omega \in \Omega\) that belong to infinitely many of the events \(A_n\). We define this as follows:
+
+\[
+\{A_n \text{ i.o.}\} = \bigcap_{n=1}^{\infty} \bigcup_{m=n}^{\infty} A_m \equiv B_n.
+\]
+
+Here, \(B_n\) is the event that at least one of the events \(A_n, A_{n+1}, A_{n+2}, \ldots\) occurs. Thus, \(\{A_n \text{ i.o.}\}\) is the event that for any positive integer \(n\), there exists some \(m \geq n\) such that \(A_m\) happens. In other words, we are always \textit{catching} one of the \(A_m\) events, no matter how far out we go in the sequence.\\
+
+To understand the event that \(A_n\) happens \textbf{finitely often} (or \(\{A_n \text{ f.o.}\}\)), we can take the complement of the event \(\{A_n \text{ i.o.}\}\):
+\[
+\{A_n \text{ f.o.}\} = \bigcup_{n=1}^{\infty} \bigcap_{m=n}^{\infty} A_m^c,
+\]
+where \(A_m^c\) denotes the complement of \(A_m\), i.e., the event that \(A_m\) does not occur.\\
+
+To prove the Borel-Cantelli lemmas, we need the following foundational lemma:
+
+\begin{lemma}
+    Suppose \(\sum_{i=1}^{\infty} p_i = \infty\). Then, 
+\[
+\lim_{n \to \infty} \prod_{i=1}^{n} (1 - p_i) = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+    We begin by observing that the natural logarithm of each term satisfies an upper bound:
+\[
+\ln(1 - p_i) \leq -p_i.
+\]
+Using this, we can express the product \(\prod_{i=1}^{n} (1 - p_i)\) in terms of exponentials:
+\[
+\prod_{i=1}^{n} (1 - p_i) = \prod_{i=1}^{n} e^{\ln(1 - p_i)} \leq \prod_{i=1}^{n} e^{-p_i} = e^{-\sum_{i=1}^{n} p_i}.
+\]
+Taking the limit as \(n \to \infty\), we find
+\[
+\lim_{n \to \infty} \prod_{i=1}^{n} (1 - p_i) \leq \lim_{n \to \infty} e^{-\sum_{i=1}^{n} p_i}.
+\]
+Since \(\sum_{i=1}^{\infty} p_i = \infty\), the partial sums \(\sum_{i=1}^{n} p_i\) tend to infinity as \(n \to \infty\). Therefore, 
+\[
+\lim_{n \to \infty} e^{-\sum_{i=1}^{n} p_i} = 0.
+\]
+Thus, we conclude that
+\[
+\lim_{n \to \infty} \prod_{i=1}^{n} (1 - p_i) = 0.
+\]
+\end{proof}
+
+We now proceed towards proving the Borel-Cantelli lemmas.
+
+\begin{proof} \textbf{First Borel-Cantelli Lemma.}\\
+    
+    We start by noting that the sum of probabilities over the events \( A_n \), given by \( \sum_{n=1}^{\infty} P(A_n) \), converges. This means that:
+\[
+\sum_{m=n}^{\infty} P(A_m) \to 0 \quad \text{as} \quad n \to \infty.
+\]
+This result follows directly from the convergence of the series \( \sum_{n=1}^{\infty} P(A_n) \), implying that as we go further in the sequence, the cumulative probability from any point \( n \) onward must approach zero.
+
+Now, let us define a sequence of events \( B_n \) as:
+\[
+B_n = \bigcup_{m=n}^{\infty} A_m,
+\]
+which represents the occurrence of at least one of the events \( A_m \) for \( m \geq n \). Notice that these sets \( B_n \) form a decreasing sequence since:
+\[
+B_{n+1} \subset B_n.
+\]
+
+By the continuity of probability for decreasing events, we can write:
+\[
+P\left( \bigcap_{n=1}^{\infty} B_n \right) = \lim_{n \to \infty} P(B_n).
+\]
+Since \( B_n = \bigcup_{m=n}^{\infty} A_m \), we have:
+\[
+P(B_n) \leq \sum_{m=n}^{\infty} P(A_m).
+\]
+Taking the limit as \( n \to \infty \), we find:
+\[
+\lim_{n \to \infty} P(B_n) \leq \lim_{n \to \infty} \sum_{m=n}^{\infty} P(A_m) = 0.
+\]
+Therefore:
+\[
+P\left( \bigcap_{n=1}^{\infty} B_n \right) = 0.
+\]
+
+\textbf{Second Borel-Cantelli Lemma.}\\
+
+To understand the probability of an event \( A_n \) occurring only finitely often, we begin by defining the event that \( A_n \) occurs finitely often (denoted as \( \{ A_n \ \text{f.o.} \} \)) as follows:
+
+\[
+\{ A_n \ \text{f.o.} \} = \bigcap_{n=1}^{\infty} \bigcup_{i=n}^{\infty} A_i^c
+\]
+
+where \( A_i^c \) denotes the complement of \( A_i \), representing the event that \( A_i \) does not happen. This setup allows us to examine the probability that after some point \( n \), none of the events \( A_i \) occur. We then proceed to calculate this probability using a series of bounds and properties of probability.\\
+
+First, applying the \textit{union bound} (which states that the probability of a union of events is less than or equal to the sum of the probabilities of each event), we obtain:
+
+\[
+P \left( \bigcap_{n=1}^{\infty} \bigcup_{i=n}^{\infty} A_i^c \right) \leq \sum_{n=1}^{\infty} P \left( \bigcup_{i=n}^{\infty} A_i^c \right)
+\]
+
+Next, by the \textit{continuity of probability}, we rewrite the probability of the infinite union as the limit of finite unions:
+
+\[
+= \sum_{n=1}^{\infty} \lim_{m \to \infty} P \left( \bigcup_{i=n}^{m} A_i^c \right)
+\]
+
+Given the \textit{independence} of the events \( A_i \), we can further simplify each term in this sum by multiplying the probabilities of each \( A_i^c \):
+
+\[
+= \sum_{n=1}^{\infty} \prod_{i=n}^{\infty} P(A_i^c)
+\]
+
+According to \textbf{Lemma 3.3}, this product approaches zero as \( n \to \infty \), yielding:
+
+\[
+= 0
+\]
+
+Since \( P \left( \bigcap_{n=1}^{\infty} \bigcup_{i=n}^{\infty} A_i^c \right) \geq 0 \), we conclude that:
+
+\[
+P \left( \bigcap_{n=1}^{\infty} \bigcup_{i=n}^{\infty} A_i^c \right) = 0
+\]
+
+This result implies that the probability of the event \( A_n \) occurring infinitely often is equal to 1, meaning that, with probability 1, \( A_n \) will occur infinitely often.
+
+\end{proof}
+
+\begin{example}
+    Let’s consider an experiment in which we toss a coin repeatedly and independently. Let the probability of obtaining a head on the \( n \)-th toss be denoted as \( P(H_n) \), and similarly \( P(T_n) \) for tails.\\
+
+    \textbf{1. Case 1: Suppose \( P(H_n) = \frac{1}{n} \) for \( n \geq 1 \).}\\
+
+In this case, we can sum the probabilities over all tosses:
+\[
+\sum_{n=1}^{\infty} P(H_n) = \sum_{n=1}^{\infty} \frac{1}{n} = \infty.
+\]
+This series diverges, meaning it adds up to infinity. Now, by the \textbf{Second Borel-Cantelli Lemma}, we conclude that \textit{almost surely, there will be infinitely many heads in the sequence of tosses.}\\
+
+This result might initially seem counterintuitive, as the probability of getting a head decreases with each toss — it becomes extremely small as \( n \) grows. However, the decay rate \( \frac{1}{n} \) is not \textit{fast enough} to prevent heads from occurring infinitely often. In fact, no matter how large we make \( n \), there will almost surely be a head occurring somewhere after the \( n \)-th toss.\\
+
+\textbf{2. Case 2: Suppose \( P(H_n) = \frac{1}{n^2} \).}\\
+
+Now, let’s examine what happens if the probability of getting a head on the \( n \)-th toss decays faster, specifically as \( \frac{1}{n^2} \):
+\[
+\sum_{n=1}^{\infty} P(H_n) = \sum_{n=1}^{\infty} \frac{1}{n^2} < \infty.
+\]
+This series converges, meaning it sums to a finite value. By the \textbf{First Borel-Cantelli Lemma}, we conclude that \textit{almost surely, only finitely many heads will occur}.\\
+
+In this scenario, the probability of obtaining a head decreases so rapidly that, after a certain finite number of tosses, the likelihood of obtaining further heads becomes negligible. The decay rate \( \frac{1}{n^2} \) is \textit{fast enough} that, beyond some large \( n \), we can almost be certain that no more heads will appear.
+
+\end{example}
+
+\begin{exercise}
+    Consider a monkey sitting in front of a computer and randomly pressing keys on the keyboard. We want to demonstrate that the complete monologue by Shakespeare, which begins with "All the world's a stage", will eventually appear on the screen with a probability of 1. This conclusion may seem surprising, as the monkey is not recognized for its literary talent.
+\end{exercise}
+
+\begin{solution}
+    To tackle this problem, we can set up a probability model with a few reasonable assumptions. We will assume the following:\\
+
+    1. The monkey chooses each character from the keyboard uniformly at random.\\
+    2. Each key stroke made by the monkey is independent of previous strokes.\\
+    3. The keyboard consists of a finite set of characters, which includes letters, spaces, and punctuation marks. Let us denote this set as $\mathcal{K}$.\\
+    
+    Let \( n \) be the total number of characters in the Shakespeare monologue we are interested in. \\
+    
+    Each time the monkey types a key, it selects a character from $\mathcal{K}$, which contains \( m \) characters (including letters, spaces, and punctuation).\\
+    
+    The probability that the monkey correctly types the first character of the monologue is given by:
+    \[
+    P(\text{first character}) = \frac{1}{m}
+    \]
+    
+    Similarly, the probability of typing the second character correctly after the first is:
+    \[
+    P(\text{second character}) = \frac{1}{m}
+    \]
+    
+    Continuing this reasoning, the probability of typing the entire monologue correctly in any \( n \) consecutive keystrokes is:
+    \[
+    P(\text{monologue}) = \left( \frac{1}{m} \right)^n
+    \]
+    
+    Now, consider the total number of keystrokes the monkey can make. If the monkey types continuously, the number of keystrokes approaches infinity as time goes on. To find the probability of the monologue appearing at least once in this infinite series of keystrokes, we use the complement probability.\\
+    
+    Let \( A \) be the event that the monologue appears at least once. The complement of \( A \), denoted as \( A^c \), is the event that the monologue does not appear in \( k \) keystrokes. The probability of not typing the monologue in \( k \) trials is:
+    \[
+    P(A^c) = 1 - P(\text{monologue})^k = 1 - \left(1 - \frac{1}{m^n}\right)^k
+    \]
+    
+    As \( k \) approaches infinity, the expression \( \left(1 - \frac{1}{m^n}\right)^k \) converges to 0, since \( \frac{1}{m^n} \) is a small positive number. Thus:
+    
+    \[
+    \lim_{k \to \infty} P(A^c) = 0
+    \]
+    
+    Consequently, we find that:
+    \[
+    P(A) = 1 - P(A^c) \to 1
+    \]    
+\end{solution}
+
+\begin{exercise}
+    Let us consider a sequence of events \( A_n \) for \( n \geq 1 \) such that the probability of each event tends to zero as \( n \) approaches infinity, denoted as \( P(A_n) \to 0 \) as \( n \to \infty \). Furthermore, we know that the sum of the probabilities of the intersections of the complements of these events with the subsequent events is finite:
+
+    \[
+    \sum_{n=1}^{\infty} P(A_n^c \cap A_{n+1}) < \infty.
+    \]
+    
+    We aim to demonstrate that, almost surely, only finitely many of the events \( A_n \) will occur.     
+\end{exercise}
+
+\begin{solution}
+    To establish this, we utilize the concept of the Borel-Cantelli lemma, which provides insight into the occurrence of events based on their probabilities. 
+
+Firstly, we denote \( B_n = A_n^c \cap A_{n+1} \). The significance of this intersection is that \( B_n \) represents the scenario where \( A_n \) does not occur while \( A_{n+1} \) does. Hence, if we have a finite sum of probabilities:
+
+\[
+\sum_{n=1}^{\infty} P(B_n) < \infty,
+\]
+
+the Borel-Cantelli lemma informs us that the probability that infinitely many of the events \( B_n \) occur is zero. In other words, almost surely, there will be only finitely many \( n \) for which \( A_n \) does not happen followed by \( A_{n+1} \) happening. \\
+
+Now, we define the event \( C = \{ \text{infinitely many } A_n \text{ occur} \} \). The complement of \( C \), denoted \( C^c \), represents the scenario where only finitely many of the \( A_n \) occur. \\
+
+From our previous work, we conclude that if infinitely many \( B_n \) occur, then:
+
+\[
+P(C) = P\left(\bigcap_{k=1}^{\infty} \bigcup_{n=k}^{\infty} B_n\right) = 0.
+\]
+
+Consequently, we deduce that:
+
+\[
+P(C^c) = 1.
+\]
+
+Thus, we have shown that almost surely, only finitely many of the events \( A_n \) will occur. 
+\end{solution}
+
+\begin{exercise}
+    On a certain day, Alice decides that she will start looking for a potential life partner on
+    an online dating portal. She decides that everyday, she will pick a guy uniformly at random from among the
+    male members of the dating portal, and go out on a date with him. What Alice does not know, is that her
+    neighbor Bob is interested in dating her. Being of a shy disposition, Bob decides that he will not ask Alice
+    out himself. Instead, he decides that he will go out on a date with Alice only on the days that Alice happens
+    to pick him from the dating portal, of which he is already a member. For the first two parts, assume that
+    50 new male members and 40 new female members join the dating portal everyday.\\
+
+    (a) What is the probability that Alice and Bob would have a date on the nth day? Do you think Bob and
+Alice would eventually stop meeting? Justify your answer, clearly stating any additional assumptions.\\
+
+(b) Now suppose that Bob also picks a girl uniformly at random everyday, from among the female members
+of the portal, and that Alice behaves exactly as before. Assume also that Bob and Alice will meet on
+a given day if and only if they both happen to pick each other. In this case, do you think Bob and
+Alice would eventually stop meeting?\\
+
+(c) For this part, suppose that Alice and Bob behave as in part (a), i.e.,Alice picks a guy uniformly at
+random, but Bob is only interested in dating Alice. However, the number of male members in the
+portal increases by 1 percent everyday. Do you think Bob and Alice would eventually stop meeting?
+\end{exercise}
+
+\begin{solution}
+    (a) To determine the probability that Alice and Bob will have a date on the \(n\)th day, we start by defining the total number of male members in the dating portal.\\
+    
+    Initially, let \(M_n\) denote the total number of male members on the \(n\)th day. We can express this as:
+    \[
+    M_n = M_0 + 50n
+    \]
+    where \(M_0\) is the number of male members present at the start (day 0).\\
+    
+    Now, since Bob is one of these male members, the probability that Alice randomly selects Bob on the \(n\)th day is given by:
+    \[
+    P(Alice \text{ picks Bob on day } n) = \frac{1}{M_n} = \frac{1}{M_0 + 50n}
+    \]
+    
+    For Bob, the chance of Alice selecting him must be matched by the condition that Alice happens to choose him out of the total male members on that day. Hence, the probability that they have a date on the \(n\)th day is:
+    \[
+    P(Alice \text{ and Bob have a date on day } n) = \frac{1}{M_0 + 50n}
+    \]
+    
+    Now, regarding whether Alice and Bob will eventually stop meeting, we observe that as \(n\) increases, \(M_n\) continues to grow because it is increasing linearly with time.\\
+    
+    Thus, the probability \(P(Alice \text{ and Bob have a date on day } n)\) approaches zero as \(n\) approaches infinity:
+    \[
+    \lim_{n \to \infty} P(Alice \text{ and Bob have a date on day } n) = 0
+    \]
+    This suggests that, as the number of male members increases indefinitely, Alice and Bob will eventually stop meeting.\\
+    
+    (b) In this scenario, let us consider the case where Bob also randomly selects a female member each day from the pool of female members, while Alice continues her previous behavior. They will meet only if both select each other.\\ 
+    
+    Let \(F_n\) be the total number of female members on the \(n\)th day, given by:
+    \[
+    F_n = F_0 + 40n
+    \]
+    
+    The probability that Alice picks Bob remains the same as before:
+    \[
+    P(Alice \text{ picks Bob}) = \frac{1}{M_n} = \frac{1}{M_0 + 50n}
+    \]
+    
+    Now for Bob to pick Alice, the probability is:
+    \[
+    P(Bob \text{ picks Alice}) = \frac{1}{F_n} = \frac{1}{F_0 + 40n}
+    \]
+    
+    Thus, the probability that they will meet on the \(n\)th day is:
+    \[
+    P(Alice \text{ and Bob meet}) = P(Alice \text{ picks Bob}) \times P(Bob \text{ picks Alice}) = \frac{1}{(M_0 + 50n)(F_0 + 40n)}
+    \]
+    
+    Similar to the first part, as \(n\) increases, both \(M_n\) and \(F_n\) grow, leading this probability to approach zero:
+    \[
+    \lim_{n \to \infty} P(Alice \text{ and Bob meet}) = 0
+    \]
+    Thus, we can conclude that Alice and Bob will also eventually stop meeting in this situation.\\
+    
+    (c) In this case, we revert to the situation described in part (a) where Alice randomly selects a male member uniformly, while Bob is solely interested in dating Alice. However, the twist is that the number of male members increases by 1 percent daily. This means that:
+    \[
+    M_n = M_0(1.01)^n
+    \]
+    Consequently, the probability that Alice picks Bob remains:
+    \[
+    P(Alice \text{ picks Bob on day } n) = \frac{1}{M_n} = \frac{1}{M_0(1.01)^n}
+    \]
+    
+    As \(n\) increases, \(M_n\) grows exponentially, leading to:
+    \[
+    \lim_{n \to \infty} P(Alice \text{ picks Bob on day } n) = 0
+    \]
+    indicating that the probability of Alice and Bob going on a date diminishes over time. Therefore, they will ultimately stop meeting, as the number of male members is growing faster than linearly, reinforcing the conclusion that Alice and Bob will cease to meet over time.
+\end{solution}
+
+\begin{exercise}
+    Let \(S_n : n \geq 0\) be a simple random walk defined such that it moves to the right with probability \(p\) at each step. We begin with \(S_0 = 0\). We denote \(X_n = S_n - S_{n-1}\), which represents the change in position at step \(n\). Show that: \\
+    (a) \(S_n = 0 \text{ i.o.}\) is not a tail event of the sequence ${X_n}$\\
+    (b) \(P(S_n = 0 \text{ i.o.}) = 0\) if \(p \neq \frac{1}{2}\)
+\end{exercise}
+
+\begin{solution}
+ A tail event is an event whose occurrence or non-occurrence is independent of the outcomes of any finite number of preceding steps in the sequence. \\
+ 
+ The event \(S_n = 0 \text{ i.o.}\) means that the random walk returns to the origin infinitely often. In contrast, the sequence $\{X_n\}$ comprises the individual steps of the random walk, which can be thought of as either moving right with probability \(p\) or left with probability \(1-p\).\\
+ 
+    If we consider the finite sum \(S_n = \sum_{i=1}^n X_i\), we see that the occurrence of \(S_n = 0 \text{ i.o.}\) depends on the entire history of the steps taken, not merely the individual steps represented by \(X_n\). Therefore, the event \(S_n = 0 \text{ i.o.}\) cannot be determined solely by the values of \(X_n\) and thus is not a tail event.\\
+ 
+    When \(p \neq \frac{1}{2}\), the random walk has a bias in either direction (either more likely to move right if \(p > \frac{1}{2}\) or more likely to move left if \(p < \frac{1}{2}\)). In this scenario, the random walk will drift away from the origin over time.\\
+ 
+    By the Law of Large Numbers, as \(n\) becomes large, the average position of the random walk approaches the expected value. Specifically, since \(E[X_n] = p - (1 - p) = 2p - 1\), we find that:
+    \[
+    E[S_n] = n(2p - 1)
+    \]
+ 
+    If \(p > \frac{1}{2}\), then \(E[S_n] \to +\infty\) as \(n \to \infty\), and if \(p < \frac{1}{2}\), then \(E[S_n] \to -\infty\) as \(n \to \infty\). Thus, the walk will not return to \(0\) infinitely often, leading to:
+    \[
+    P(S_n = 0 \text{ i.o.}) = 0 \quad \text{for } p \neq \frac{1}{2}.
+    \]
+\end{solution}

@@ -1,0 +1,177 @@
+\section{Introduction to Conditional Probability} 
+
+\begin{definition}
+    Let \((\Omega, \mathcal{F}, P)\) be a probability space, where \(\Omega\) is the sample space, \(\mathcal{F}\) is a \(\sigma\)-algebra, and \(P\) is a probability measure. If we have an event \(B\) that belongs to the \(\sigma\)-algebra \(\mathcal{F}\) and satisfies \(P(B) > 0\), we can define the conditional probability of an event \(A\) given \(B\) using the following formula:
+
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\]
+
+This expression tells us how likely event \(A\) is to occur when we know that event \(B\) has occurred. 
+\end{definition}
+
+It is important to note that we cannot condition our probabilities on sets that have a zero probability measure. For instance, consider the probability space where \(\Omega = [0, 1]\) with the Borel \(\sigma\)-algebra and a uniform probability measure. In this context, the set of rational numbers, which is countable, has a probability measure of zero. Therefore, it would be inappropriate to condition on this set of rational numbers when calculating probabilities.
+
+\begin{theorem}
+    Let \( B \in \mathcal{F} \) and \( P(B) > 0 \). Then, the function \( P(\cdot | B) : \mathcal{F} \to [0, 1] \) is a probability measure on the measurable space \( (\Omega, \mathcal{F}) \). ($\cdot$) means you can take argument from $\mathcal{F}$.
+\end{theorem}
+
+\begin{proof}
+To establish that \( P(\cdot | B) \) is indeed a probability measure, we must verify three key properties of probability measures:\\
+
+1. \( P(\Omega | B) = 1 \).\\
+2. \( P(\varnothing | B) = 0 \).\\
+3. The property of countable additivity.\\
+
+We begin by proving the first property:
+
+\[
+P(\Omega | B) = \frac{P(\Omega \cap B)}{P(B)} = \frac{P(B)}{P(B)} = 1.
+\]
+
+Next, we prove the second property:
+
+\[
+P(\varnothing | B) = \frac{P(\varnothing \cap B)}{P(B)} = \frac{P(\varnothing)}{P(B)} = 0.
+\]
+
+Now, we focus on proving the countable additivity property. Let \( A_1, A_2, \ldots \) be a sequence of disjoint events. We need to demonstrate that
+
+\[
+P\left( \bigcup_{i=1}^{\infty} A_i \, | \, B \right) = \sum_{i=1}^{\infty} P(A_i | B).
+\]
+
+Consider the left-hand side:
+
+\[
+P\left( \bigcup_{i=1}^{\infty} A_i \, | \, B \right) = \frac{P\left( \left( \bigcup_{i=1}^{\infty} A_i \right) \cap B \right)}{P(B)}.
+\]
+
+Using the properties of unions and the fact that the events \( A_i \) are disjoint, we can express this as:
+
+\[
+= \frac{P\left( \bigcup_{i=1}^{\infty} (A_i \cap B) \right)}{P(B)}.
+\]
+
+Since the events \( A_i \) are disjoint, it follows that \( A_i \cap B \) are also disjoint. Hence, we can apply the property of probability measures to the disjoint union:
+
+\[
+P\left( \bigcup_{i=1}^{\infty} (A_i \cap B) \right) = \sum_{i=1}^{\infty} P(A_i \cap B).
+\]
+
+Thus, we have:
+
+\[
+P\left( \bigcup_{i=1}^{\infty} A_i \, | \, B \right) = \frac{\sum_{i=1}^{\infty} P(A_i \cap B)}{P(B)} = \sum_{i=1}^{\infty} P(A_i | B).
+\]
+
+This completes the proof that \( P(\cdot | B) \) satisfies the countable additivity property. Therefore, we conclude that \( P(\cdot | B) \) is indeed a probability measure on \( (\Omega, \mathcal{F}) \).
+\end{proof}
+
+\subsection{Properties of Conditional Probability}
+
+\begin{theorem}
+    \textbf{The Law of Total Probability.} The Law of Total Probability states that if we have an event \( A \) from a \(\sigma\)-algebra \( \mathcal{F} \) and a collection of events \( \{ B_i \}_{i=1}^{\infty} \) that form a partition of the sample space \( \Omega \), this means two things:\\
+
+    1. The union of all events \( B_i \) covers the entire sample space, i.e., 
+       \[
+       \bigcup_{i \in \mathbb{N}} B_i = \Omega.
+       \]
+    
+    2. No two events \( B_i \) and \( B_j \) can occur at the same time if \( i \neq j \), which is expressed mathematically as:
+       \[
+       B_i \cap B_j = \emptyset \quad \text{for all } i \neq j.
+       \]
+    
+       We also require that the probability of each \( B_i \) is greater than zero, i.e., \( P(B_i) > 0 \) for all \( i \).\\
+
+       Given these conditions, the probability of the event \( A \) can be computed using the formula:
+       \[
+       P(A) = \sum_{i=1}^{\infty} P(A | B_i) P(B_i).
+       \]
+       This equation tells us that to find the total probability of \( A \), we sum the probabilities of \( A \) occurring given each \( B_i \), weighted by the probability of each \( B_i \).
+\end{theorem}
+
+\begin{proof}
+    Since the events \( \{ B_i \} \) partition \( \Omega \), the intersection of \( A \) with each \( B_i \) also partitions \( A \). Therefore, by the property of countable additivity, we have:
+\[
+P(A) = P\left( \bigcup_{i=1}^{\infty} (A \cap B_i) \right) = \sum_{i=1}^{\infty} P(A \cap B_i).
+\]
+
+Using the definition of conditional probability, we know:
+\[
+P(A \cap B_i) = P(A | B_i) P(B_i) \quad \text{for all } i.
+\]
+Substituting this into our equation, we get:
+\[
+\sum_{i=1}^{\infty} P(A \cap B_i) = \sum_{i=1}^{\infty} P(A | B_i) P(B_i).
+\]
+
+As a special case, if we have an event \( B \) such that \( 0 < P(B) < 1 \), we can express \( P(A) \) as:
+\[
+P(A) = P(A | B) P(B) + P(A | B^c) P(B^c),
+\]
+where \( B^c \) is the complement of \( B \), indicating the events that are not part of \( B \).
+\end{proof}
+
+\begin{theorem}
+    \textbf{Bayes' Rule.} Consider an event \( A \) in a \(\sigma\)-algebra \( \mathcal{F} \) with \( P(A) > 0 \) and a collection of events \( \{B_i\}_{i=1}^{\infty} \) forming a partition of the sample space \( \Omega \) where \( P(B_i) > 0 \) for all \( i \). Bayes' Rule states that 
+
+\[
+P(B_i | A) = \frac{P(A | B_i) P(B_i)}{\sum_{j=1}^{\infty} P(A | B_j) P(B_j)}.
+\]
+\end{theorem}
+
+\begin{proof}
+To prove this, we start from the definition of conditional probability:
+
+\[
+P(B_i | A) = \frac{P(A \cap B_i)}{P(A)} = \frac{P(B_i) P(A | B_i)}{P(A)}.
+\]
+
+Next, we express \( P(A) \) as:
+
+\[
+P(A) = \sum_{j=1}^{\infty} P(A \cap B_j) = \sum_{j=1}^{\infty} P(B_j) P(A | B_j).
+\]
+
+Substituting this into our equation gives:
+
+\[
+P(B_i | A) = \frac{P(A | B_i) P(B_i)}{\sum_{j=1}^{\infty} P(A | B_j) P(B_j)}.
+\]
+
+Thus, Bayes' Rule allows us to update the probability of \( B_i \) given that \( A \) has occurred.
+\end{proof}
+
+\begin{theorem}
+    For any sequence of events \(\{A_i\}\), we can express the probability of the occurrence of at least one of these events as follows:
+
+\[
+P\left(\bigcup_{i=1}^{\infty} A_i\right) = P(A_1) \cdot \prod_{i=2}^{\infty} P(A_i | A_1 \cap A_2 \cap \ldots \cap A_{i-1}),
+\]
+
+provided that all the conditional probabilities are well-defined.
+\end{theorem}
+
+\begin{proof}
+    To understand why this holds, let’s first consider a finite set of events. For \(n\) events, we have:
+
+\[
+P\left(\bigcup_{i=1}^{n} A_i\right) = P(A_1) \cdot \prod_{i=2}^{n} P(A_i | A_1 \cap A_2 \cap \ldots \cap A_{i-1}).
+\]
+
+Now, if we take the limit as \(n\) approaches infinity, we write:
+
+\[
+\lim_{n \to \infty} P\left(\bigcup_{i=1}^{n} A_i\right) = \lim_{n \to \infty} P(A_1) \cdot \prod_{i=2}^{n} P(A_i | A_1 \cap A_2 \cap \ldots \cap A_{i-1}).
+\]
+
+Using the continuity of probability, we find that we can interchange the limit and the product, leading us to the desired relationship:
+
+\[
+P\left(\bigcup_{i=1}^{\infty} A_i\right) = P(A_1) \cdot \prod_{i=2}^{\infty} P(A_i | A_1 \cap A_2 \cap \ldots \cap A_{i-1}).
+\]
+
+This formulation allows us to break down the complex event of an infinite union into a product of probabilities, illustrating the interconnectedness of the events involved.
+\end{proof}

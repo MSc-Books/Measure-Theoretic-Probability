@@ -5,7 +5,7 @@ Let's consider the case when the sample space is uncountable.
 
 \subsection{Uncountable Sample Space}
 
-Consider the experiment of picking a real number at random from $\Omega = [0, 1]$, such that every number is “equally likely” to be picked. It is quite apparent that a simple strategy of assigning probabilities to singleton subsets of the sample space gets into difficulties quite quickly. Indeed:
+Consider the experiment of picking a real number at random from $\Omega = [0, 1]$, such that every number is \textit{equally likely} to be picked. It is quite apparent that a simple strategy of assigning probabilities to singleton subsets of the sample space gets into difficulties quite quickly. Indeed:
 
 \begin{enumerate}
     \item[(i)] If we assign some positive probability to each elementary outcome, then the probability of an event with infinitely many elements, such as $A = \left\{1, \frac{1}{2}, \frac{1}{3}, \ldots \right\}$, would become unbounded. This is because the sum of positive probabilities over an infinite set would diverge.
@@ -13,10 +13,10 @@ Consider the experiment of picking a real number at random from $\Omega = [0, 1]
     \item[(ii)] If we assign zero probability to each elementary outcome, this alone would not be sufficient to determine the probability of an uncountable subset of $\Omega$, such as $\left[\frac{1}{2}, \frac{2}{3}\right]$. This is because probability measures are not additive over uncountable disjoint unions (of singletons in this case). Assigning zero probability to singletons does not directly imply how to handle intervals or other uncountable sets.
 \end{enumerate}
 
-Thus, we need a different approach to assign probabilities when the sample space is uncountable, such as $\Omega = [0, 1]$. In particular, we need to assign probabilities directly to specific subsets of $\Omega$. Intuitively, we would like our ‘uniform measure’ $\mu$ on $[0, 1]$ to possess the following two properties:
+Thus, we need a different approach to assign probabilities when the sample space is uncountable, such as $\Omega = [0, 1]$. In particular, we need to assign probabilities directly to specific subsets of $\Omega$. Intuitively, we would like our \textit{uniform measure} $\mu$ on $[0, 1]$ to possess the following two properties:
 
 \begin{enumerate}
-    \item[(i)] $\mu((a, b)) = \mu((a, b]) = \mu([a, b)) = \mu([a, b])$ for any interval in $[0, 1]$. This ensures that the measure is consistent across different types of intervals, capturing the idea of “equal likelihood” for any interval of the same length.
+    \item[(i)] $\mu((a, b)) = \mu((a, b]) = \mu([a, b)) = \mu([a, b])$ for any interval in $[0, 1]$. This ensures that the measure is consistent across different types of intervals, capturing the idea of \textit{equal likelihood} for any interval of the same length.
     
     \item[(ii)] \textbf{Translational Invariance}: That is, if $A \subseteq [0, 1]$, then for any $x \in \Omega$, $\mu(A \oplus x) = \mu(A)$, where the set $A \oplus x$ is defined as:
     \[
@@ -92,8 +92,9 @@ However, the following impossibility result asserts that there is no way to cons
    Since this contradiction arises when attempting to define $\mu$ on all subsets while preserving both the interval property and translational invariance, it is impossible to define such a measure for all subsets of $[0, 1]$. 
 \end{proof}
 
-Therefore, we must compromise, and consider a smaller $\sigma$-algebra that contains certain “nice” subsets of the sample space [0, 1]. \textbf{These “nice” subsets are the intervals}, and the resulting $\sigma$-algebra is called the Borel $\sigma$-algebra. Before defining Borel sets, we introduce the concept of generating $\sigma$-algebras from a given collection of subsets.
+Therefore, we must compromise, and consider a smaller $\sigma$-algebra that contains certain \textit{nice} subsets of the sample space [0, 1]. \textbf{These \textit{nice} subsets are the intervals}, and the resulting $\sigma$-algebra is called the Borel $\sigma$-algebra.\\
 
+Before defining Borel sets, we introduce the concept of generating $\sigma$-algebras from a given collection of subsets.
 
 \subsection{Borel Sets}
 
@@ -178,11 +179,10 @@ Thus, every open interval in $(0, 1]$ is a Borel set. We next prove that every s
 
 This also gives one the idea of how to prove a set is a Borel set or not. If the set can be represented as a complement of an open set or as countable unions and countable intersections of open sets, it is a Borel set.
 
-
 \subsubsection{How big is the Borel $\sigma$-algebra?}
 
 \begin{theorem}
-   The cardinality of the Borel $\sigma$-algebra (on the unit interval $(0, 1]$) is the same as the cardinality of the reals. Thus, the Borel $\sigma$-algebra is a much ‘smaller’ collection than the power set $2^{(0, 1]}$.
+   The cardinality of the Borel $\sigma$-algebra (on the unit interval $(0, 1]$) is the same as the cardinality of the reals. Thus, the Borel $\sigma$-algebra is a much \textit{smaller} collection than the power set $2^{(0, 1]}$.
 \end{theorem}
 
 \begin{proof}
@@ -234,9 +234,7 @@ Although most familiar sets are Borel sets, there exist sets that are not Borel.
 
 Imagine you're organizing the quirkiest party ever on a number line between 0 and 1. This isn't just any party - it's a Vitali set party! Here's how you create your guest list: \\
 
-First, you declare that two numbers are \textit{dance partners} if their difference is a rational number. For example, 0.3 and 0.7 are dance partners because 0.7 - 0.3 = 0.4, which is rational. Now, you start grouping all the numbers between 0 and 1 into \textit{dance troupes.} Each troupe consists of all numbers that are dance partners with each other. Here's the twist: you decide to invite exactly one person from each dance troupe to your party. It doesn't matter who you choose from each troupe, as long as you pick one and only one. \\
-
-The resulting guest list is what mathematicians call a Vitali set! Why is this party so special? Well, it has some mind-bending properties: \\
+First, you declare that two numbers are \textit{dance partners} if their difference is a rational number. For example, 0.3 and 0.7 are dance partners because 0.7 - 0.3 = 0.4, which is rational. Now, you start grouping all the numbers between 0 and 1 into \textit{dance troupes.} Each troupe consists of all numbers that are dance partners with each other. Here's the twist: you decide to invite exactly one person from each dance troupe to your party. It doesn't matter who you choose from each troupe, as long as you pick one and only one. The resulting guest list is what mathematicians call a Vitali set! Why is this party so special? Well, it has some mind-bending properties: \\
 
 No two party guests are exactly one rational number apart. If Alice is at 0.3 and Bob is at 0.7, one of them didn't make the cut because they're in the same dance troupe. Yet, if you shift all your guests by any rational number, you'll get a completely new set of partiers, with no overlap with the original group! Despite seeming quite sparse (remember, we only chose one member from each dance troupe), this set has some very strange measuring properties, as we'll soon see. \\
 

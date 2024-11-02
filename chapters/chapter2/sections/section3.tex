@@ -79,9 +79,7 @@ This $\sigma$-algebra \( \mathcal{F} \) includes all countable unions, intersect
 
 \subsection{A Probability Measure on \( (\Omega = \{0, 1\}^\infty, \mathcal{F}) \)}
 
-We will now define a probability measure on \( \mathcal{F} \) that models the idea of a fair coin toss. The probability measure will be initially defined on a smaller collection \( \mathcal{F}_0 \subset \mathcal{F} \), which contains events that are dependent only on a finite number of coin tosses.\\
-
-First, we define a finitely additive function \( P_0 \) on \( \mathcal{F}_0 \) such that \( P_0(\Omega) = 1 \). We will then extend \( P_0 \) to a full probability measure \( P \) on \( \mathcal{F} \).\\
+We will now define a probability measure on \( \mathcal{F} \) that models the idea of a fair coin toss. The probability measure will be initially defined on a smaller collection \( \mathcal{F}_0 \subset \mathcal{F} \), which contains events that are dependent only on a finite number of coin tosses. First, we define a finitely additive function \( P_0 \) on \( \mathcal{F}_0 \) such that \( P_0(\Omega) = 1 \). We will then extend \( P_0 \) to a full probability measure \( P \) on \( \mathcal{F} \).\\
 
 \textbf{1. Defining \( P_0 \) on \( \mathcal{F}_0 \)}\\
 
@@ -143,36 +141,39 @@ by the continuity of probability measures.\\
 
 This completes the construction and verification of the probability measure \( P \) on \( (\Omega, \mathcal{F}) \) consistent with a fair coin-toss model.\\
 
-\begin{example}
+\begin{exercise}
     Let us consider a collection of $\sigma$-algebras \( F_n \) for a fixed integer \( n \). We notice that each \( F_n \) is limited, as it can only describe the outcomes of the first \( n \) coin tosses. We define a new $\sigma$-algebra \( F_0 \) as follows:
 \[
 F_0 = \bigcap_{i=1}^{\infty} F_n.
 \]
-Provide a verbal description of the collection \( F_0 \).\\
+Provide a verbal description of the collection \( F_0 \).
+\end{exercise}
 
+\begin{solution}
+    To understand the collection \( F_0 \), let's break it down:\\
 
-To understand the collection \( F_0 \), let's break it down:\\
+    1. Each \(\sigma\)-algebra \( F_n \) captures all possible events that can occur from observing the first \( n \) tosses of a coin. This includes events such as:\\
+    
+    The outcome of each individual toss (Heads or Tails).\\
+    The total number of Heads or Tails in those \( n \) tosses.\\
+    Any combination of these outcomes.\\
+    
+    2. When we define \( F_0 \) as the union of all \( F_n \) for \( n = 1, 2, 3, \ldots \), we are essentially saying that \( F_0 \) encompasses all possible events from any number of coin tosses, not just the first \( n \).\\
+    
+    3. Therefore, \( F_0 \) includes events such as:\\
+    
+    The outcome of any finite number of tosses.\\
+    The total number of Heads or Tails from an infinite sequence of tosses.\\
+    Any event that could be defined by the outcomes of infinitely many tosses.\\
+    
+    In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that contains all events that can be formed from an infinite sequence of coin tosses, allowing us to model every possible scenario that could arise from tossing the coin infinitely many times.
+\end{solution}
 
-1. Each \(\sigma\)-algebra \( F_n \) captures all possible events that can occur from observing the first \( n \) tosses of a coin. This includes events such as:\\
+\begin{exercise}
+    Show that \(\mathcal{F}_0\) is an algebra on \(\Omega\).
+\end{exercise}
 
-The outcome of each individual toss (Heads or Tails).\\
-The total number of Heads or Tails in those \( n \) tosses.\\
-Any combination of these outcomes.\\
-
-2. When we define \( F_0 \) as the union of all \( F_n \) for \( n = 1, 2, 3, \ldots \), we are essentially saying that \( F_0 \) encompasses all possible events from any number of coin tosses, not just the first \( n \).\\
-
-3. Therefore, \( F_0 \) includes events such as:\\
-
-The outcome of any finite number of tosses.\\
-The total number of Heads or Tails from an infinite sequence of tosses.\\
-Any event that could be defined by the outcomes of infinitely many tosses.\\
-
-In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that contains all events that can be formed from an infinite sequence of coin tosses, allowing us to model every possible scenario that could arise from tossing the coin infinitely many times.
-\end{example}
-
-\begin{example}
-    Show that \(\mathcal{F}_0\) is an algebra on \(\Omega\).\\
-
+\begin{solution}
     To demonstrate that \(\mathcal{F}_0\) is an algebra on \(\Omega\), we must verify that it satisfies three essential properties:\\
 
     1. \textbf{Containment of the Sample Space}: We must show that the entire sample space \(\Omega\) is included in \(\mathcal{F}_0\). By definition, an algebra requires that the sample space be one of the elements within it.\\
@@ -182,11 +183,13 @@ In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that cont
     3. \textbf{Closure under Finite Unions}: For any two sets \(A, B \in \mathcal{F}_0\), we need to show that their union \(A \cup B\) also belongs to \(\mathcal{F}_0\). The algebra property requires that the combination of sets remains within the structure of the algebra.\\
 
     Hence, \(\mathcal{F}_0\) is an algebra on \(\Omega\).\\
-\end{example}
+\end{solution}
 
-\begin{example}
-    Consider the subset \( A \subset \Omega \) consisting of sequences in which Tails occurs infinitely many times. Does \( A \in \mathcal{F}_0 \)? Is \( A^c \) countable?\\
+\begin{exercise}
+    Consider the subset \( A \subset \Omega \) consisting of sequences in which Tails occurs infinitely many times. Does \( A \in \mathcal{F}_0 \)? Is \( A^c \) countable?
+\end{exercise}
 
+\begin{solution}
     To understand the problem, we first define the set \( A \). This set consists of all sequences of coin tosses where Tails appears infinitely often. In simpler terms, if we flip a coin repeatedly, the sequences in \( A \) will have Tails show up no matter how far we go in the sequence.\\
 
     Next, we need to determine if \( A \) is a member of the \(\sigma\)-algebra \( \mathcal{F}_0 \). The \(\sigma\)-algebra is a collection of events we can measure and is generated by the basic outcomes of the experiment, such as the outcomes of individual coin tosses.\\
@@ -198,15 +201,17 @@ In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that cont
     To see if \( A^c \) is countable, we note that each sequence in \( A^c \) can be described by the finite number of Tails and the positions in which they appear among an infinite number of Heads. Since there are only finitely many choices for where to place Tails in a sequence, we can represent each sequence in \( A^c \) with a finite binary string.\\
     
     In conclusion, \( A \) cannot be measured within the simple framework of \(\mathcal{F}_0\), while \( A^c \) is countable due to its finite nature.
-\end{example}
+\end{solution}
 
-\begin{example}
+\begin{exercise}
     Let \( B \) be the set of all infinite sequences for which \( \omega_n = 0 \) for every odd \( n \); that is, every odd-numbered toss results in Heads. Show that \( B \) can be written as a countable intersection of subsets in \( \mathcal{F}_0 \), but \( B \notin \mathcal{F}_0 \). Therefore, \( \mathcal{F}_0 \) is not a \( \sigma \)-algebra. Define \( \mathcal{F} = \sigma(\mathcal{F}_0) \), the \( \sigma \)-algebra generated by \( \mathcal{F}_0 \).\\
 
     The elements of \( B \) are infinite sequences \( \omega = (\omega_1, \omega_2, \omega_3, \ldots) \), where each odd-indexed position \( \omega_n \) equals zero. In simpler terms, every first, third, fifth, etc., toss results in Heads.\\
 
-    Now, we need to show that \( B \) can be represented as a countable intersection of subsets within \( \mathcal{F}_0 \). \\
+    Now, we need to show that \( B \) can be represented as a countable intersection of subsets within \( \mathcal{F}_0 \). 
+\end{exercise}
 
+\begin{solution}
     Consider the sets \( A_k \) defined as follows:
 
     \[
@@ -223,7 +228,9 @@ In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that cont
 
     This is because \( B \) requires that all odd-indexed tosses (which correspond to \( \omega_1, \omega_3, \omega_5, \ldots \)) are equal to zero. Each set \( A_k \) is in \( \mathcal{F}_0 \), and since \( B \) is a countable intersection of sets in \( \mathcal{F}_0 \), it follows that \( B \) can be expressed as such.\\
 
-    Next, we need to demonstrate that \( B \notin \mathcal{F}_0 \). If \( B \) were to belong to \( \mathcal{F}_0 \), it would imply that \( \mathcal{F}_0 \) is closed under countable intersections. However, this contradicts the definition of a \( \sigma \)-algebra, which must contain all countable intersections of its sets. Thus, we conclude that \( \mathcal{F}_0 \) cannot be a \( \sigma \)-algebra since it does not contain the intersection \( B \).\\
+    Next, we need to demonstrate that \( B \notin \mathcal{F}_0 \). If \( B \) were to belong to \( \mathcal{F}_0 \), it would imply that \( \mathcal{F}_0 \) is closed under countable intersections. However, this contradicts the definition of a \( \sigma \)-algebra, which must contain all countable intersections of its sets.\\
+    
+    Thus, we conclude that \( \mathcal{F}_0 \) cannot be a \( \sigma \)-algebra since it does not contain the intersection \( B \).\\
 
     Lastly, we define \( \mathcal{F} \) as follows:
 
@@ -231,138 +238,148 @@ In summary, the collection \( F_0 \) represents the \(\sigma\)-algebra that cont
     \mathcal{F} = \sigma(\mathcal{F}_0)
     \]
 
-    This \( \sigma \)-algebra \( \mathcal{F} \) is the smallest \( \sigma \)-algebra containing \( \mathcal{F}_0 \). In summary, while \( \mathcal{F}_0 \) does not qualify as a \( \sigma \)-algebra due to the exclusion of the intersection \( B \), the generated \( \sigma \)-algebra \( \mathcal{F} \) encompasses all necessary sets, including \( B \).
+    This \( \sigma \)-algebra \( \mathcal{F} \) is the smallest \( \sigma \)-algebra containing \( \mathcal{F}_0 \).\\
+    
+    In summary, while \( \mathcal{F}_0 \) does not qualify as a \( \sigma \)-algebra due to the exclusion of the intersection \( B \), the generated \( \sigma \)-algebra \( \mathcal{F} \) encompasses all necessary sets, including \( B \).
+\end{solution}
 
-\end{example}
+\begin{exercise}
+    Show that every singleton \( \{\omega\} \) is \( \mathcal{F} \)-measurable. Show that the uniform measure on \( (\Omega, \mathcal{F}) \) defined in class assigns zero probability measure to singletons.
+\end{exercise}
 
-\begin{example}
-    Show that every singleton \( \{\omega\} \) is \( \mathcal{F} \)-measurable. Show that the uniform measure on \( (\Omega, \mathcal{F}) \) defined in class assigns zero probability measure to singletons.\\
-
+\begin{solution}
     To demonstrate that every singleton \( \{\omega\} \) is \( \mathcal{F} \)-measurable, we need to establish that for any singleton \( \{\omega\} \), the set is included in the \( \sigma \)-algebra \( \mathcal{F} \). By the definition of a \( \sigma \)-algebra, it contains all sets formed by countable unions, intersections, and complements of the sets in \( \mathcal{F}_0 \).\\
 
-Since \( \mathcal{F} \) is generated from \( \mathcal{F}_0 \), and \( \mathcal{F}_0 \) contains sets based on outcomes from our probability space (including sequences of coin tosses), we can assert that:
+    Since \( \mathcal{F} \) is generated from \( \mathcal{F}_0 \), and \( \mathcal{F}_0 \) contains sets based on outcomes from our probability space (including sequences of coin tosses), we can assert that:
+    
+    \[
+    \{\omega\} \in \mathcal{F}
+    \]
+    
+    Thus, every singleton \( \{\omega\} \) is \( \mathcal{F} \)-measurable.\\
+    
+    Now, let's consider the uniform measure \( P \) defined on \( (\Omega, \mathcal{F}) \). The uniform measure assigns probabilities in a way that is equally distributed across all possible outcomes in the sample space \( \Omega \).\\
+    
+    Since \( \Omega \) is an infinite set, we can define the uniform measure as follows:
+    
+    \[
+    P(A) = \frac{\text{number of elements in } A}{\text{number of elements in } \Omega}
+    \]
+    
+    For any singleton \( \{\omega\} \), we have:
+    
+    \[
+    P(\{\omega\}) = \frac{1}{\infty} = 0
+    \]
+    
+    This result indicates that the measure assigned to any singleton \( \{\omega\} \) is zero. Consequently, we conclude that the uniform measure on \( (\Omega, \mathcal{F}) \) assigns zero probability to singletons.
+\end{solution}
 
-\[
-\{\omega\} \in \mathcal{F}
-\]
-
-Thus, every singleton \( \{\omega\} \) is \( \mathcal{F} \)-measurable.\\
-
-Now, let's consider the uniform measure \( P \) defined on \( (\Omega, \mathcal{F}) \). The uniform measure assigns probabilities in a way that is equally distributed across all possible outcomes in the sample space \( \Omega \).\\
-
-Since \( \Omega \) is an infinite set, we can define the uniform measure as follows:
-
-\[
-P(A) = \frac{\text{number of elements in } A}{\text{number of elements in } \Omega}
-\]
-
-For any singleton \( \{\omega\} \), we have:
-
-\[
-P(\{\omega\}) = \frac{1}{\infty} = 0
-\]
-
-This result indicates that the measure assigned to any singleton \( \{\omega\} \) is zero. Consequently, we conclude that the uniform measure on \( (\Omega, \mathcal{F}) \) assigns zero probability to singletons.
-
-\end{example}
-
-\begin{example}
+\begin{exercise}
 Let \( A_i \) be the set of all outcomes such that the \( i \)-th toss is Tails. Note that \( A_i \in \mathcal{F}_0 \). Show that the set \( A \) can be written as
 
 \[
 A = \bigcup_{n=1}^{\infty} \bigcap_{i=n}^{\infty} A_i 
 \]
 
-Hence, show that \( A \) is \( \mathcal{F} \)-measurable. What is \( P(A) \) under the uniform measure?\\
+Hence, show that \( A \) is \( \mathcal{F} \)-measurable. What is \( P(A) \) under the uniform measure?
+\end{exercise}
 
-Let \( A_i \) be the set of all outcomes such that the \( i \)-th toss is Tails. It is important to note that \( A_i \in \mathcal{F}_0 \). We aim to show that the set \( A \) can be expressed as follows:
+\begin{solution}
+    Let \( A_i \) be the set of all outcomes such that the \( i \)-th toss is Tails. It is important to note that \( A_i \in \mathcal{F}_0 \).\\
+    
+    We aim to show that the set \( A \) can be expressed as follows:
 
-\[
-A = \bigcup_{n=1}^{\infty} \bigcap_{i=n}^{\infty} A_i 
-\]
+    \[
+    A = \bigcup_{n=1}^{\infty} \bigcap_{i=n}^{\infty} A_i 
+    \]
+    
+    
+    The expression above conveys that the event \( A \) occurs if there exists at least one \( n \) such that all tosses from the \( n \)-th toss onward are Tails. \\
+    
+    1. The inner intersection \( \bigcap_{i=n}^{\infty} A_i \) captures the outcome where all tosses starting from the \( n \)-th toss are Tails.\\
+    2. The outer union \( \bigcup_{n=1}^{\infty} \) indicates that we are considering this event for every possible starting point \( n \).\\
+    
+    Since \( A_i \) is in \( \mathcal{F}_0 \) for each \( i \), and since \( \mathcal{F}_0 \) is closed under countable unions and intersections, it follows that \( A \) is a combination of the sets \( A_i \) using these operations.\\
+    
+    Therefore, \( A \) is measurable with respect to \( \mathcal{F} \).\\
+    
+    Under the uniform measure, we can determine \( P(A) \) as follows:\\
+    
+    Since each toss of a fair coin results in Tails with probability \( \frac{1}{2} \), the probability that an infinite sequence of tosses results in Tails from the \( n \)-th toss onward is given by:
+    
+    \[
+    P\left(\bigcap_{i=n}^{\infty} A_i\right) = \left( \frac{1}{2} \right)^{\infty} = 0
+    \]
+    
+    Thus, the probability of \( A \) can be calculated by considering the probability that there exists some \( n \) such that all tosses from \( n \) onward are Tails. \\
+    
+    However, because we are considering the complement (the event where not all outcomes from \( n \) onward are Tails), we have:
+    
+    \[
+    P(A) = 1 - P\left(\bigcup_{n=1}^{\infty} \bigcap_{i=n}^{\infty} A_i\right) = 1 - 0 = 1
+    \]
+    
+    Hence, we conclude that:
+    
+    \[
+    P(A) = 1
+    \]
+    
+\end{solution}
 
-
-The expression above conveys that the event \( A \) occurs if there exists at least one \( n \) such that all tosses from the \( n \)-th toss onward are Tails. \\
-
-1. The inner intersection \( \bigcap_{i=n}^{\infty} A_i \) captures the outcome where all tosses starting from the \( n \)-th toss are Tails.\\
-2. The outer union \( \bigcup_{n=1}^{\infty} \) indicates that we are considering this event for every possible starting point \( n \).\\
-
-Since \( A_i \) is in \( \mathcal{F}_0 \) for each \( i \), and since \( \mathcal{F}_0 \) is closed under countable unions and intersections, it follows that \( A \) is a combination of the sets \( A_i \) using these operations. Therefore, \( A \) is measurable with respect to \( \mathcal{F} \).\\
-
-Under the uniform measure, we can determine \( P(A) \) as follows:\\
-
-Since each toss of a fair coin results in Tails with probability \( \frac{1}{2} \), the probability that an infinite sequence of tosses results in Tails from the \( n \)-th toss onward is given by:
-
-\[
-P\left(\bigcap_{i=n}^{\infty} A_i\right) = \left( \frac{1}{2} \right)^{\infty} = 0
-\]
-
-Thus, the probability of \( A \) can be calculated by considering the probability that there exists some \( n \) such that all tosses from \( n \) onward are Tails. \\
-
-However, because we are considering the complement (the event where not all outcomes from \( n \) onward are Tails), we have:
-
-\[
-P(A) = 1 - P\left(\bigcup_{n=1}^{\infty} \bigcap_{i=n}^{\infty} A_i\right) = 1 - 0 = 1
-\]
-
-Hence, we conclude that:
-
-\[
-P(A) = 1
-\]
-
-\end{example}
-
-\begin{example}
+\begin{exercise}
     Let \( T \subseteq \Omega \) be the set of all coin toss sequences in which the fraction of Tails is exactly \( \frac{1}{2} \). More precisely, we define \( T \) as follows:
 
 \[
 T = \{ \omega \in \Omega : \lim_{n \to \infty} \frac{1}{n} \sum_{i=1}^{n} \omega_i = \frac{1}{2} \}
 \]
 
-The set \( T \) is called the strong-law truth set, for reasons that will become clear later. Does \( T \in \mathcal{F}_0 \)?\\
+The set \( T \) is called the strong-law truth set, for reasons that will become clear later. Does \( T \in \mathcal{F}_0 \)?
+\end{exercise}
 
-To determine whether \( T \in \mathcal{F}_0 \), we need to analyze the nature of this set. The condition for membership in \( T \) involves taking the limit of a ratio as \( n \) approaches infinity, which is a property based on the convergence of the sequence \( \omega \). \\
+\begin{solution}
+    To determine whether \( T \in \mathcal{F}_0 \), we need to analyze the nature of this set. The condition for membership in \( T \) involves taking the limit of a ratio as \( n \) approaches infinity, which is a property based on the convergence of the sequence \( \omega \). \\
 
-In general, \( \mathcal{F}_0 \) contains sets that can be described by finite combinations of events (i.e., measurable sets) but may not include all possible limit points or convergence properties defined in terms of sequences. \\
+    In general, \( \mathcal{F}_0 \) contains sets that can be described by finite combinations of events (i.e., measurable sets) but may not include all possible limit points or convergence properties defined in terms of sequences. \\
+    
+    Since \( T \) requires the evaluation of an infinite limit and depends on the behavior of the entire sequence, it is not typically captured by the events in \( \mathcal{F}_0 \), which often encompass finite or countably infinite unions and intersections of more elementary sets.\\
+    
+    Thus, we conclude that:
+    
+    \[
+    T \notin \mathcal{F}_0
+    \]    
+\end{solution}
 
-Since \( T \) requires the evaluation of an infinite limit and depends on the behavior of the entire sequence, it is not typically captured by the events in \( \mathcal{F}_0 \), which often encompass finite or countably infinite unions and intersections of more elementary sets.\\
-
-Thus, we conclude that:
-
-\[
-T \notin \mathcal{F}_0
-\]
-
-\end{example}
-
-\begin{example}
+\begin{exercise}
     Show that \( T \) can be expressed as:
 
 \[
 T = \bigcap_{k=1}^{\infty} \bigcup_{m=1}^{\infty} \bigcap_{n=m}^{\infty} \left\{ \omega \in \Omega \, \bigg| \, \left| \frac{1}{n} \sum_{i=1}^{n} \omega_i - \frac{1}{2} \right| < \frac{1}{k} \right\} 
 \]
 
-Argue that the subset inside the nested union and intersection above belongs to \( \mathcal{F}_0 \). \\
+Argue that the subset inside the nested union and intersection above belongs to \( \mathcal{F}_0 \). 
+\end{exercise}
 
-To do so, we need to examine the structure of the sets involved. The set 
+\begin{solution}
+    To do so, we need to examine the structure of the sets involved. The set 
 
-\[
-\left\{ \omega \in \Omega \, \bigg| \, \left| \frac{1}{n} \sum_{i=1}^{n} \omega_i - \frac{1}{2} \right| < \frac{1}{k} \right\}
-\]
-
-represents sequences of outcomes for which the average of the first \( n \) outcomes converges to \( \frac{1}{2} \) as \( n \) becomes large. This is a condition that can be expressed in terms of finite sequences and their sums, which are measurable with respect to \( \mathcal{F}_0 \).\\
-
-Now, let's show that \( T \) is \( \mathcal{F} \)-measurable. We start by rewriting the definition of \( T \):\\
-
-The set \( T \) can be expressed as the set of all \( \omega \in \Omega \) such that for all \( k \geq 1 \), there exists an \( m \) such that for all \( n > m \):
-
-\[
-\left| \frac{1}{n} \sum_{i=1}^{n} \omega_i - \frac{1}{2} \right| < \frac{1}{k}
-\]
-
-This means that \( T \) consists of those sequences for which the average of the outcomes converges to \( \frac{1}{2} \) as \( n \) goes to infinity. Since the conditions defining the sets in \( T \) involve countable unions and intersections of measurable sets from \( \mathcal{F}_0 \), and since \( \mathcal{F} \) is closed under these operations, we conclude that \( T \) is indeed \( \mathcal{F} \)-measurable.\\
-
-Therefore, we have shown that \( T \) can be expressed in the stated form and is measurable with respect to the \( \sigma \)-algebra \( \mathcal{F} \).
-
-\end{example}
+    \[
+    \left\{ \omega \in \Omega \, \bigg| \, \left| \frac{1}{n} \sum_{i=1}^{n} \omega_i - \frac{1}{2} \right| < \frac{1}{k} \right\}
+    \]
+    
+    represents sequences of outcomes for which the average of the first \( n \) outcomes converges to \( \frac{1}{2} \) as \( n \) becomes large. This is a condition that can be expressed in terms of finite sequences and their sums, which are measurable with respect to \( \mathcal{F}_0 \).\\
+    
+    Now, let's show that \( T \) is \( \mathcal{F} \)-measurable. We start by rewriting the definition of \( T \): The set \( T \) can be expressed as the set of all \( \omega \in \Omega \) such that for all \( k \geq 1 \), there exists an \( m \) such that for all \( n > m \):
+    
+    \[
+    \left| \frac{1}{n} \sum_{i=1}^{n} \omega_i - \frac{1}{2} \right| < \frac{1}{k}
+    \]
+    
+    This means that \( T \) consists of those sequences for which the average of the outcomes converges to \( \frac{1}{2} \) as \( n \) goes to infinity.\\
+    
+    Since the conditions defining the sets in \( T \) involve countable unions and intersections of measurable sets from \( \mathcal{F}_0 \), and since \( \mathcal{F} \) is closed under these operations, we conclude that \( T \) is indeed \( \mathcal{F} \)-measurable.\\
+    
+    Therefore, we have shown that \( T \) can be expressed in the stated form and is measurable with respect to the \( \sigma \)-algebra \( \mathcal{F} \).
+\end{solution}

@@ -244,99 +244,106 @@ Finally, we arrive at the result,
 P\left(\bigcup_{i=1}^{\infty} A_i\right) \leq \sum_{i=1}^{\infty} P(A_i).
 \]
 
-\begin{example}
-    A standard card deck (52 cards) is distributed to two persons: 26 cards to each person. All partitions are equally likely. Find the probability that the first person receives all four aces.\\
+\begin{exercise}
+    A standard card deck (52 cards) is distributed to two persons: 26 cards to each person. All partitions are equally likely. Find the probability that the first person receives all four aces.
+\end{exercise}
 
+\begin{solution}
     To find the probability that the first person receives all four aces when a standard deck of 52 cards is distributed equally between two persons (each receiving 26 cards), we use a measure-theoretic approach.\\
 
-Let \((\Omega, \mathcal{F}, P)\) be the probability space where:\\
-- \(\Omega\) is the set of all ways to partition the deck into two hands of 26 cards each.\\
-- \(\mathcal{F}\) is the \(\sigma\)-algebra of subsets of \(\Omega\).\\
-- \(P\) is the uniform probability measure on \((\Omega, \mathcal{F})\).\\
+    Let \((\Omega, \mathcal{F}, P)\) be the probability space where:\\
+    - \(\Omega\) is the set of all ways to partition the deck into two hands of 26 cards each.\\
+    - \(\mathcal{F}\) is the \(\sigma\)-algebra of subsets of \(\Omega\).\\
+    - \(P\) is the uniform probability measure on \((\Omega, \mathcal{F})\).\\
+    
+    \textbf{Step 1: Total Number of Outcomes}\\
+    
+    The total number of ways to choose 26 cards out of 52 for the first person is given by:
+    \[
+    |\Omega| = \binom{52}{26}
+    \]
+    where \(\binom{52}{26}\) denotes the binomial coefficient representing the number of ways to choose 26 cards from 52.\\
+    
+    \textbf{Step 2: Number of Favorable Outcomes}\\
+    
+    Next, we find the number of ways the first person can receive all four aces. If the first person is to receive all four aces, we must choose the remaining 22 cards from the remaining 48 non-ace cards. The number of ways to do this is:
+    \[
+    |\Omega_{\text{favorable}}| = \binom{48}{22}
+    \]
+    where \(\binom{48}{22}\) denotes the binomial coefficient representing the number of ways to choose 22 cards from the 48 non-ace cards.\\
+    
+    \textbf{Step 3: Calculating the Probability}\\
+    
+    The probability that the first person receives all four aces is the ratio of the number of favorable outcomes to the total number of outcomes:
+    \[
+    P(\text{First person receives all four aces}) = \frac{|\Omega_{\text{favorable}}|}{|\Omega|}
+    \]
+    \[
+    P(\text{First person receives all four aces}) = \frac{\binom{48}{22}}{\binom{52}{26}}
+    \]
+\end{solution}
 
-\textbf{Step 1: Total Number of Outcomes}\\
-
-The total number of ways to choose 26 cards out of 52 for the first person is given by:
-\[
-|\Omega| = \binom{52}{26}
-\]
-where \(\binom{52}{26}\) denotes the binomial coefficient representing the number of ways to choose 26 cards from 52.\\
-
-\textbf{Step 2: Number of Favorable Outcomes}\\
-
-Next, we find the number of ways the first person can receive all four aces. If the first person is to receive all four aces, we must choose the remaining 22 cards from the remaining 48 non-ace cards. The number of ways to do this is:
-\[
-|\Omega_{\text{favorable}}| = \binom{48}{22}
-\]
-where \(\binom{48}{22}\) denotes the binomial coefficient representing the number of ways to choose 22 cards from the 48 non-ace cards.\\
-
-\textbf{Step 3: Calculating the Probability}\\
-
-The probability that the first person receives all four aces is the ratio of the number of favorable outcomes to the total number of outcomes:
-\[
-P(\text{First person receives all four aces}) = \frac{|\Omega_{\text{favorable}}|}{|\Omega|}
-\]
-\[
-P(\text{First person receives all four aces}) = \frac{\binom{48}{22}}{\binom{52}{26}}
-\]
-\end{example}
-
-\begin{example}
+\begin{exercise}
     Let $\{A_r\}_{r=1}^n$ be a finite collection of events in a probability space $(\Omega, \mathcal{F}, P)$. We aim to prove that:
 
 \[
 P\left(\bigcup_{1 \leq r \leq n} A_r\right) \leq \min_{1 \leq k \leq n} \left\{ \sum_{1 \leq r \leq n} P(A_r) - \sum_{\substack{r: r \neq k}} P(A_r \cap A_k) \right\}
 \]
+\end{exercise}
 
-Define $S = \bigcup_{r=1}^{n} A_r$. By the inclusion-exclusion principle for a finite union of events, we have:
+\begin{solution}
+    Define $S = \bigcup_{r=1}^{n} A_r$. By the inclusion-exclusion principle for a finite union of events, we have:
 
-\[
-P(S) = \sum_{1 \leq r \leq n} P(A_r) - \sum_{1 \leq r < s \leq n} P(A_r \cap A_s) + \ldots + (-1)^{n+1} P\left(\bigcap_{1 \leq r \leq n} A_r\right).
-\]
+    \[
+    P(S) = \sum_{1 \leq r \leq n} P(A_r) - \sum_{1 \leq r < s \leq n} P(A_r \cap A_s) + \ldots + (-1)^{n+1} P\left(\bigcap_{1 \leq r \leq n} A_r\right).
+    \]
+    
+    This expression accounts for all possible intersections of the events $A_r$. However, to prove the inequality, we'll make use of the following upper bound:\\
+    
+    Consider any fixed $k \in \{1, 2, \ldots, n\}$. We can express $P(S)$ as:
+    
+    \[
+    P(S) \leq P(A_k) + P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right).
+    \]
+    
+    This follows since the probability of $S$ is at most the probability of $A_k$ plus the probability of the events outside of $A_k$ but not overlapping with it.\\
+    
+    Now, observe that:
+    
+    \[
+    P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right) \leq \sum_{\substack{r: r \neq k}} P(A_r \setminus A_k).
+    \]
+    
+    Using the identity $P(A_r \setminus A_k) = P(A_r) - P(A_r \cap A_k)$, we can rewrite the above as:
+    
+    \[
+    P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right) \leq \sum_{\substack{r: r \neq k}} \left(P(A_r) - P(A_r \cap A_k)\right).
+    \]
+    
+    Therefore:
+    
+    \[
+    P(S) \leq P(A_k) + \sum_{\substack{r: r \neq k}} \left(P(A_r) - P(A_r \cap A_k)\right).
+    \]
+    
+    Simplifying further:
+    
+    \[
+    P(S) \leq \sum_{1 \leq r \leq n} P(A_r) - \sum_{\substack{r: r \neq k}} P(A_r \cap A_k).
+    \]
+    
+    Since this inequality holds for any $k \in \{1, 2, \ldots, n\}$, we take the minimum over all $k$:
+    
+    \[
+    P\left(\bigcup_{1 \leq r \leq n} A_r\right) \leq \min_{1 \leq k \leq n} \left\{ \sum_{1 \leq r \leq n} P(A_r) - \sum_{\substack{r: r \neq k}} P(A_r \cap A_k) \right\}.
+    \]
+\end{solution}
 
-This expression accounts for all possible intersections of the events $A_r$. However, to prove the inequality, we'll make use of the following upper bound:\\
+\begin{exercise}
+    You are given that at least one of the events $A_n$, $1 \leq n \leq N$, is certain to occur. However, certainly no more than two occur. If $P(A_n) = p$ and $P(A_n \cap A_m) = q$, $m \neq n$, then show that $p \geq \frac{1}{N}$ and $q \leq \frac{2}{N}$. 
+\end{exercise}
 
-Consider any fixed $k \in \{1, 2, \ldots, n\}$. We can express $P(S)$ as:
-
-\[
-P(S) \leq P(A_k) + P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right).
-\]
-
-This follows since the probability of $S$ is at most the probability of $A_k$ plus the probability of the events outside of $A_k$ but not overlapping with it.\\
-
-Now, observe that:
-
-\[
-P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right) \leq \sum_{\substack{r: r \neq k}} P(A_r \setminus A_k).
-\]
-
-Using the identity $P(A_r \setminus A_k) = P(A_r) - P(A_r \cap A_k)$, we can rewrite the above as:
-
-\[
-P\left(\bigcup_{\substack{r: r \neq k}} A_r \setminus A_k\right) \leq \sum_{\substack{r: r \neq k}} \left(P(A_r) - P(A_r \cap A_k)\right).
-\]
-
-Therefore:
-
-\[
-P(S) \leq P(A_k) + \sum_{\substack{r: r \neq k}} \left(P(A_r) - P(A_r \cap A_k)\right).
-\]
-
-Simplifying further:
-
-\[
-P(S) \leq \sum_{1 \leq r \leq n} P(A_r) - \sum_{\substack{r: r \neq k}} P(A_r \cap A_k).
-\]
-
-Since this inequality holds for any $k \in \{1, 2, \ldots, n\}$, we take the minimum over all $k$:
-
-\[
-P\left(\bigcup_{1 \leq r \leq n} A_r\right) \leq \min_{1 \leq k \leq n} \left\{ \sum_{1 \leq r \leq n} P(A_r) - \sum_{\substack{r: r \neq k}} P(A_r \cap A_k) \right\}.
-\]
-\end{example}
-
-\begin{example}
-    You are given that at least one of the events $A_n$, $1 \leq n \leq N$, is certain to occur. However, certainly no more than two occur. If $P(A_n) = p$ and $P(A_n \cap A_m) = q$, $m \neq n$, then show that $p \geq \frac{1}{N}$ and $q \leq \frac{2}{N}$. \\
+\begin{solution}
 
     Given the events $A_1, A_2, \ldots, A_N$ such that at least one event occurs and at most two occur, we have:
 \[
@@ -389,10 +396,9 @@ To find the upper bound of $q$, note that since at most two events can occur, th
 \[
 q \leq \frac{2}{N}.
 \]
+\end{solution}
 
-\end{example}
-
-\begin{example}
+\begin{exercise}
     Consider a measurable space $(\Omega, \mathcal{F})$ with $\Omega = [0, 1]$. A measure $P$ is defined on the non-empty subsets of $\Omega$ (in $\mathcal{F}$), which are all of the form $(a, b)$, $(a, b]$, $[a, b)$ and $[a, b]$, as the length of the interval, i.e.,
 \[
 P((a, b)) = P((a, b]) = P([a, b)) = P([a, b]) = b - a.
@@ -402,36 +408,37 @@ P((a, b)) = P((a, b]) = P([a, b)) = P([a, b]) = b - a.
 \textbf{(b)} Let $A_n = \left[ \frac{1}{n+1}, 1 \right]$ and $B_n = \left[ 0, \frac{1}{n+1} \right]$ for $n \geq 1$. Compute $P\left(\cup_{i \in \mathbb{N}} A_i\right)$, $P\left(\cap_{i \in \mathbb{N}} A_i\right)$, $P\left(\cup_{i \in \mathbb{N}} B_i\right)$, and $P\left(\cap_{i \in \mathbb{N}} B_i\right)$.\\
 \textbf{(c)} Compute $P\left(\cap_{i \in \mathbb{N}} (B_i^c \cup A_i^c)\right)$.\\
 \textbf{(d)} Let $C_m = \left[0, \frac{1}{m}\right]$ such that $P(C_m) = P(A_n)$. Express $m$ in terms of $n$.\\
-\textbf{(e)} Evaluate $P\left(\cap_{i \in \mathbb{N}} (C_i \cap A_i)\right)$ and $P\left(\cup_{i \in \mathbb{N}} (C_i \cap A_i)\right)$.\\
+\textbf{(e)} Evaluate $P\left(\cap_{i \in \mathbb{N}} (C_i \cap A_i)\right)$ and $P\left(\cup_{i \in \mathbb{N}} (C_i \cap A_i)\right)$.
+\end{exercise}
 
-To show that $P$ is a probability measure, we need to verify two properties:\\
+\begin{solution}
+    To show that $P$ is a probability measure, we need to verify two properties:\\
 
-1. Non-negativity: $P(A) \geq 0$ for all $A \in \mathcal{F}$. By definition, $P(A) = b - a \geq 0$ since $b \geq a$ for all intervals in $[0, 1]$.\\
-
-2. $P(\Omega) = 1$: The entire space $\Omega = [0, 1]$. Hence, $P([0, 1]) = 1 - 0 = 1$.\\
-
-Therefore, $P$ is a probability measure.\\
-
-$P\left(\cup_{i \in \mathbb{N}} A_i\right) = P([0, 1]) = 1$\\
-$P\left(\cap_{i \in \mathbb{N}} A_i\right) = P\left([0, 1]\right) = 1$\\
-$P\left(\cup_{i \in \mathbb{N}} B_i\right) = P([0, 1]) = 1$\\
-$P\left(\cap_{i \in \mathbb{N}} B_i\right) = P(\{0\}) = 0$\\
-
-Note that $B_i^c = [\frac{1}{n+1}, 1]$ and $A_i^c = [0, \frac{1}{n+1}]$. Thus:
-\[
-P\left(\cap_{i \in \mathbb{N}} (B_i^c \cup A_i^c)\right) = P(\emptyset) = 0
-\]
-
-We have $P(C_m) = \frac{1}{m}$ and $P(A_n) = 1 - \frac{1}{n+1}$. Equating these gives:
-\[
-\frac{1}{m} = 1 - \frac{1}{n+1}
-\]
-\[
-m = \frac{n+1}{n}
-\]
-
-
-$P\left(\cap_{i \in \mathbb{N}} (C_i \cap A_i)\right) = P(\emptyset) = 0$\\
-$P\left(\cup_{i \in \mathbb{N}} (C_i \cap A_i)\right) = P([0, 1]) = 1$\\
-
-\end{example}
+    1. Non-negativity: $P(A) \geq 0$ for all $A \in \mathcal{F}$. By definition, $P(A) = b - a \geq 0$ since $b \geq a$ for all intervals in $[0, 1]$.\\
+    
+    2. $P(\Omega) = 1$: The entire space $\Omega = [0, 1]$. Hence, $P([0, 1]) = 1 - 0 = 1$.\\
+    
+    Therefore, $P$ is a probability measure.\\
+    
+    $P\left(\cup_{i \in \mathbb{N}} A_i\right) = P([0, 1]) = 1$\\
+    $P\left(\cap_{i \in \mathbb{N}} A_i\right) = P\left([0, 1]\right) = 1$\\
+    $P\left(\cup_{i \in \mathbb{N}} B_i\right) = P([0, 1]) = 1$\\
+    $P\left(\cap_{i \in \mathbb{N}} B_i\right) = P(\{0\}) = 0$\\
+    
+    Note that $B_i^c = [\frac{1}{n+1}, 1]$ and $A_i^c = [0, \frac{1}{n+1}]$. Thus:
+    \[
+    P\left(\cap_{i \in \mathbb{N}} (B_i^c \cup A_i^c)\right) = P(\emptyset) = 0
+    \]
+    
+    We have $P(C_m) = \frac{1}{m}$ and $P(A_n) = 1 - \frac{1}{n+1}$. Equating these gives:
+    \[
+    \frac{1}{m} = 1 - \frac{1}{n+1}
+    \]
+    \[
+    m = \frac{n+1}{n}
+    \]
+    
+    
+    $P\left(\cap_{i \in \mathbb{N}} (C_i \cap A_i)\right) = P(\emptyset) = 0$\\
+    $P\left(\cup_{i \in \mathbb{N}} (C_i \cap A_i)\right) = P([0, 1]) = 1$\\
+\end{solution}

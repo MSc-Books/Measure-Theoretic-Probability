@@ -1,0 +1,737 @@
+\section{Independence}
+
+\begin{definition}
+    Consider a probability space denoted by \((\Omega, \mathcal{F}, P)\). We say that two events \(A\) and \(B\) are independent with respect to the probability measure \(P\) if the following condition holds:
+
+\[
+P(A \cap B) = P(A) P(B).
+\]
+\end{definition}
+
+It is important to note that if \(P(B) > 0\) and the events \(A\) and \(B\) are independent, we can derive:
+
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)} = P(A).
+\]
+
+\textbf{Example:} We should consider whether disjoint sets can ever be independent. Let \(A\) and \(B\) be two disjoint events in \(\mathcal{F}\). By the definition of disjoint events, we have:
+
+\[
+P(A \cap B) = P(\emptyset) = 0.
+\]
+
+For \(A\) and \(B\) to be independent, we require:
+
+\[
+P(A \cap B) = P(A) P(B) = 0.
+\]
+
+This condition can only be satisfied if either \(P(A) = 0\) or \(P(B) = 0\). Therefore, we conclude that two disjoint events are independent if and only if at least one of them has a probability of zero.
+
+\begin{definition}
+    A collection of events \(A_1, A_2, \ldots, A_n\) is said to be independent if, for any non-empty subset \(I_0 \subseteq \{1, 2, \ldots, n\}\), the following relationship holds:
+
+\[
+P\left(\bigcap_{i \in I_0} A_i\right) = \prod_{i \in I_0} P(A_i).
+\]
+\end{definition}
+
+Next, we extend this concept to an arbitrary collection of events.
+
+\begin{definition}
+    A collection of events \(\{A_i, i \in I\}\) is defined to be independent if, for every non-empty finite subset \(I_0\) of \(I\), the equality holds:
+
+\[
+P\left(\bigcap_{i \in I_0} A_i\right) = \prod_{i \in I_0} P(A_i).
+\]
+\end{definition}
+
+\subsection{Independence of $\sigma$-algebra}
+
+\begin{definition}
+    Let \( F_1 \) and \( F_2 \) be two sub-\(\sigma\)-algebras of \( F \). We say that \( F_1 \) and \( F_2 \) are independent \(\sigma\)-algebras if for every event \( A_1 \in F_1 \) and \( A_2 \in F_2 \), the events \( A_1 \) and \( A_2 \) are independent. 
+\end{definition}
+
+\textbf{Example:} A straightforward example can be constructed as follows: Let \( A, B \in F \). Define \( F_1 = \{ \varnothing, \Omega, A, A^c \} \) and \( F_2 = \{ \varnothing, \Omega, B, B^c \} \). The \(\sigma\)-algebras \( F_1 \) and \( F_2 \) are independent if and only if the events \( A \) and \( B \) are independent.\\
+
+Next, we extend the concept of independence to a collection of sub-\(\sigma\)-algebras.
+
+\begin{definition}
+    Let \( \{ F_i, i \in I \} \) be a collection of sub-\(\sigma\)-algebras of \( F \), where \( I \) is an index set. The collection \( \{ F_i, i \in I \} \) is said to be independent if for any choice of events \( A_i \in F_i \), the events \( \{ A_i, i \in I \} \) are independent.
+\end{definition}
+
+\textbf{Example:} Consider the infinite coin toss model we discussed previously.\\
+
+Let \( A_i \) be the event that the \( i \)-th coin toss resulted in heads. If \( i \neq j \), then the events \( A_i \) and \( A_j \) are independent. This implies that the infinite collection of events \( \{ A_i \mid i \in \mathbb{N} \} \) is independent, capturing the intuitive idea of independent coin tosses.\\
+
+Now, let \( F_1 \) (respectively, \( F_2 \)) denote the collection of all events whose occurrence can be determined by examining the results of coin tosses at odd times (respectively, at even times).\\
+
+Formally, define \( H_i \) as the event that the \( i \)-th toss resulted in heads. Set \( C = \{ H_i \mid i \text{ is odd} \} \), and let \( F_1 = \sigma(C) \), which is the smallest \(\sigma\)-algebra containing all the events \( H_i \) for odd \( i \). Similarly, we define \( F_2 \) using the tosses at even times.\\
+
+In this context, the two \(\sigma\)-algebras \( F_1 \) and \( F_2 \) are independent. This means that any event determined solely by the outcomes of tosses at odd times is independent of any event determined solely by tosses at even times.\\
+
+Lastly, let \( F_n \) be the collection of all events that can be determined by examining the coin tosses \( 2n \) and \( 2n + 1 \). It is known that \( F_n \) is a \(\sigma\)-algebra with finitely many events for every \( n \in \mathbb{N} \). Remarkably, the collections \( \{ F_n, n \in \mathbb{N} \} \) are also independent.\\
+
+\begin{exercise}
+    Let \( C \) and \( D \) be elements of a sigma-algebra \( \mathcal{F} \) on a sample space \( \Omega \). We aim to show that the collections \( \mathcal{F}_1 = \{\varnothing, \Omega, C, C^c\} \) and \( \mathcal{F}_2 = \{\varnothing, \Omega, D, D^c\} \) are independent if and only if \( C \) and \( D \) are independent events.
+\end{exercise}
+
+\begin{solution}
+    The concept of independence of events in probability is extended to the independence of collections of sets. In this problem, we have:\\
+
+    1. A sigma-algebra \( \mathcal{F} \), which is a collection of sets that is closed under complementation and countable unions.\\
+    2. Two specific collections of sets, \( \mathcal{F}_1 \) and \( \mathcal{F}_2 \), generated by the events \( C \) and \( D \) and their complements.\\
+
+    Our task is to show that the independence of the collections \( \mathcal{F}_1 \) and \( \mathcal{F}_2 \) is equivalent to the independence of the events \( C \) and \( D \).\\
+
+    Two collections of sets, \( \mathcal{F}_1 \) and \( \mathcal{F}_2 \), are said to be independent if for every \( A \in \mathcal{F}_1 \) and every \( B \in \mathcal{F}_2 \), the probability of their intersection satisfies:
+   \[
+   P(A \cap B) = P(A) \cdot P(B).
+   \]
+
+   We need to check whether all combinations of elements in \( \mathcal{F}_1 \) and \( \mathcal{F}_2 \) satisfy the independence condition. However, many of these combinations are trivial:\\
+   
+   1. For example, \( P(\varnothing \cap B) = 0 = P(\varnothing) \cdot P(B) \) for any \( B \in \mathcal{F}_2 \), and similarly for \( A \cap \varnothing \).\\
+   2. Also, for \( A = \Omega \) or \( B = \Omega \), independence holds as \( P(\Omega \cap B) = P(B) \) and \( P(A \cap \Omega) = P(A) \).\\
+
+   The non-trivial cases are when \( A = C \) or \( C^c \) and \( B = D \) or \( D^c \). We check each of these cases:\\
+
+   For \( A = C \) and \( B = D \):
+     \[
+     P(C \cap D) = P(C) \cdot P(D) \quad \text{(this is the definition of independence for events \( C \) and \( D \))}
+     \]
+     
+   For \( A = C \) and \( B = D^c \):
+     \[
+     P(C \cap D^c) = P(C) \cdot P(D^c).
+     \]
+     Since \( P(D^c) = 1 - P(D) \), this follows from the independence of \( C \) and \( D \).\\
+
+   For \( A = C^c \) and \( B = D \):
+     \[
+     P(C^c \cap D) = P(C^c) \cdot P(D),
+     \]
+     and again, this follows from the independence of \( C \) and \( D \), since \( P(C^c) = 1 - P(C) \).\\
+
+   For \( A = C^c \) and \( B = D^c \):
+     \[
+     P(C^c \cap D^c) = P(C^c) \cdot P(D^c).
+     \]
+     This completes the verification for all possible non-trivial cases.\\
+
+     Thus, we have shown that the collections \( \mathcal{F}_1 = \{\varnothing, \Omega, C, C^c\} \) and \( \mathcal{F}_2 = \{\varnothing, \Omega, D, D^c\} \) are independent if and only if the events \( C \) and \( D \) are independent.\\
+\end{solution}
+
+
+\begin{exercise}
+    Let \(\Omega = \{1, 2, 3, \dots, p\}\), where \(p\) is a prime number. Let \(\mathcal{F}\) be the collection of all subsets of \(\Omega\), and define a probability measure \(P\) on events \(A \in \mathcal{F}\) by
+
+\[
+P(A) = \frac{|A|}{p},
+\]
+
+where \(|A|\) denotes the cardinality of \(A\). Show that if \(A\) and \(B\) are independent events, then at least one of \(A\) and \(B\) is either \(\varnothing\) or \(\Omega\).
+\end{exercise}
+
+\begin{solution}
+
+    To prove this, we will explore the properties of independent events \(A\) and \(B\) under the probability measure \(P\) defined on subsets of \(\Omega\).\\
+
+    By definition, two events \(A\) and \(B\) are independent if 
+       \[
+       P(A \cap B) = P(A) \cdot P(B).
+       \]
+       According to our probability measure, this means
+       \[
+       \frac{|A \cap B|}{p} = \frac{|A|}{p} \cdot \frac{|B|}{p}.
+       \]
+       Simplifying this equation, we get
+       \[
+       |A \cap B| = \frac{|A| \cdot |B|}{p}.
+       \]
+    
+    The equation above indicates that the cardinality \(|A \cap B|\) is equal to \(\frac{|A| \cdot |B|}{p}\). Since \(|A|\), \(|B|\), and \(|A \cap B|\) are all integers, \(\frac{|A| \cdot |B|}{p}\) must also be an integer.\\
+    
+    Here, \(p\) is a prime number. Therefore, for \(\frac{|A| \cdot |B|}{p}\) to be an integer, \(p\) must divide the product \(|A| \cdot |B|\). This divisibility can only happen if one of the following is true:\\
+    
+       \(|A| = 0\) (which implies \(A = \varnothing\)),\\
+       \(|B| = 0\) (which implies \(B = \varnothing\)),\\
+       \(|A| = p\) (which implies \(A = \Omega\)),\\
+       \(|B| = p\) (which implies \(B = \Omega\)).\\
+    
+     Thus, for \(A\) and \(B\) to satisfy the independence condition under the given probability measure, at least one of \(A\) and \(B\) must be either the empty set \(\varnothing\) or the entire set \(\Omega\).    
+\end{solution}
+
+
+\begin{exercise}
+    In a box, there are four red balls, six red cubes, six blue balls, and an unknown number of blue cubes. When an object from the box is selected at random, the shape and colour of the object are independent. Determine the number of blue cubes.
+\end{exercise}
+
+\begin{solution}
+
+    Let us define the following quantities to represent the count of each object in the box:
+\begin{itemize}
+    \item Let $R_B$ be the number of red balls, so $R_B = 4$.
+    \item Let $R_C$ be the number of red cubes, so $R_C = 6$.
+    \item Let $B_B$ be the number of blue balls, so $B_B = 6$.
+    \item Let $B_C$ be the unknown number of blue cubes, which we need to determine.
+\end{itemize}
+
+Let $N$ be the total number of objects in the box:
+\[
+N = R_B + R_C + B_B + B_C = 4 + 6 + 6 + B_C = 16 + B_C
+\]
+
+Now, we are told that the shape (ball or cube) and the colour (red or blue) of an object are \textbf{independent}. This means that the probability of selecting an object of a particular shape is independent of the probability of selecting an object of a particular colour.\\
+
+Let's compute the probabilities of selecting each shape and each colour independently:
+\begin{itemize}
+    \item The probability of selecting a ball (regardless of colour) is given by:
+    \[
+    P(\text{ball}) = \frac{R_B + B_B}{N} = \frac{4 + 6}{16 + B_C} = \frac{10}{16 + B_C}
+    \]
+    
+    \item The probability of selecting a cube (regardless of colour) is given by:
+    \[
+    P(\text{cube}) = \frac{R_C + B_C}{N} = \frac{6 + B_C}{16 + B_C}
+    \]
+    
+    \item The probability of selecting a red object (regardless of shape) is:
+    \[
+    P(\text{red}) = \frac{R_B + R_C}{N} = \frac{4 + 6}{16 + B_C} = \frac{10}{16 + B_C}
+    \]
+    
+    \item The probability of selecting a blue object (regardless of shape) is:
+    \[
+    P(\text{blue}) = \frac{B_B + B_C}{N} = \frac{6 + B_C}{16 + B_C}
+    \]
+\end{itemize}
+
+For independence to hold, the probability of selecting a ball that is red, $P(\text{ball} \cap \text{red})$, should equal the product of the probabilities of selecting a ball and selecting a red object:
+\[
+P(\text{ball} \cap \text{red}) = P(\text{ball}) \cdot P(\text{red})
+\]
+
+Now, calculating $P(\text{ball} \cap \text{red})$:
+\[
+P(\text{ball} \cap \text{red}) = \frac{R_B}{N} = \frac{4}{16 + B_C}
+\]
+
+And calculating $P(\text{ball}) \cdot P(\text{red})$:
+\[
+P(\text{ball}) \cdot P(\text{red}) = \frac{10}{16 + B_C} \cdot \frac{10}{16 + B_C} = \frac{100}{(16 + B_C)^2}
+\]
+
+Setting these two expressions equal for independence, we get:
+\[
+\frac{4}{16 + B_C} = \frac{100}{(16 + B_C)^2}
+\]
+
+Cross-multiplying to solve for $B_C$, we obtain:
+\[
+4(16 + B_C) = 100
+\]
+\[
+64 + 4B_C = 100
+\]
+\[
+4B_C = 36
+\]
+\[
+B_C = 9
+\]
+\end{solution}
+
+\begin{exercise}
+A man is known to speak the truth \(\frac{3}{4}\) of the time. He throws a die and reports that it is a six. Find the probability that it is actually a six.
+\end{exercise}
+
+\begin{solution}
+
+    Let's solve this problem using Bayes' theorem, which allows us to find the probability of an event given some conditional information about it.\\
+
+    Let \(A\) be the event that the die shows a six, and \(B\) be the event that the man reports a six.\\
+    
+    We want to find \(P(A|B)\), the probability that the die actually shows a six given that the man reports it as a six.\\
+    
+    Using Bayes' theorem, we know:
+    \[
+    P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+    \]
+    
+    
+    Since a fair die has six faces, the probability of rolling a six is:
+       \[
+       P(A) = \frac{1}{6}
+       \]
+    
+       This is the probability that the man reports a six given that a six has actually occurred. Since the man tells the truth \( \frac{3}{4} \) of the time:
+       \[
+       P(B|A) = \frac{3}{4}
+       \]
+    
+       Here, \( \neg A \) is the event that the die shows something other than a six. If the die does not show a six, the probability that the man reports a six (i.e., he lies) is \( \frac{1}{4} \):
+       \[
+       P(B|\neg A) = \frac{1}{4}
+       \]
+    
+       The probability that the die does not show a six is:
+       \[
+       P(\neg A) = 1 - P(A) = 1 - \frac{1}{6} = \frac{5}{6}
+       \]
+    
+       We can now find \(P(B)\) using the law of total probability:
+       \[
+       P(B) = P(B|A) \cdot P(A) + P(B|\neg A) \cdot P(\neg A)
+       \]
+       Substituting the values, we get:
+       \[
+       P(B) = \frac{3}{4} \cdot \frac{1}{6} + \frac{1}{4} \cdot \frac{5}{6}
+       \]
+       \[
+       = \frac{3}{24} + \frac{5}{24} = \frac{8}{24} = \frac{1}{3}
+       \]
+    
+       Substituting all of the values into Bayes' theorem:
+       \[
+       P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} = \frac{\frac{3}{4} \cdot \frac{1}{6}}{\frac{1}{3}}
+       \]
+       \[
+       = \frac{\frac{3}{24}}{\frac{1}{3}} = \frac{3}{24} \cdot 3 = \frac{3}{8}
+       \]
+\end{solution}
+
+\begin{exercise}
+    Let \( A \) and \( B \) be two events in a probability space with probabilities \( P(A|B) > P(A) \). This inequality implies that the probability of \( A \) occurring, given that \( B \) has already occurred, is greater than the probability of \( A \) occurring independently of \( B \). We aim to show the following:\\
+
+    1. \( P(B|A) > P(B) \)\\
+    2. \( P(A|\text{complement of } B) < P(A) \)
+\end{exercise}
+
+\begin{solution}
+    By Bayes' theorem, we know that:
+    \[
+    P(A|B) = \frac{P(A \cap B)}{P(B)}
+    \]
+    and similarly,
+    \[
+    P(B|A) = \frac{P(A \cap B)}{P(A)}.
+    \]
+ 
+    Given that \( P(A|B) > P(A) \), we can rewrite this as:
+    \[
+    \frac{P(A \cap B)}{P(B)} > P(A).
+    \]
+ 
+    Rearranging this inequality, we obtain:
+    \[
+    P(A \cap B) > P(A) \cdot P(B).
+    \]
+ 
+    Now, using Bayes' theorem again for \( P(B|A) \), we substitute \( P(A \cap B) \) from the inequality above:
+    \[
+    P(B|A) = \frac{P(A \cap B)}{P(A)} > \frac{P(A) \cdot P(B)}{P(A)} = P(B).
+    \]
+ 
+    Therefore, we have shown that \( P(B|A) > P(B) \).\\
+ 
+    Since \( B^c \) represents the complement of \( B \), we use the law of total probability. According to this law, we can express \( P(A) \) as:
+    \[
+    P(A) = P(A|B) \cdot P(B) + P(A|B^c) \cdot P(B^c).
+    \]
+ 
+    Now, because we are given \( P(A|B) > P(A) \), it follows that \( P(A|B^c) \) must be less than \( P(A) \) to balance the equation. If \( P(A|B^c) \) were not less than \( P(A) \), then \( P(A) \) would not satisfy the inequality required by the law of total probability, given that \( P(A|B) \) is already greater than \( P(A) \).\\
+ 
+    Thus, we conclude that:
+    \[
+    P(A|B^c) < P(A).
+    \]
+\end{solution}
+
+\begin{exercise}
+    A coin is tossed independently \( n \) times, with the probability of heads in each toss being \( p \). At each time \( k \) (for \( k = 2, 3, \dots, n \)), we get a reward at time \( k + 1 \) if the \( k \)-th toss results in a head and the \((k-1)\)-th toss was a tail. Let \( A_k \) be the event that a reward is obtained at time \( k \).
+
+\begin{enumerate}
+    \item Are the events \( A_k \) and \( A_{k+1} \) independent?
+    \item Are the events \( A_k \) and \( A_{k+2} \) independent?
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    To answer each part, let’s first explore the nature of event \( A_k \) in terms of the toss sequence. Since \( A_k \) represents obtaining a reward at time \( k \), this implies that:\\
+
+    1. The toss at time \( k-1 \) must be a tail.\\
+    2. The toss at time \( k \) must be a head.\\
+    
+    Thus, \( A_k \) occurs when the outcome sequence for tosses \( (k-1, k) \) is \textbf{Tail-Head}. This outcome has a probability of \( (1-p)p \).\\
+    
+    For events \( A_k \) and \( A_{k+1} \) to be independent, the occurrence of \( A_k \) should not affect the probability of \( A_{k+1} \) occurring.\\
+    
+    However, observe that:\\
+    
+    \( A_k \) requires a \textbf{Tail-Head} sequence at times \( (k-1, k) \).\\
+    \( A_{k+1} \) requires a \textbf{Tail-Head} sequence at times \( (k, k+1) \).\\
+    
+    Therefore, for both \( A_k \) and \( A_{k+1} \) to occur, the sequence from \( (k-1) \) to \( (k+1) \) must be \textbf{Tail-Head-Tail}. The probability of this specific sequence occurring is \((1-p)p(1-p)\).\\
+    
+    Let’s calculate \( P(A_k \cap A_{k+1}) \), the probability that both \( A_k \) and \( A_{k+1} \) happen. This is the probability of the \textbf{Tail-Head-Tail} sequence, which is:
+    \[
+    P(A_k \cap A_{k+1}) = (1 - p)p(1 - p).
+    \]
+    
+    Now, since \( A_k \) and \( A_{k+1} \) are based on overlapping parts of the toss sequence (specifically, the \( k \)-th toss), \( P(A_k \cap A_{k+1}) \neq P(A_k)P(A_{k+1}) \).\\
+    
+    Thus, we conclude that:
+    \[
+    \text{Events } A_k \text{ and } A_{k+1} \text{ are not independent.}
+    \]
+    
+    
+    Next, let’s consider \( A_k \) and \( A_{k+2} \).\\
+    
+    For \( A_k \) to occur, the sequence from \( (k-1, k) \) must be \textbf{Tail-Head}. For \( A_{k+2} \) to occur, the sequence from \( (k+1, k+2) \) must be \textbf{Tail-Head}. Since there is no overlap in the outcomes that determine \( A_k \) and \( A_{k+2} \), these events are influenced by completely independent tosses.\\
+    
+    Since the coin tosses are independent, the outcomes at times \( (k-1, k) \) are independent of the outcomes at \( (k+1, k+2) \). Therefore, \( P(A_k \cap A_{k+2}) = P(A_k)P(A_{k+2}) \).\\
+\end{solution}
+
+\begin{exercise}
+    A drawer contains two coins. One is an unbiased coin, which when tossed, is equally likely to turn up heads or tails. The other is a biased coin, which will turn up heads with probability \( p \) and tails with probability \( 1 - p \). One coin is selected (uniformly) at random from the drawer. Two experiments are performed:\\
+
+\textbf{(a)} The selected coin is tossed \( n \) times. Given that the coin turns up heads \( k \) times and tails \( n - k \) times, what is the probability that the coin is biased?\\
+
+\textbf{(b)} The selected coin is tossed repeatedly until it turns up heads \( k \) times. Given that the coin is tossed \( n \) times in total, what is the probability that the coin is biased?\\
+\end{exercise}
+
+\begin{solution}
+
+    Let's tackle each part using Bayes' theorem and probability models.\\
+
+    \textbf{(a)} The selected coin is tossed \( n \) times, resulting in \( k \) heads and \( n - k \) tails. We want to find the probability that the coin is biased, given this outcome. Let's define events for clarity:\\
+    
+    Let \( B \) be the event that the coin chosen is biased.\\
+    Let \( U \) be the event that the coin chosen is unbiased.\\
+    Let \( H_k \) denote the event of observing \( k \) heads in \( n \) tosses.\\
+    
+    By Bayes' theorem, the probability that the coin is biased given \( k \) heads in \( n \) tosses is:
+    
+    \[
+    P(B | H_k) = \frac{P(H_k | B) \cdot P(B)}{P(H_k)}.
+    \]
+    
+    Since the biased coin produces heads with probability \( p \), if it was chosen, the probability of getting \( k \) heads in \( n \) tosses is:
+    
+       \[
+       P(H_k | B) = \binom{n}{k} p^k (1 - p)^{n - k}.
+       \]
+    
+    For the unbiased coin, heads and tails each occur with probability \( \frac{1}{2} \). Therefore, if the unbiased coin was chosen, the probability of getting \( k \) heads in \( n \) tosses is:
+    
+       \[
+       P(H_k | U) = \binom{n}{k} \left( \frac{1}{2} \right)^n.
+       \]
+    
+    Since each coin is selected with equal probability, we have \( P(B) = P(U) = \frac{1}{2} \). Thus, using the law of total probability:
+    
+       \[
+       P(H_k) = P(H_k | B) \cdot P(B) + P(H_k | U) \cdot P(U).
+       \]
+    
+    Substituting the values we have:
+    
+       \[
+       P(H_k) = \frac{1}{2} \binom{n}{k} p^k (1 - p)^{n - k} + \frac{1}{2} \binom{n}{k} \left( \frac{1}{2} \right)^n.
+       \]
+    
+    Now we can substitute everything back into Bayes' theorem:
+    
+    \[
+    P(B | H_k) = \frac{\binom{n}{k} p^k (1 - p)^{n - k} \cdot \frac{1}{2}}{\frac{1}{2} \binom{n}{k} p^k (1 - p)^{n - k} + \frac{1}{2} \binom{n}{k} \left( \frac{1}{2} \right)^n}.
+    \]
+    
+    Simplifying this expression:
+    
+    \[
+    P(B | H_k) = \frac{p^k (1 - p)^{n - k}}{p^k (1 - p)^{n - k} + \left( \frac{1}{2} \right)^n}.
+    \]
+    
+    
+    \textbf{(b)} Now, the coin is tossed repeatedly until it turns up heads \( k \) times, with a total of \( n \) tosses required to achieve this. We want to find the probability that the coin is biased given these conditions.\\
+    
+    Here, we are interested in the probability that the chosen coin, when tossed, takes \( n \) tosses to get \( k \) heads. This is a negative binomial setup:\\
+    
+    1. If the biased coin is chosen, the probability of getting \( k \) heads in \( n \) tosses with probability of heads \( p \) is:
+    
+       \[
+       P(H_k | B) = \binom{n-1}{k-1} p^k (1 - p)^{n - k}.
+       \]
+    
+    2. If the unbiased coin is chosen, the probability of getting \( k \) heads in \( n \) tosses with probability of heads \( \frac{1}{2} \) is:
+    
+       \[
+       P(H_k | U) = \binom{n-1}{k-1} \left( \frac{1}{2} \right)^k \left( \frac{1}{2} \right)^{n - k} = \binom{n-1}{k-1} \left( \frac{1}{2} \right)^n.
+       \]
+    
+    Using Bayes' theorem again, we find:
+    
+    \[
+    P(B | H_k) = \frac{P(H_k | B) \cdot P(B)}{P(H_k)}.
+    \]
+    
+    With \( P(H_k) \) calculated by the law of total probability:
+    
+    \[
+    P(H_k) = P(H_k | B) \cdot P(B) + P(H_k | U) \cdot P(U),
+    \]
+    
+    substituting the expressions:
+    
+    \[
+    P(H_k) = \frac{1}{2} \binom{n-1}{k-1} p^k (1 - p)^{n - k} + \frac{1}{2} \binom{n-1}{k-1} \left( \frac{1}{2} \right)^n.
+    \]
+    
+    Finally,
+    
+    \[
+    P(B | H_k) = \frac{\binom{n-1}{k-1} p^k (1 - p)^{n - k}}{\binom{n-1}{k-1} p^k (1 - p)^{n - k} + \binom{n-1}{k-1} \left( \frac{1}{2} \right)^n}.
+    \]
+    
+    Simplifying,
+    
+    \[
+    P(B | H_k) = \frac{p^k (1 - p)^{n - k}}{p^k (1 - p)^{n - k} + \left( \frac{1}{2} \right)^n}.
+    \]    
+\end{solution}
+
+\begin{exercise}
+    Fred is giving out samples of dog food. He makes calls door to door, but he leaves a sample (one can) only on those calls for which the door is answered and a dog is in residence. On any call, the probability of the door being answered is \(\frac{3}{4}\), and the probability that any household has a dog is \(\frac{2}{3}\). Assume that the events “door answered” and “a dog lives here” are independent and also that the outcomes of all calls are independent. \\
+
+    \textbf{(a)} \textit{Determine the probability that Fred gives away his first sample on his third call.}
+    \textbf{(b)} \textit{Given that he has given away exactly four samples on his first eight calls, determine the conditional probability that Fred will give away his fifth sample on his eleventh call.}\\
+    \textbf{(c)} \textit{Determine the probability that he gives away his second sample on his fifth call.}\\
+    \textbf{(d)} \textit{Given that he did not give away his second sample on his second call, determine the conditional probability that he will leave his second sample on his fifth call.}\\
+    \textbf{(e)} \textit{We will say that Fred needs a new supply immediately after the call on which he gives away his last can. If he starts out with two cans, determine the probability that he completes at least five calls before he needs a new supply.}\\
+\end{exercise}
+
+\begin{solution}
+    Define the following events:\\
+    
+    Let \(A\) denote the event the door is answered.\\
+    Let \(B\) denote the event a dog lives in the house.\\
+
+Since events \(A\) and \(B\) are independent, the probability that Fred gives away a sample (which requires both events \(A\) and \(B\) to happen) on any given call is given by:
+\[
+P(\text{sample given}) = P(A \cap B) = P(A) \cdot P(B) = \frac{3}{4} \times \frac{2}{3} = \frac{1}{2}
+\]
+
+We can now proceed to solve each part of the problem.\\
+
+\textbf{(a)} \textit{Determine the probability that Fred gives away his first sample on his third call.}\\
+
+This situation describes a classic \textbf{Geometric Distribution} because we’re looking for the probability that the first successful outcome (i.e., giving away a sample) happens on the third trial. If we let \(p = \frac{1}{2}\) be the probability of success, then the probability of the first success occurring on the \(k\)-th trial is given by:
+\[
+P(\text{first success on } k\text{th call}) = (1 - p)^{k-1} p
+\]
+
+For this problem, \(k = 3\), so:
+\[
+P(\text{first sample on third call}) = (1 - \frac{1}{2})^{3-1} \cdot \frac{1}{2} = \left(\frac{1}{2}\right)^{2} \cdot \frac{1}{2} = \frac{1}{8}
+\]
+
+\textbf{(b)} \textit{Given that he has given away exactly four samples on his first eight calls, determine the conditional probability that Fred will give away his fifth sample on his eleventh call.}\\
+
+Here, we are given that exactly four samples were given in the first eight calls. The probability of giving away four samples in eight calls follows a \textbf{Binomial Distribution} with \(n = 8\) trials and success probability \(p = \frac{1}{2}\). The probability of giving the fifth sample on the eleventh call can be analyzed by considering two conditions:\\
+
+1. The next two calls (the ninth and tenth) result in no sample being given, which has probability \((1 - p)^2\).\\
+2. The eleventh call results in a sample being given, with probability \(p\).\\
+
+Thus, the conditional probability is:
+\[
+P(\text{fifth sample on 11th call} \mid \text{four samples in first eight calls}) = (1 - p)^2 \cdot p = \left(\frac{1}{2}\right)^2 \cdot \frac{1}{2} = \frac{1}{8}
+\]
+
+\textbf{ (c)} \textit{Determine the probability that he gives away his second sample on his fifth call.}\\
+
+This follows a \textbf{Negative Binomial Distribution}, as we are interested in the probability of the second success occurring on the fifth call. For a negative binomial event, the probability of the \(r\)-th success on the \(k\)-th trial is:
+\[
+P(\text{second success on fifth call}) = \binom{4}{1} p^2 (1 - p)^3
+\]
+where \(p = \frac{1}{2}\). Thus,
+\[
+P(\text{second success on fifth call}) = \binom{4}{1} \cdot \left(\frac{1}{2}\right)^2 \cdot \left(\frac{1}{2}\right)^3 = 4 \cdot \frac{1}{32} = \frac{1}{8}
+\]
+
+\textbf{ (d)} \textit{Given that he did not give away his second sample on his second call, determine the conditional probability that he will leave his second sample on his fifth call.}\\
+
+Given that the second sample was not given on the second call, we want the probability of the second success on the fifth call. This conditional probability is based on trials up to the fifth call with one success among the first four trials, resulting in a similar calculation to part (c):
+\[
+P(\text{second sample on fifth call} \mid \text{one success in four trials}) = \frac{1}{8}
+\]
+
+\textbf{ (e)} \textit{We will say that Fred needs a new supply immediately after the call on which he gives away his last can. If he starts out with two cans, determine the probability that he completes at least five calls before he needs a new supply.}\\
+
+To find this probability, Fred needs exactly two successes in the first five calls (so he gives away both cans by the fifth call). Using a binomial distribution with parameters \(n = 4\) and \(p= \frac{1}{2}\), we calculate the probability of having exactly two successes in the first four calls, which would mean he finishes his supply in four calls. Thus, we need to find the probability that he does not finish his supply within the first four calls, which would imply he still has at least one can left by the fifth call.\\
+
+Let \(X\) be the number of samples given in the first four calls. We want \(P(X < 2)\), which is the probability of giving away fewer than two samples in four calls.\\
+
+Using the binomial formula:
+\[
+P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}
+\]
+we calculate \(P(X = 0)\) and \(P(X = 1)\).\\
+
+1. For \(X = 0\):
+   \[
+   P(X = 0) = \binom{4}{0} \left(\frac{1}{2}\right)^0 \left(\frac{1}{2}\right)^4 = 1 \cdot \frac{1}{16} = \frac{1}{16}
+   \]
+
+2. For \(X = 1\):
+   \[
+   P(X = 1) = \binom{4}{1} \left(\frac{1}{2}\right)^1 \left(\frac{1}{2}\right)^3 = 4 \cdot \frac{1}{16} = \frac{4}{16} = \frac{1}{4}
+   \]
+
+Thus, the probability that he has fewer than two successes in the first four calls (i.e., that he does not run out of samples) is:
+\[
+P(X < 2) = P(X = 0) + P(X = 1) = \frac{1}{16} + \frac{1}{4} = \frac{1}{16} + \frac{4}{16} = \frac{5}{16}
+\]
+\end{solution}
+
+\begin{exercise}
+    Let \( A, B, A_1, A_2, \dots \) be events. Suppose that for each \( k \), we have 
+    \[
+    A_k \subseteq A_{k+1},
+    \]
+    and that \( A_k \) is independent of \( B \) for all \( k \geq 1 \). If we define \( A = \bigcup_{k \in \mathbb{N}} A_k \), show that \( B \) is independent of \( A \).    
+\end{exercise}
+
+\begin{solution}
+    The key to solving this problem lies in understanding how independence works for increasing events. Let us start with the definitions and properties we'll use:\\
+
+    1. Since \( A_k \subseteq A_{k+1} \) for all \( k \), the sequence \( \{A_k\}_{k \geq 1} \) is an increasing sequence of events. Therefore, \( A = \bigcup_{k=1}^{\infty} A_k \) represents the limit of this increasing sequence, formally written as:
+       \[
+       A = \lim_{k \to \infty} A_k.
+       \]
+    
+    2. Given that each \( A_k \) is independent of \( B \), we know:
+       \[
+       P(A_k \cap B) = P(A_k) P(B) \quad \text{for each } k \geq 1.
+       \]
+    
+    3. To show that \( A \) is independent of \( B \), we need to prove:
+       \[
+       P(A \cap B) = P(A) P(B).
+       \]
+    
+    Now, let's carefully calculate \( P(A \cap B) \) and \( P(A) \) using the properties of limits of probabilities in increasing sequences.\\
+    
+    \textbf{Step 1: Calculating \( P(A \cap B) \)}\\
+    
+    Since \( A_k \subseteq A_{k+1} \), the sequence \( \{A_k \cap B\}_{k \geq 1} \) is also an increasing sequence of events. Therefore, we can use the continuity property of probability for increasing sequences:
+    \[
+    P(A \cap B) = P\left(\lim_{k \to \infty} (A_k \cap B)\right) = \lim_{k \to \infty} P(A_k \cap B).
+    \]
+    
+    From the independence of \( A_k \) and \( B \), we know that \( P(A_k \cap B) = P(A_k) P(B) \) for each \( k \). Substituting this in, we get:
+    \[
+    P(A \cap B) = \lim_{k \to \infty} P(A_k) P(B).
+    \]
+    
+    Since \( P(B) \) is a constant with respect to \( k \), we can factor it out of the limit:
+    \[
+    P(A \cap B) = P(B) \cdot \lim_{k \to \infty} P(A_k).
+    \]
+    
+    \textbf{Step 2: Calculating \( P(A) \)}\\
+    
+    Again, because \( A_k \) is an increasing sequence of events with \( A = \bigcup_{k=1}^{\infty} A_k \), we use the continuity property of probability:
+    \[
+    P(A) = P\left(\lim_{k \to \infty} A_k\right) = \lim_{k \to \infty} P(A_k).
+    \]
+    
+    \textbf{Step 3: Verifying Independence}\\
+    
+    Now, substituting \( P(A) = \lim_{k \to \infty} P(A_k) \) from Step 2 into our expression from Step 1, we obtain:
+    \[
+    P(A \cap B) = P(B) \cdot P(A).
+    \]    
+\end{solution}
+
+\begin{exercise}
+    Consider pairwise disjoint events \( B_1, B_2, B_3 \), and \( C \) with probabilities 
+    \begin{itemize}
+        \item \( P(B_1) = P(B_2) = P(B_3) = p \)
+        \item \( P(C) = q \),
+    \end{itemize}
+    
+    where \( 3p + q \leq 1 \). Suppose \( p = -q + \sqrt{q} \). Prove that the events \( B_1 \cup C \), \( B_2 \cup C \), and \( B_3 \cup C \) are pairwise independent. Additionally, determine whether there exist values \( p > 0 \) and \( q > 0 \) such that these three events are independent.
+\end{exercise}
+
+\begin{solution}
+    First, let's analyze the pairwise independence of the events \( B_1 \cup C \), \( B_2 \cup C \), and \( B_3 \cup C \).\\
+
+    Since \( B_1, B_2, B_3, \) and \( C \) are pairwise disjoint, we have:
+    \[
+    P(B_i \cap B_j) = 0, \quad \text{for any } i \neq j.
+    \]
+    
+    For each \( B_i \), \( i = 1, 2, 3 \), the probability of the event \( B_i \cup C \) is given by:
+    \[
+    P(B_i \cup C) = P(B_i) + P(C) = p + q.
+    \]
+    
+    The intersection of \( B_i \cup C \) and \( B_j \cup C \) (for \( i \neq j \)) can be expressed as:
+    \[
+    (B_i \cup C) \cap (B_j \cup C) = (B_i \cap B_j) \cup (B_i \cap C) \cup (B_j \cap C) \cup (C \cap C).
+    \]
+    Given that \( B_i \) and \( B_j \) are disjoint (so \( B_i \cap B_j = \emptyset \)), this simplifies to:
+    \[
+    (B_i \cup C) \cap (B_j \cup C) = C.
+    \]
+    Thus, we have:
+    \[
+    P((B_i \cup C) \cap (B_j \cup C)) = P(C) = q.
+    \]
+    
+    To verify pairwise independence of \( B_1 \cup C \), \( B_2 \cup C \), and \( B_3 \cup C \), we need to check if:
+    \[
+    P((B_i \cup C) \cap (B_j \cup C)) = P(B_i \cup C) \cdot P(B_j \cup C).
+    \]
+    Substituting from above, we have:
+    \[
+    q = (p + q)^2.
+    \]
+    Expanding the right side:
+    \[
+    q = p^2 + 2pq + q^2.
+    \]
+    Rearrange terms to form a quadratic equation in \( p \):
+    \[
+    p^2 + (2q)p + (q^2 - q) = 0.
+    \]
+    Solving this quadratic equation for \( p \), we find:
+    \[
+    p = -q + \sqrt{q}.
+    \]
+    Thus, given \( p = -q + \sqrt{q} \), we have shown that \( B_1 \cup C \), \( B_2 \cup C \), and \( B_3 \cup C \) are pairwise independent.\\
+    
+    For mutual independence, we need:
+    \[
+    P((B_1 \cup C) \cap (B_2 \cup C) \cap (B_3 \cup C)) = P(B_1 \cup C) \cdot P(B_2 \cup C) \cdot P(B_3 \cup C).
+    \]
+    The left side represents the probability of the intersection of all three events:
+    \[
+    (B_1 \cup C) \cap (B_2 \cup C) \cap (B_3 \cup C) = C,
+    \]
+    since \( B_1, B_2, B_3 \) are pairwise disjoint. Thus,
+    \[
+    P((B_1 \cup C) \cap (B_2 \cup C) \cap (B_3 \cup C)) = P(C) = q.
+    \]
+    The right side is:
+    \[
+    P(B_1 \cup C) \cdot P(B_2 \cup C) \cdot P(B_3 \cup C) = (p + q)^3.
+    \]
+    For mutual independence, we need \( q = (p + q)^3 \).\\
+    
+    Substituting \( p = -q + \sqrt{q} \) into this equation does not generally satisfy equality for all \( p > 0 \) and \( q > 0 \). \\
+    
+    Therefore, while the events \( B_1 \cup C \), \( B_2 \cup C \), and \( B_3 \cup C \) are pairwise independent, they are not mutually independent for any choice of \( p > 0 \) and \( q > 0 \).    
+\end{solution}
