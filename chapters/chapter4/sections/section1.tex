@@ -1,0 +1,517 @@
+\section{Introduction to Random Variables}
+
+The term \textbf{random variable} can be misleading because it suggests that the variable itself is random, or that it varies in a typical sense. In fact, a random variable \( X \) is better understood as a function that maps elements from the sample space \( \Omega \) to the real numbers \( \mathbb{R} \). The term \textit{random} refers to the inherent uncertainty in selecting an element \( \omega \) from the sample space \( \Omega \). Once we fix an elementary outcome \( \omega \), the random variable assigns a specific real value, denoted \( X(\omega) \).\\
+
+It is crucial to distinguish between the probability measure, which applies to subsets of the sample space (known as events), and the random variable, which is tied to each individual outcome \( \omega \). Not all subsets of the sample space qualify as events, and similarly, not every function from \( \Omega \) to \( \mathbb{R} \) is classified as a random variable. In particular, a random variable is defined as an \textbf{$\mathcal{F}$-measurable function}, as elaborated below.
+
+\begin{definition}
+    Consider a measurable space \( (\Omega, \mathcal{F}) \). A function \( f: \Omega \to \mathbb{R} \) is termed an \textbf{$\mathcal{F}$-measurable function} if the pre-image of every Borel set is an \textbf{$\mathcal{F}$-measurable} subset of \( \Omega \).
+\end{definition}
+
+To clarify, the pre-image of a Borel set \( B \) under the function \( f \) is defined as:
+
+\[
+f^{-1}(B) = \{ \omega \in \Omega \mid f(\omega) \in B \} 
+\]
+
+
+\begin{center}
+    \begin{tikzpicture}[
+        scale=1.2,
+        >=stealth,
+        event/.style={draw, minimum width=1.5cm, minimum height=1cm, fill=blue!10},
+        borelset/.style={draw, minimum width=1.5cm, minimum height=1cm, fill=red!10},
+        point/.style={circle, fill, inner sep=1pt},
+        ]
+    
+        % Sample Space (Omega)
+        \draw [rounded corners] (0,0) rectangle (5,5);
+        \node[anchor=north west] at (0,5) {Sample Space $\Omega$};
+    
+        % F-measurable subset
+        \draw [blue!40, pattern=north west lines, pattern color=blue!40] 
+            (0.25,0.25) to[out=60,in=-120] (2,2) to[out=60,in=180] (3.5,3.5) 
+            to[out=0,in=45] (3.5,1) to[out=225,in=0] (0.25,0.25);
+        \node at (3,2) {$f^{-1}(B) \in \mathcal{F}$};
+    
+        % Points in Omega
+        \node[point] (w1) at (1.5,1) {};
+        \node[below left=2pt] at (w1) {$\omega_1$};
+        \node[point] (w2) at (3,3) {};
+        \node[above right=2pt] at (w2) {$\omega_2$};
+    
+        % Borel Set
+        \draw[red!40, fill=red!10] (5.7,1) rectangle (6.3,3) 
+            node[midway, right=0.3cm] {$B \in \mathcal{B}(\mathbb{R})$};
+    
+        % Real Line (R)
+        \draw[->] (6,-0.5) -- (6,4.5) node[above] {$\mathbb{R}$};
+
+        % Function mapping
+        \draw[->, thick] (4,2) -- (5.7,2) node[midway, above] {$f$};
+
+        % Additional Labels
+        \node[text width=6cm] at (2.5,-0.5) 
+            {$f$ is $\mathcal{F}$-measurable if $f^{-1}(B) \in \mathcal{F}$ for all $B \in \mathcal{B}(\mathbb{R})$};
+    
+        % Show function mapping for specific points
+        \draw[->, dashed] (w1) to[out=0,in=180] (6,1);
+        \draw[->, dashed] (w2) to[out=0,in=180] (6,3);
+    \end{tikzpicture}
+    \end{center}
+    
+
+
+\begin{definition}
+    Consider a probability space \((\Omega, \mathcal{F}, P)\), where \(\Omega\) represents the sample space, \(\mathcal{F}\) is a \(\sigma\)-algebra of events, and \(P\) is a probability measure. A random variable \(X\) is defined as a function that maps elements from \(\Omega\) to the real numbers \(\mathbb{R}\), such that \(X\) is measurable with respect to \(\mathcal{F}\).
+\end{definition}
+
+To elaborate, this means that for any Borel set \(B\) (which belongs to the collection of Borel sets \(\mathcal{B}(\mathbb{R})\)), the pre-image of \(B\) under the random variable \(X\) must be an event in the \(\sigma\)-algebra \(\mathcal{F}\). In a visual sense, you can think of \(X\) as a mapping that takes each outcome \(\omega\) from the sample space \(\Omega\) and assigns it a value in the real line \(\mathbb{R}\).\\
+
+Now, the set defined as \(\{ \omega \in \Omega \mid X(\omega) \in B \}\) represents an event in \(\mathcal{F}\) for every Borel set \(B\). This set corresponds to the outcomes for which the random variable \(X\) falls within the Borel set \(B\). As a result, since each such event has a probability associated with it, we can define what is known as the probability law of the random variable \(X\). This law encapsulates how probabilities are distributed across the possible values that \(X\) can take.\\
+
+\begin{definition}
+The \textbf{probability law}, denoted as \( P_X \), is defined as a function that maps Borel sets to probabilities, specifically:
+
+\[
+P_X : \mathcal{B}(\mathbb{R}) \to [0, 1]
+\]
+
+This means that for any Borel set \( B \) in \( \mathbb{R} \), the probability law is given by:
+
+\[
+P_X(B) = P(\{ \omega \in \Omega \mid X(\omega) \in B \})
+\]
+
+Here, \( P \) is the probability measure applied to the set of outcomes \( \omega \) in the sample space \( \Omega \) for which the random variable \( X \) falls within the set \( B \). 
+\end{definition}
+
+To clarify further, we can think of \( P_X \) as a composition of two functions: the probability measure \( P \) and the inverse image of \( X \), denoted as \( X^{-1} \). Mathematically, we express this relationship as:
+
+\[
+P_X(\cdot) = P \circ X^{-1}(\cdot)
+\]
+
+\vspace{10pt}
+Notice that we are not saying $X^{-1}$ is an inverse function i.e., the random variable function $X$ is invertible. This is not the case. That's just the notation for the set of elements of the sample space that map to the Borel set $B$. So, $X^{-1}$ is the pre-image of $B$. Since $X$ is an $\mathcal{F}$-measurable function, $X^{-1}$ is the element of the $\text{Borel }\sigma$-algebra of $\Omega$.\\  
+
+This relationship reveals that the probability law completely determines the statistical properties of the random variable \( X \). In other words, it tells us the likelihood of \( X \) taking values in any given Borel set \( B \).\\
+
+To visualize this, consider that \( P \) represents the mapping from an event \( E \) to its associated probability. In contrast, \( P_X \) maps a Borel set \( B \) to the probability space, effectively combining the function \( P \) with the inverse image \( X^{-1} \). This process illustrates how the behavior of the random variable is encapsulated by its probability law.
+
+\begin{center}
+    \begin{tikzpicture}[
+        scale=1.2,
+        >=stealth,
+        event/.style={draw, minimum width=1.5cm, minimum height=1cm, fill=blue!10},
+        borelset/.style={draw, minimum width=1.5cm, minimum height=1cm, fill=red!10},
+        point/.style={circle, fill, inner sep=1pt},
+    ]
+        % Define coordinates for the three main spaces
+        \coordinate (prob_center) at (0,0);
+        \coordinate (omega_center) at (6,0);
+        \coordinate (real_center) at (12,0);
+        
+        % Probability interval [0,1] (left)
+        \draw[->] (0,-2.4) -- (0,3) node[above] {$[0,1]$};
+        \node at (0,-2.8) {Probability};
+        
+        % Sample Space (middle)
+        \draw [rounded corners] (2.5,-2.5) rectangle (8.5,3.0);
+        \node[anchor=north] at (5.5,3) {Sample Space $\Omega$};
+        
+        % Event in F (preimage)
+        \draw [blue!40, pattern=north west lines, pattern color=blue!40] 
+            (3.5,-1.75) to[out=60,in=-120] (6,0) to[out=60,in=180] (7.5,1.5) 
+            to[out=0,in=45] (7.5,-1) to[out=225,in=0] (3.5,-1.75);
+        \node at (5,0.5) {$X^{-1}(B) \in \mathcal{F}$};
+        
+        % Points in Omega
+        \node[point] (w1) at (5.5,-1) {};
+        \node[below left=2pt] at (w1) {$\omega_1$};
+        \node[point] (w2) at (7,1) {};
+        \node[above right=2pt] at (w2) {$\omega_2$};
+        
+        % Borel Set
+        \draw[red!40, fill=red!10] (11.0,-1) rectangle (12,1) 
+            node[midway, right=0.5cm] {$B$};
+
+        % Real Line (right)
+        \draw[->] (11.5,-3) -- (11.5,3) node[above] {$\mathbb{R}$};
+        \node[anchor=south] at (10.6,-2.8) {$(\mathbb{R}, \mathcal{B}(\mathbb{R}))$};
+        
+        % Random Variable mapping (Omega to R)
+        \draw[->, thick] (8.5,0) -- (11,0) node[midway, above] {$X$};
+        
+        % Probability measure mapping (X^-1(B) to [0,1])
+        \draw[->, thick, blue] (4.25,-1) -- (0,-1) node[midway, above] {$P_X = P \circ X^{-1}$};
+        
+        % Show function mapping for specific points
+        \draw[->, dashed] (w1) to[out=0,in=180] (12,-1);
+        \draw[->, dashed] (w2) to[out=0,in=180] (12,1);
+        
+        % Additional Labels
+        \node[text width=14cm] at (7.5,-3) 
+            {$P_X(B) = (P \circ X^{-1})(B) = P(\{\omega \in \Omega : X(\omega) \in B\})$};
+    
+    \end{tikzpicture}
+\end{center}
+
+\begin{theorem}
+    Let \((\Omega, \mathcal{F}, P)\) be a probability space, and let \(X\) be a real-valued random variable. Then, the probability law \(P_X\) of \(X\) is a probability measure on \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\).
+\end{theorem}
+
+\begin{proof}
+We need to show that \(P_X\) is indeed a probability measure on \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\). \\
+
+1. \textbf{Non-negativity:} For any Borel set \(B\), since \(P\) is a probability measure, we have:
+   \[
+   P_X(B) = P(X^{-1}(B)) \geq 0.
+   \]
+
+2. \textbf{Normalization:} The total measure of the whole space must equal 1. Since \(X\) can take any value in \(\mathbb{R}\), we have:
+   \[
+   P_X(\mathbb{R}) = P(X^{-1}(\mathbb{R})) = P(\Omega) = 1.
+   \]
+
+3. \textbf{Countable Additivity:} For any countable collection of disjoint Borel sets \(B_1, B_2, \ldots\) (i.e., \(B_i \cap B_j = \emptyset\) for \(i \neq j\)), we have:
+   \[
+   P_X\left(\bigcup_{i=1}^\infty B_i\right) = P(X^{-1}(\bigcup_{i=1}^\infty B_i)) = P\left(\bigcup_{i=1}^\infty \{ \omega \in \Omega : X(\omega) \in B_i \}\right).
+   \]
+   By the countable additivity of \(P\), this can be rewritten as:
+   \[
+   P\left(\bigcup_{i=1}^\infty \{ \omega \in \Omega : X(\omega) \in B_i \}\right) = \sum_{i=1}^\infty P\left(\{ \omega \in \Omega : X(\omega) \in B_i \}\right) = \sum_{i=1}^\infty P_X(B_i).
+   \]
+
+Since all three properties of a probability measure hold, we conclude that \(P_X\) is indeed a probability measure on \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\). 
+\end{proof}
+
+\textbf{Note:} If $\Omega$ is countable set, then $\mathcal{F}$ can be taken as $2^\Omega$. Typical example is the \textit{discrete probability space}. In that case, all functions from $\Omega$ to $\mathbb{R}$ will be random variables because you cannot have a pre-image which is not $\mathcal{F}$-measurable, So, only in cases where $\mathcal{F}$ is not $2^\Omega$ is there a possibility that a function is not a random variable.\\
+
+What we are interested now is - \textit{what values $X$ can take?} To be able to describe that, we will need to specify $P_X$ for all Borel sets. Then, we will know the complete probabilistic description of the random variable on the real line. It turns out, you don't need $P_X$ for all Borel sets. It is enough to specify $P_X$ for certain \textit{nice} sets. Let's see how we do that.\\
+
+Recall when we were generating the Borel $\sigma$-algebra on the real line, we mentioned that there are multiple ways of generating it. One of them is using \textit{open intervals}. The other important way is to use \textit{semi-infinite intervals}. We can look at the $\mathcal{B}(\mathbb{R})$ as being generated by the sets of form $(-\infty, x] \text{ where x } \in \mathbb{R}$.\\
+
+What are we trying to get at is - \textit{the probability law that is defined for all Borel sets must also be defined for the generating class}. Thus, $P_X((-\infty, x])$ is well-defined for all $x \in \mathbb{R}$. Another way of writing  $P_X((-\infty, x])$ is  $P_X({\omega \in \Omega | X(\omega) \leq x})$. This probability has a special name called \textbf{cumulative distribution function (CDF)}, often denoted by $F_X(x)$.\\
+
+So, if you provide the probability law for all Borel sets, we can easily figure out the CDF. What is not so obvious and requires a proof is \textit{if you specify the CDF, you can specify the probability law for all Borel sets.} From the \textit{Classical Probability}, we know that if we get the CDF of a random variable, we know everything about it. This is a correct concept but not so obvious. Because to know everything about the random variable, we must know probability measure of all the Borel sets. The reason this is possible is because all the other Borel sets you can write as the countable intersections and unions of the generating class, and we can figure out $P_X$ from $F_X$. The way to formalize this notion is by using an object called \textit{$\pi$-system.}\\
+
+\begin{definition}
+    Given a set \(\Omega\), a \(\pi\)-system on \(\Omega\) is a non-empty collection of subsets of \(\Omega\) that remains stable under finite intersections. \\
+    
+    Formally, if we denote this collection by \(\mathcal{P}\), then \(\mathcal{P}\) is a \(\pi\)-system if, for any subsets \(A\) and \(B\) in \(\mathcal{P}\), the intersection \(A \cap B\) also belongs to \(\mathcal{P}\). This stability under intersection is a key property that defines \(\pi\)-systems.
+\end{definition}
+
+Just like $\sigma$-algebra, $\pi$-system is another algebraic structure. $\pi$-systems require closure under only finite intersections - no complements or no countable unions. So, this structure is much weaker than $\sigma$-algebra. In fact, it is also much weaker than the \textit{algebra}. All algebras are clearly $\pi$-systems, but not the other way around.\\
+
+A particularly common example of a \(\pi\)-system on \(\mathbb{R}\) (the set of real numbers) is the collection of all closed semi-infinite intervals of the form \((-\infty, x]\) where \(x\) is any real number. We denote this class as \(\pi(\mathbb{R})\), and express it mathematically by:
+\[
+\pi(\mathbb{R}) = \{ (-\infty, x] : x \in \mathbb{R} \}.
+\]
+This \(\pi\)-system is useful because each interval in \(\pi(\mathbb{R})\) represents a closed set extending infinitely to the left and bounded by a specific real number \(x\) on the right. The intervals in \(\pi(\mathbb{R})\) share the \(\pi\)-system property: if we take any two intervals \((-\infty, x_1]\) and \((-\infty, x_2]\) from \(\pi(\mathbb{R})\), their intersection will also be of the same form, specifically \((-\infty, \min(x_1, x_2)]\), which again belongs to \(\pi(\mathbb{R})\).\\
+
+\begin{lemma}
+    The \textbf{Borel} $\sigma$-\textbf{algebra} on a set $R$, often denoted by $\mathcal{B}(R)$, is the smallest $\sigma$-algebra containing all sets in a collection $\pi(R)$. We write this relation as:
+\[
+\mathcal{B}(R) = \sigma(\pi(R)),
+\]
+where $\sigma(\pi(R))$ represents the $\sigma$-algebra generated by $\pi(R)$. Here, $\pi(R)$ is called a $\pi$-\textbf{system} on $R$, which is simply a collection of subsets of $R$ closed under finite intersections. 
+\end{lemma}
+
+To deepen our understanding, let us consider an important result from \textbf{measure theory} regarding such $\pi$-systems. Suppose we have two \textbf{finite measures}, say $\mu$ and $\nu$, defined on a measurable space $(R, \sigma(\pi(R)))$. Now, if $\mu$ and $\nu$ \textbf{agree} on $\pi(R)$ (that is, $\mu(A) = \nu(A)$ for every $A \in \pi(R)$), then this result guarantees that $\mu$ and $\nu$ will also agree on the entire $\sigma$-algebra $\sigma(\pi(R))$. In other words, for every $B \in \sigma(\pi(R))$, it follows that:
+\[
+\mu(B) = \nu(B).
+\]
+
+This result is powerful because it tells us that to verify equality of two finite measures on the entire $\sigma$-algebra $\sigma(\pi(R))$, it suffices to verify their equality on the simpler structure of the $\pi$-system $\pi(R)$. This principle often simplifies work with measures by reducing the complexity of the verification needed, allowing us to focus on a smaller collection of sets.\\
+
+\begin{lemma}
+    Let $\Omega$ be a set and consider a $\pi$-system $\mathcal{P}$ over $\Omega$. Specifically, if $A, B \in \mathcal{P}$, then $A \cap B \in \mathcal{P}$ as well. We denote by $\Sigma = \sigma(\mathcal{P})$ the $\sigma$-algebra generated by $\mathcal{P}$. The $\sigma$-algebra $\Sigma$ includes all subsets of $\Omega$ that can be formed by countable unions, intersections, and complements of elements in $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let $\mu_1$ and $\mu_2$ be two measures defined on the measurable space $(\Omega, \Sigma)$ that agree on a few conditions:\\
+
+1. Both measures are finite on $\Omega$, meaning $\mu_1(\Omega) = \mu_2(\Omega) < \infty$.\\
+2. The measures agree on $\mathcal{P}$, so $\mu_1(A) = \mu_2(A)$ for all $A \in \mathcal{P}$.\\
+
+Our goal is to show that these conditions imply $\mu_1 = \mu_2$ on all of $\Sigma$, not just on $\mathcal{P}$.\\
+
+The key idea here leverages the fact that $\mathcal{P}$ is a $\pi$-system. Intuitively, because $\mathcal{P}$ is closed under intersections, it forms a structure that allows the agreement of $\mu_1$ and $\mu_2$ on $\mathcal{P}$ to extend naturally to all of $\Sigma$. This result is a powerful extension theorem for measures, which can be formally stated as follows:\\
+
+If two measures $\mu_1$ and $\mu_2$ agree on a $\pi$-system $\mathcal{P}$ and are finite on $\Omega$, then they must agree on the entire $\sigma$-algebra $\Sigma = \sigma(\mathcal{P})$. That is,
+\[
+\mu_1(E) = \mu_2(E) \quad \text{for all } E \in \Sigma.
+\]
+
+\textit{Why does this work?} The reasoning involves verifying that the set of all $E \in \Sigma$ for which $\mu_1(E) = \mu_2(E)$ forms a $\lambda$-system (also called a Dynkin system). A $\lambda$-system is a collection of sets closed under complements and countable disjoint unions, and every $\pi$-system is also contained within a $\lambda$-system that forms a $\sigma$-algebra. Thus, the combination of the $\pi$-system and the $\lambda$-system properties leads to the conclusion that $\mu_1 = \mu_2$ on $\Sigma$.
+\end{proof}
+
+\begin{corollary}
+    If two probability measures agree on a $\pi$-system, then they agree on the $\sigma$-algebra generated by that $\pi$-system.
+\end{corollary}
+
+We will use this result to prove the theorem on CDF.
+
+\subsection{Cumulative Distribution Function}
+
+Consider the \textit{Probability Space} \((\Omega, \mathcal{F}, P)\) and a random variable \(X : \Omega \to \mathbb{R}\). This mapping \(X\) induces a new probability space \((\mathbb{R}, \mathcal{B}(\mathbb{R}), P_X)\) on the real line, where \(\mathcal{B}(\mathbb{R}) = \sigma(\pi(\mathbb{R}))\) is the Borel \(\sigma\)-algebra generated by the collection of semi-infinite intervals on \(\mathbb{R}\), i.e., the family \(\{(-\infty, x] : x \in \mathbb{R}\}\).\\
+  
+For any \(x \in \mathbb{R}\), we know:
+\[
+(-\infty, x] \in \mathcal{B}(\mathbb{R}) \Rightarrow X^{-1}((-\infty, x]) \in \mathcal{F}.
+\]
+Thus, it is meaningful to consider the probability measure \(P_X\) applied to these intervals, and we define the \textbf{Cumulative Distribution Function (CDF)} of \(X\) as:
+\[
+F_X(x) = P_X((-\infty, x]) = P(\{\omega \in \Omega : X(\omega) \leq x\}), \quad x \in \mathbb{R}.
+\]
+For convenience, we denote \(P(X \leq x)\) as shorthand for \(P(\{\omega \in \Omega : X(\omega) \leq x\})\), though this is slightly informal notation.
+
+\begin{theorem}
+    The probability law \(P_X\) of the random variable \(X\) is completely characterized by its CDF \(F_X\). In other words, if two random variables \(X\) and \(Y\) have the same CDF, then they have the same probability law.
+\end{theorem}
+
+\begin{proof}
+    Let \(\mathcal{P} = \{(-\infty, x] : x \in \mathbb{R}\}\). This is a \(\pi\)-system on \(\mathbb{R}\) because the intersection of any two intervals in \(\mathcal{P}\) is again an interval in \(\mathcal{P}\), i.e., if \(x \leq y\), then:
+   \[
+   (-\infty, x] \cap (-\infty, y] = (-\infty, \min(x, y)] \in \mathcal{P}.
+   \]
+
+   The Borel \(\sigma\)-algebra \(\mathcal{B}(\mathbb{R})\) is generated by \(\mathcal{P}\), so \(\mathcal{B}(\mathbb{R}) = \sigma(\mathcal{P})\).\\
+
+   By the properties of a \(\pi\)-system and the extension theorem, any two probability measures on \((\mathbb{R}, \mathcal{B}(\mathbb{R}))\) that agree on the generating \(\pi\)-system \(\mathcal{P}\) must agree on the entire \(\sigma\)-algebra \(\mathcal{B}(\mathbb{R})\).\\
+
+   Since \(F_X(x) = P_X((-\infty, x])\) uniquely determines the probability on each interval \((-\infty, x] \in \mathcal{P}\), the probability law \(P_X\) is fully determined by \(F_X\). Therefore, the CDF \(F_X\) uniquely characterizes the probability distribution of the random variable \(X\), as claimed.
+\end{proof}
+
+\subsection{Properties of CDF}
+
+Let \( X \) be a random variable with cumulative distribution function (CDF) \( F_X(\cdot) \). 
+
+\begin{theorem}
+    The CDF \( F_X(x) \) is \textbf{monotonically non-decreasing}. Specifically, if \( x \leq y \), then \( F_X(x) \leq F_X(y) \).    
+\end{theorem}
+
+\begin{proof}
+    The CDF at a point \( x \), \( F_X(x) \), is the probability that the random variable \( X \) takes a value less than or equal to \( x \). In other words,
+\[
+F_X(x) = P(X \leq x).
+\]
+
+Now, if \( x \leq y \), we want to show that \( F_X(x) \leq F_X(y) \). 
+
+This will follow from a property of sets and probability measures. Observe that the set of outcomes where \( X \leq x \) is always contained within the set where \( X \leq y \) whenever \( x \leq y \). Formally, we have
+\[
+\{\omega \mid X(\omega) \leq x\} \subseteq \{\omega \mid X(\omega) \leq y\}.
+\]
+This inclusion tells us that every outcome that satisfies \( X \leq x \) also satisfies \( X \leq y \) when \( x \leq y \).
+
+Now, probability measures are \textbf{monotonic} with respect to sets: if one set is contained within another, then the probability of the smaller set is less than or equal to the probability of the larger set. Applying this to our situation, we get
+\[
+P(X \leq x) \leq P(X \leq y).
+\]
+Thus, we conclude that
+\[
+F_X(x) \leq F_X(y),
+\]
+proving that \( F_X \) is indeed a monotonically non-decreasing function.
+\end{proof}
+
+\begin{theorem}
+    \[
+\lim_{x \to \infty} F_X(x) = 1 \quad \text{and} \quad \lim_{x \to -\infty} F_X(x) = 0.
+\]
+\end{theorem}
+
+\begin{proof}
+To understand this result, let's carefully examine what happens to the cumulative distribution function (CDF) \( F_X(x) = P(X \leq x) \) as \( x \) approaches \( -\infty \) and \( +\infty \).\\
+
+First, let's consider:
+\[
+\lim_{x \to -\infty} F_X(x).
+\]
+
+This limit represents the probability that \( X \) takes on a value less than or equal to a very large negative number, which we expect to approach zero. We can see why by breaking down the steps:\\
+
+1. By definition of the CDF, we have:
+   \[
+   \lim_{x \to -\infty} F_X(x) = \lim_{x \to -\infty} P(X \leq x).
+   \]
+
+2. Now, let's take a sequence \( \{ x_n \}_{n \in \mathbb{N}} \) where each \( x_n \) is smaller than the last, and this sequence decreases to \( -\infty \). Thus:
+   \[
+   \lim_{n \to \infty} P(X \leq x_n).
+   \]
+
+3. Observe that \( P(X \leq x_n) \) corresponds to the event \(\bigcap_{n \in \mathbb{N}} \{ \omega : X(\omega) \leq x_n \} \), which becomes smaller and smaller as \( x_n \) goes to \( -\infty \), eventually approaching the empty set, \(\emptyset\). So, we get:
+   \[
+   P\left( \bigcap_{n \in \mathbb{N}} \{ \omega : X(\omega) \leq x_n \} \right) = P(\emptyset) = 0.
+   \]
+
+Thus:
+\[
+\lim_{x \to -\infty} F_X(x) = 0.
+\]
+
+Now, let's use similar reasoning to evaluate \( \lim_{x \to \infty} F_X(x) \):\\
+
+1. Again by the CDF definition,
+   \[
+   \lim_{x \to \infty} F_X(x) = \lim_{x \to \infty} P(X \leq x).
+   \]
+
+2. Now consider a sequence \( \{ x_n \}_{n \in \mathbb{N}} \) where each \( x_n \) is greater than the last, and this sequence increases to \( +\infty \):
+   \[
+   \lim_{n \to \infty} P(X \leq x_n).
+   \]
+
+3. In this case, \( P(X \leq x_n) \) corresponds to the event \(\bigcup_{n \in \mathbb{N}} \{ \omega : X(\omega) \leq x_n \}\), which approaches the entire sample space \(\Omega\) as \( x_n \) becomes very large.
+
+Thus:
+\[
+P\left( \bigcup_{n \in \mathbb{N}} \{ \omega : X(\omega) \leq x_n \} \right) = P(\Omega) = 1.
+\]
+
+Therefore:
+\[
+\lim_{x \to \infty} F_X(x) = 1.
+\]
+\end{proof}
+
+\begin{theorem}
+    The cumulative distribution function \( F_X(\cdot) \) is right-continuous, which means that for any \( x \in \mathbb{R} \),
+\[
+\lim_{\varepsilon \downarrow 0} F_X(x + \varepsilon) = F_X(x).
+\]
+\end{theorem}
+
+\begin{proof}
+    To establish this, let's consider a sequence \( \{\varepsilon_n\}_{n \in \mathbb{N}} \) where each \( \varepsilon_n > 0 \) and \( \varepsilon_n \to 0 \) as \( n \to \infty \). For any \( x \in \mathbb{R} \), we proceed as follows:
+
+\[
+\lim_{\varepsilon \downarrow 0} F_X(x + \varepsilon)
+\]
+\[
+= \lim_{\varepsilon \downarrow 0} P(X \leq x + \varepsilon) \quad \text{(from the definition of \( F_X \) as the probability \( P(X \leq x) \))}.
+\]
+Since \( \varepsilon_n \to 0 \), we can rewrite the limit using the sequence \( \{\varepsilon_n\}_{n \in \mathbb{N}} \):
+\[
+= \lim_{n \to \infty} P(X \leq x + \varepsilon_n).
+\]
+Now we use the continuity property of probability measures to take the limit over the decreasing sequence of events \( \{ \omega : X(\omega) \leq x + \varepsilon_n \} \):
+\[
+= P\left( \bigcap_{n \in \mathbb{N}} \{ \omega : X(\omega) \leq x + \varepsilon_n \} \right).
+\]
+Since \( \varepsilon_n \to 0 \) implies \( x + \varepsilon_n \to x \), the intersection above simplifies to the event \( \{ \omega : X(\omega) \leq x \} \):
+\[
+= P(X \leq x) = F_X(x).
+\]
+Thus, we have shown that
+\[
+\lim_{\varepsilon \downarrow 0} F_X(x + \varepsilon) = F_X(x),
+\]
+which completes the proof.
+\end{proof}
+
+\textbf{Note:} It’s essential to note that while a cumulative distribution function (CDF) may not always be continuous, it must be \textbf{right-continuous} as shown above. This right-continuity is a fundamental property of all CDFs. Furthermore, any function that satisfies the properties of a CDF (non-decreasing, right-continuous, and approaching 0 as \( x \to -\infty \) and 1 as \( x \to \infty \)) is guaranteed to be the CDF of some random variable. This result underscores the unique characteristics that any CDF must possess, tying it intrinsically to the behavior of random variables.
+
+\begin{theorem}
+    Let \( F \) be a function satisfying the three properties of a cumulative distribution function (CDF) as described in the last three theorems. Consider the probability space \( \Omega = ([0, 1), \mathcal{B}([0, 1)), \lambda) \), where \( \mathcal{B}([0, 1)) \) is the Borel sigma-algebra on the interval \( [0, 1) \) and \( \lambda \) is the Lebesgue measure. Then, there exists a random variable \( X: \Omega \rightarrow \mathbb{R} \) whose CDF is \( F \).
+\end{theorem}
+
+\begin{proof}
+We aim to construct a random variable \( X \) on \( \Omega \) such that the CDF of \( X \) is precisely \( F \). For this, let us first define the key properties of the function \( F \) and review the characteristics of our probability space \( \Omega \).\\
+
+Since \( F \) is a CDF, it satisfies:\\
+
+1. \( F \) is non-decreasing: for any \( x_1, x_2 \in \mathbb{R} \) with \( x_1 \leq x_2 \), we have \( F(x_1) \leq F(x_2) \).\\
+2. \( F \) is right-continuous: for any \( x \in \mathbb{R} \), \( \lim_{y \to x^+} F(y) = F(x) \).\\
+3. \( F \) has limits \( \lim_{x \to -\infty} F(x) = 0 \) and \( \lim_{x \to \infty} F(x) = 1 \).\\
+
+Given these properties, we can interpret \( F(x) \) as the probability that a random variable \( X \) takes a value less than or equal to \( x \).\\
+
+To construct \( X \) explicitly, consider the probability space \( \Omega = ([0, 1), \mathcal{B}([0, 1)), \lambda) \). For each \( \omega \in \Omega \), we define \( X(\omega) \) using the inverse function \( F^{-1} \), where:
+\[
+X(\omega) = F^{-1}(\omega) = \inf \{ x \in \mathbb{R} : F(x) \geq \omega \}.
+\]
+In this expression, \( X(\omega) \) is defined as the smallest value \( x \) for which \( F(x) \) is at least \( \omega \). This construction works because \( F \) is non-decreasing and right-continuous, ensuring that for each \( \omega \in [0, 1) \), such an \( x \) exists and is unique.\\
+
+Now, let’s verify that the CDF of \( X \) is indeed \( F \). For any \( x \in \mathbb{R} \), we want to compute the probability \( \mathbb{P}(X \leq x) \). By the definition of \( X \), we have:
+\[
+\mathbb{P}(X \leq x) = \mathbb{P}(\{\omega \in \Omega : F^{-1}(\omega) \leq x \}).
+\]
+Since \( F^{-1}(\omega) \leq x \) if and only if \( \omega \leq F(x) \), we can rewrite this as:
+\[
+\mathbb{P}(X \leq x) = \mathbb{P}(\{\omega \in [0, 1) : \omega \leq F(x)\}).
+\]
+The probability of this event is simply the measure of the interval \( [0, F(x)) \) under \( \lambda \), which is \( F(x) \). Thus, we have shown:
+\[
+\mathbb{P}(X \leq x) = F(x).
+\]
+This confirms that \( F \) is indeed the CDF of \( X \), as required.
+\end{proof}
+
+\subsection{Indicator Random Variable}
+
+An \textbf{indicator random variable}, denoted as \( I_A \), is a function that is defined on a probability space \((\Omega, \mathcal{F}, P)\). Specifically, for a measurable set \( A \in \mathcal{F} \), the indicator random variable is defined as:
+
+\[
+I_A(\omega) = 
+\begin{cases}
+1, & \text{if } \omega \in A \\
+0, & \text{if } \omega \notin A
+\end{cases}
+\]
+
+This random variable takes the value \(1\) if the outcome \( \omega \) falls within the set \( A \), and \(0\) otherwise. \\
+
+To establish that \( I_A \) is an \( f \)-measurable function, we need to show that for any \( \lambda \in \mathbb{R} \), the set
+
+\[
+\{ \omega \in \Omega : I_A(\omega) \leq \lambda \}
+\]
+
+is a measurable set in \( \mathcal{F} \). \\
+
+If \( \lambda < 0 \), then \( \{ \omega \in \Omega : I_A(\omega) \leq \lambda \} = \emptyset \), which is measurable. \\
+
+If \( 0 \leq \lambda < 1 \), then 
+
+\[
+\{ \omega \in \Omega : I_A(\omega) \leq \lambda \} = \{ \omega \in \Omega : I_A(\omega) = 0 \} = \Omega \setminus A,
+\]
+
+which is measurable since \( A \in \mathcal{F} \).\\
+
+If \( \lambda \geq 1 \), then 
+
+\[
+\{ \omega \in \Omega : I_A(\omega) \leq \lambda \} = \Omega,
+\]
+
+which is also measurable.\\
+
+Thus, \( I_A \) is indeed \( f \)-measurable.\\
+
+Next, let us consider the cumulative distribution function (CDF) of the indicator random variable \( I_A \). The CDF, denoted as \( F_{I_A}(x) \), is defined as follows:
+
+\[
+F_{I_A}(x) = P(I_A \leq x).
+\]
+
+We can evaluate this function in different scenarios:\\
+
+If \( x < 0 \), then \( F_{I_A}(x) = P(I_A \leq x) = 0 \) because the indicator variable only takes values \(0\) or \(1\).\\
+If \( 0 \leq x < 1 \), then \( F_{I_A}(x) = P(I_A = 0) = P(\Omega \setminus A) = 1 - P(A) \).\\
+If \( x \geq 1 \), then \( F_{I_A}(x) = P(I_A \leq x) = 1\) since \( I_A \) will always be less than or equal to \( x \) in this range.\\
+
+Thus, we have the CDF of the indicator random variable \( I_A \) summarized as:
+
+\[
+F_{I_A}(x) = 
+\begin{cases}
+0, & \text{if } x < 0 \\
+1 - P(A), & \text{if } 0 \leq x < 1 \\
+1, & \text{if } x \geq 1
+\end{cases}
+\]
