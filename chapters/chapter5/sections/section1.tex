@@ -1,0 +1,319 @@
+\section{Maximum and Minimum of Many Random Variables}
+
+Consider a set of random variables \( X_1, X_2, X_3, \ldots, X_n \) defined on the probability space \( (\Omega, \mathcal{F}, P) \) with a joint CDF \( F_{X_1, X_2, \ldots, X_n} \). We define:
+
+\[
+Y_n = \min(X_1, X_2, X_3, \ldots, X_n)
+\]
+
+and 
+
+\[
+Z_n = \max(X_1, X_2, X_3, \ldots, X_n).
+\]
+
+Our goal is to find the CDF of both \( Y_n \) and \( Z_n \). \\
+
+To begin with, let us verify that \( Z_n \) is indeed a random variable. The event \( \{ Z_n \leq x \} \) is equivalent to stating that each of the random variables \( X_1, X_2, X_3, \ldots, X_n \) is less than or equal to \( x \). We can express this as:
+
+\[
+\{ Z_n \leq x \} = \{ X_1 \leq x, X_2 \leq x, \ldots, X_n \leq x \}.
+\]
+
+Now, to confirm that \( \{ \omega : Z(\omega) \leq z \} \) is an event, we observe that:
+
+\[
+\{ \omega : Z(\omega) \leq z \} = \bigcap_{i=1}^n \{ \omega : X_i(\omega) \leq z \}.
+\]
+
+This expression represents a finite intersection of events, given that each \( X_i \) is a random variable. Consequently, \( Z_n \) is indeed a legitimate random variable.\\
+
+Next, we analyze the minimum \( Y_n \). The event \( \{ Y_n > x \} \) can be interpreted as stating that each \( X_i \) is greater than \( x \). Thus, we have:
+
+\[
+\{ Y_n > x \} = \{ X_1 > x, X_2 > x, \ldots, X_n > x \}.
+\]
+
+We can apply similar reasoning to prove that \( Y_n \) is also a random variable. \\
+
+Now, we proceed to compute the cumulative distribution functions (CDFs) of the random variables \( Z_n \) and \( Y_n \). For \( Z_n \), we have:
+
+\[
+P(Z_n \leq x) = P(X_1 \leq x \cap X_2 \leq x \cap \cdots \cap X_n \leq x) = F_{X_1, X_2, \ldots, X_n}(x, x, \ldots, x).
+\]
+
+On the other hand, for \( Y_n \), we can express its CDF as:
+
+\[
+P(Y_n \leq x) = 1 - P(Y_n > x) = 1 - P(X_1 > x \cap X_2 > x \cap \cdots \cap X_n > x) = 1 - \overline{F_{Y_n}(x)},
+\]
+
+where \( \overline{F_{Y_n}(x)} \) denotes the complementary CDF of \( Y_n \). \\
+
+In particular, if the random variables \( X_1, X_2, \ldots, X_n \) are independent, we find that:
+
+\[
+F_{Z_n}(x) = F_{X_1}(x) F_{X_2}(x) \cdots F_{X_n}(x),
+\]
+
+and for the complementary CDF of \( Y_n \):
+
+\[
+\overline{F_{Y_n}(x)} = \overline{F_{X_1}(x)} \overline{F_{X_2}(x)} \cdots \overline{F_{X_n}(x)}.
+\]
+
+Furthermore, if the random variables are independent and identically distributed (i.i.d.), the CDFs simplify to:
+
+\[
+F_{Z_n}(x) = [F_X(x)]^n,
+\]
+
+and
+
+\[
+\overline{F_{Y_n}(x)} = [\overline{F_X(x)}]^n.
+\]
+
+Thus, we can effectively derive the CDFs for both the maximum and minimum of a set of random variables using their joint distributions and independence properties.
+
+\begin{example}
+Consider two independent and identically distributed random variables \( U_1 \) and \( U_2 \), each following a uniform distribution on the interval \([0, 1]\), denoted as \( U \sim \text{Unif}[0, 1] \).\\
+
+We define: \( Y = \min(U_1, U_2) \) and  \( Z = \max(U_1, U_2) \)\\
+
+
+Let \( F_{U_1}(z) \) and \( F_{U_2}(z) \) represent the cumulative distribution functions (CDFs) of the random variables \( U_1 \) and \( U_2 \), respectively. Since both variables are identically distributed, we have:
+
+\[
+F_{U_1}(z) = F_{U_2}(z) = F_U(z)
+\]
+
+The CDF of a uniform random variable \( U \) is given by:
+
+\[
+F_U(z) =
+\begin{cases}
+0 & \text{if } z < 0, \\
+z & \text{if } z \in [0, 1], \\
+1 & \text{if } z > 1.
+\end{cases}
+\]
+
+Because \( U_1 \) and \( U_2 \) are also independent, the CDF of \( Z \) can be computed as follows:
+
+\[
+F_Z(z) = F_{U_1}(z) \cdot F_{U_2}(z) = [F_U(z)]^2.
+\]
+
+This gives us:
+
+\[
+[F_U(z)]^2 =
+\begin{cases}
+0 & \text{if } z < 0, \\
+z^2 & \text{if } z \in [0, 1], \\
+1 & \text{if } z > 1.
+\end{cases}
+\]
+
+To find the probability density function (pdf) of \( Z \), we differentiate \( F_Z(z) \):
+
+\[
+f_Z(z) =
+\begin{cases}
+2z & \text{if } z \in [0, 1], \\
+0 & \text{otherwise}.
+\end{cases}
+\]
+
+Next, we analyze \( Y \). The complementary CDF of \( Y \), denoted as \( \overline{F_Y}(y) \), is related to the CDFs of \( U_1 \) and \( U_2 \):
+
+\[
+\overline{F_Y}(y) = \overline{F_{U_1}}(y) \cdot \overline{F_{U_2}}(y) = [\overline{F_U}(y)]^2,
+\]
+
+where \( \overline{F_U}(y) = 1 - F_U(y) \).\\
+
+Thus, we can express the CDF of \( Y \):
+
+\[
+F_Y(y) = 1 - [\overline{F_U}(y)]^2.
+\]
+
+Substituting for \( \overline{F_U}(y) \):
+
+\[
+F_Y(y) =
+\begin{cases}
+0 & \text{if } y < 0, \\
+1 - (1 - y)^2 & \text{if } y \in [0, 1], \\
+1 & \text{if } y > 1.
+\end{cases}
+\]
+
+The pdf of \( Y \) is then obtained by differentiating \( F_Y(y) \):
+
+\[
+f_Y(y) =
+\begin{cases}
+0 & \text{if } y < 0, \\
+2(1 - y) & \text{if } y \in [0, 1], \\
+1 & \text{if } y > 1.
+\end{cases}
+\]
+
+\end{example}
+
+
+\begin{example}
+    Let \( X_1, X_2, X_3, \ldots, X_n \) be independent random variables, each following an exponential distribution characterized by parameters \( \lambda_1, \lambda_2, \lambda_3, \ldots, \lambda_n \) where \( \lambda_i > 0 \). The cumulative distribution function (CDF) for each random variable \( X_i \) is given by:
+
+    \[
+    F_{X_i}(x) = 1 - e^{-\lambda_i x} \quad \text{for } x > 0.
+    \]
+    
+    Now, let \( Y_n \) denote the minimum of these random variables, defined as:
+    
+    \[
+    Y_n = \min(X_1, X_2, \ldots, X_n).
+    \]
+    
+    To find the complementary CDF of \( Y_n \), denoted as \( \overline{F}_{Y_n}(y) \), we start by recognizing that:
+    
+    \[
+    \overline{F}_{Y_n}(y) = P(Y_n > y) = P(X_1 > y, X_2 > y, \ldots, X_n > y).
+    \]
+    
+    Since the random variables are independent, we can express this probability as the product of their individual complementary CDFs:
+    
+    \[
+    \overline{F}_{Y_n}(y) = \prod_{i=1}^{n} P(X_i > y) = \prod_{i=1}^{n} \overline{F}_{X_i}(y).
+    \]
+    
+    For each \( X_i \), the complementary CDF is:
+    
+    \[
+    \overline{F}_{X_i}(y) = e^{-\lambda_i y}.
+    \]
+    
+    Thus, we have:
+    
+    \[
+    \overline{F}_{Y_n}(y) = \prod_{i=1}^{n} e^{-\lambda_i y} = e^{-\sum_{i=1}^{n} \lambda_i y}.
+    \]
+    
+    This implies that \( Y_n \) is also an exponential random variable, with the new parameter \( \lambda = \sum_{i=1}^{n} \lambda_i \). 
+\end{example}
+
+\begin{exercise}
+    Light bulbs with Amnesia: Suppose that \( n \) light bulbs in a room are switched on at the same instant. The life time of each bulb is exponentially distributed with parameter \( \mu = 1 \), and are independent.
+    \begin{enumerate}[label=(\alph*)]
+        \item Starting from the time they are switched on, find the distribution of the time when the first bulb fuses out.
+        \item Find the CDF and the density of the time when the room goes completely dark.
+        \item Would your answers to the above parts change if the bulbs were not switched on at the same time, but instead, turned on at arbitrary times? Assume however that all bulbs were turned on before the first one fused out.
+        \item Suppose you walk into the room and find \( m \) bulbs glowing. Starting from the instant of your walking in, what is the distribution of the time it takes until you see a bulb blow out?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    Let \( X_1, X_2, \ldots, X_n \) be the lifetimes of the \( n \) light bulbs, where each \( X_i \) follows an exponential distribution with parameter \( \mu = 1 \). 
+
+    \begin{enumerate}[label=(\alph*)]
+        \item The time when the first bulb fuses out is given by \( T = \min(X_1, X_2, \ldots, X_n) \). The minimum of \( n \) independent exponential random variables with rate \( \lambda = 1 \) is also an exponential random variable with rate \( n \):
+        \[
+        T \sim \text{Exponential}(n).
+        \]
+
+        \item The cumulative distribution function (CDF) of \( T \) is given by:
+        \[
+        F_T(t) = P(T \leq t) = 1 - e^{-nt}, \quad t \geq 0.
+        \]
+        The probability density function (PDF) is:
+        \[
+        f_T(t) = \frac{d}{dt} F_T(t) = n e^{-nt}, \quad t \geq 0.
+        \]
+
+        \item If the bulbs were not switched on at the same time but turned on at arbitrary times, the answers would change. The distribution of the time until the room goes dark would depend on the timing of each bulb's activation. However, if all bulbs are turned on before the first one fuses out, the distribution of \( T \) would remain the same as in part (a).
+
+        \item Let \( Y_1, Y_2, \ldots, Y_m \) be the lifetimes of the \( m \) bulbs glowing when you enter the room. The distribution of the time until you see a bulb blow out is given by:
+        \[
+        Z = \min(Y_1, Y_2, \ldots, Y_m).
+        \]
+        Similar to part (a), \( Z \) is also an exponential random variable with parameter \( m \):
+        \[
+        Z \sim \text{Exponential}(m).
+        \]
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+Let \( X \) and \( Y \) be independent exponentially distributed random variables with parameters \( \lambda \) and \( \mu \) respectively. 
+\begin{enumerate}[label=(\alph*)]
+    \item Show that \( Z = \min(X, Y) \) is independent of the event \( \{X < Y\} \), and interpret this result verbally? [Definition: A random variable \( X \) is said to be independent of an event \( A \) if \( X \) and \( I_A \) are independent random variables, where \( I_A \) is the Indicator random variable of the event \( A \).]
+    \item Find \( P(X = Z) \).
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+(a) To show that \( Z = \min(X, Y) \) is independent of the event \( \{X < Y\} \), we start by computing the joint distribution of \( Z \) and \( \{X < Y\} \).\\
+
+The cumulative distribution function (CDF) of \( Z \) is given by:
+
+\[
+P(Z \leq z) = P(\min(X, Y) \leq z) = 1 - P(X > z \text{ and } Y > z) = 1 - e^{-\lambda z} e^{-\mu z} = 1 - e^{-(\lambda + \mu) z}.
+\]
+
+The probability density function (PDF) of \( Z \) is then:
+
+\[
+f_Z(z) = (\lambda + \mu) e^{-(\lambda + \mu) z}, \quad z \geq 0.
+\]
+
+Next, we find \( P(X < Y) \):
+
+\[
+P(X < Y) = \int_0^{\infty} P(X < y) f_Y(y) \, dy = \int_0^{\infty} (1 - e^{-\lambda y}) \mu e^{-\mu y} \, dy.
+\]
+
+Evaluating this integral, we get:
+
+\[
+P(X < Y) = \frac{\lambda}{\lambda + \mu}.
+\]
+
+Now we need to find \( P(Z \leq z, X < Y) \):
+
+\[
+P(Z \leq z, X < Y) = P(\min(X, Y) \leq z, X < Y) = P(X < z) P(Y > z) = \int_0^z \lambda e^{-\lambda x} \cdot e^{-\mu z} \, dx.
+\]
+
+Integrating gives:
+
+\[
+= (1 - e^{-\lambda z}) e^{-\mu z} = e^{-\mu z} - e^{-(\lambda + \mu) z}.
+\]
+
+Thus, we have:
+
+\[
+P(Z \leq z, X < Y) = e^{-\mu z} - e^{-(\lambda + \mu) z}.
+\]
+
+Since \( P(Z \leq z) P(X < Y) = \left( 1 - e^{-(\lambda + \mu) z} \right) \frac{\lambda}{\lambda + \mu} \), we can show that
+
+\[
+P(Z \leq z, X < Y) = P(Z \leq z) P(X < Y).
+\]
+
+This indicates that \( Z \) is independent of \( \{X < Y\} \).\\
+
+\textbf{Interpretation:} This result means that the minimum of two independent exponentially distributed random variables does not provide any information about which variable was smaller. It implies a lack of dependency between the minimum value and the event that one variable is less than the other.\\
+
+(b) To find \( P(X = Z) \), we note that:
+
+\[
+P(X = Z) = P(X < Y) = \frac{\lambda}{\lambda + \mu}.
+\]
+
+This probability can be interpreted as the likelihood that \( X \) is the minimum of \( X \) and \( Y \) when both are independently distributed.
+\end{solution}

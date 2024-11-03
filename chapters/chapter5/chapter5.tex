@@ -1,1 +1,18 @@
 \chapter{Transformation of Random Variables}
+
+Suppose we observe a random variable, or a collection of random variables. In many practical scenarios, we might be more interested in some function of these observed random variables rather than the variables themselves. For instance, in communication systems, engineers often find it more useful to analyze the logarithm of noise power instead of the actual realization of noise. This is where the transformation of random variables becomes significant.\\
+
+Let \(X\) be a random variable defined on the probability space \((\Omega, \mathcal{F}, P)\) and let \(f : \mathbb{R} \to \mathbb{R}\) be a function. We want to understand the properties of \(f(X)\). Since the random variable \(X\) can be viewed as a function, \(f(X)\) represents a composed function that maps \(\Omega\) to \(\mathbb{R}\). Our first question is whether \(f(X)\) qualifies as a valid random variable.\\
+
+To explore this, we can consider the composed function \(f \circ X(\cdot)\). If \(f\) is an arbitrary function, then \(f(X)\) may not necessarily be a random variable. However, if \(f : \mathbb{R} \to \mathbb{R}\) is a Borel-measurable function—meaning that the pre-images of Borel sets under \(f\) are also Borel sets—then it follows that the pre-images of Borel sets under the composed function \(f \circ X(\cdot)\) are events in \(\mathcal{F}\). This leads us to conclude that \(f(X)\) is indeed a random variable. \\
+
+The same reasoning applies to functions of several random variables. If we have a Borel-measurable function \(f : \mathbb{R}^n \to \mathbb{R}\) and random variables \(X_1, X_2, \ldots, X_n\), we can similarly argue that \(f(X_1, \ldots, X_n)\) is also a random variable. This relationship emphasizes the importance of Borel-measurability in ensuring that the transformation of random variables yields valid random variables.\\
+
+Now that we have established the conditions under which a function of a random variable qualifies as a random variable, we seek to understand the probability law of \( f(X) \) based on the probability law \( P_X \) of \( X \). In simpler terms, given the cumulative distribution function (CDF) of \( X \), we aim to determine the CDF of \( f(X) \). To approach this, we will first examine some basic functions, such as the maximum, minimum, and summation, before delving into more complex transformations.
+
+\input{chapters/chapter5/sections/section1.tex}
+\input{chapters/chapter5/sections/section2.tex}
+\input{chapters/chapter5/sections/section3.tex}
+
+\vspace{30pt}
+\hrule

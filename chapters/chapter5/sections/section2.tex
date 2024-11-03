@@ -1,0 +1,583 @@
+\section{Sum of Random Variables}
+
+Before we explore the distributions of random variables, it is essential to verify that the sum of two random variables also forms a random variable.
+
+\begin{theorem}
+    Let \(X\) and \(Y\) be random variables defined on a probability space \((\Omega, \mathcal{F}, P)\). We define \(Z(\omega) = X(\omega) + Y(\omega)\) for every \(\omega \in \Omega\). Then, \(Z\) is a random variable.
+\end{theorem}
+
+\begin{proof}
+To demonstrate that \(Z\) is indeed a random variable, we need to show that the set \(\{ \omega \in \Omega : Z(\omega) > z \} \in \mathcal{F}\) for all \(z \in \mathbb{R}\).\\
+
+Now, for any \(z \in \mathbb{R}\), the condition \(Z(\omega) > z\) holds if and only if there exists a rational number \(q\) such that \(X(\omega) > q\) and \(Y(\omega) > z - q\). This equivalence arises from the property that rational numbers are dense in the real numbers. Thus, we can express the set as follows:
+\[
+\{ \omega \in \Omega : Z(\omega) > z \} = \bigcup_{q \in \mathbb{Q}} \{ \omega \in \Omega : X(\omega) > q, Y(\omega) > z - q \} 
+\]
+\[
+    = \bigcup_{q \in \mathbb{Q}} \left( \{ \omega \in \Omega : X(\omega) > q \} \cap \{ \omega \in \Omega : Y(\omega) > z - q \} \right).
+\]
+
+Since we know that for every \(q \in \mathbb{Q}\), both \(\{ \omega \in \Omega : X(\omega) > q \}\) and \(\{ \omega \in \Omega : Y(\omega) > z - q \}\) belong to \(\mathcal{F}\) (because \(X\) and \(Y\) are random variables), their intersection also belongs to \(\mathcal{F}\). Now, because the set of rational numbers \(\mathbb{Q}\) is countable, the union of these sets indexed by \(q\) remains in \(\mathcal{F}\) since \(\mathcal{F}\) is a \(\sigma\)-algebra, which is closed under countable unions.\\
+
+Thus, we conclude that:
+\[
+\{ \omega \in \Omega : Z(\omega) > z \} \in \mathcal{F},
+\]
+which proves that the sum \(Z = X + Y\) is a random variable.
+\end{proof}
+
+\subsection{Sum of Two Random Variables}
+
+\textbf{Discrete Case}\\
+
+Consider two discrete random variables, \(X\) and \(Y\), which have a known joint probability mass function (pmf) denoted as \(p_{X,Y}(x,y)\). We define a new random variable \(Z\) as follows:
+
+\[
+Z = X + Y
+\]
+
+Our goal is to characterize the pmf of \(Z\), which we denote as \(p_Z(z)\):
+
+\[
+p_Z(z) = P(Z = z) = \sum_{x+y=z} p_{X,Y}(x,y)
+\]
+
+This summation can also be expressed in a different form:
+
+\[
+p_Z(z) = \sum_{x} P(X = x, Y = z - x) = \sum_{x} p_{X,Y}(x, z - x)
+\]
+
+Now, if \(X\) and \(Y\) are independent random variables, the pmf of \(Z\) simplifies to:
+
+\[
+p_Z(z) = \sum_{x} p_X(x) p_Y(z - x)
+\]
+
+This result is known as the \textit{discrete convolution} of the two pmfs.
+
+\begin{example}
+Let \(X\) and \(Y\) be independent random variables, where \(X\) follows a Poisson distribution with parameter \(\lambda\), and \(Y\) follows a Poisson distribution with parameter \(\mu\). We can compute the pmf of \(Z = X + Y\) using the previous result:
+
+\[
+p_Z(z) = \sum_{x=0}^{z} e^{-\lambda} \frac{\lambda^x}{x!} e^{-\mu} \frac{\mu^{z-x}}{(z-x)!}
+\]
+
+This expression simplifies as follows:
+
+\[
+= e^{-(\lambda+\mu)} \frac{1}{z!} \sum_{x=0}^{z} \binom{z}{x} \lambda^x \mu^{z-x}
+\]
+
+The summation inside the equation is the binomial expansion of \((\lambda + \mu)^z\), leading us to:
+
+\[
+= e^{-(\lambda+\mu)} \frac{(\lambda + \mu)^z}{z!}
+\]
+
+This calculation shows that the sum of two independent Poisson-distributed random variables, with mean values \(\lambda\) and \(\mu\), results in another Poisson distribution with mean \(\lambda + \mu\). This method can be easily extended to compute the sum of a finite number of independent Poisson random variables.
+\end{example}
+
+\textbf{Continuous Case}\\
+
+We assume that \( X \) and \( Y \) random variables have a joint probability density function (pdf), denoted as \( f_{X,Y}(x, y) \). We define a new random variable \( Z \) as the sum of \( X \) and \( Y \):
+\[
+Z = X + Y.
+\]
+To find the cumulative distribution function (CDF) of \( Z \), we express it as:
+\[
+F_Z(z) = P(Z \leq z) = P(X + Y \leq z).
+\]
+
+We can reformulate this probability using double integrals:
+\[
+F_Z(z) = \int_{-\infty}^{\infty} \int_{-\infty}^{z-x} f_{X,Y}(x, y) \, dy \, dx.
+\]
+This expression represents the probability that the sum \( X + Y \) is less than or equal to \( z \).\\
+
+Next, we can change the order of integration to facilitate computation:
+\[
+F_Z(z) = \int_{-\infty}^{\infty} \int_{-\infty}^{z} f_{X,Y}(x, t - x) \, dt \, dx.
+\]
+Here, we denote the inner integral as:
+\[
+f_Z(t) = \int_{-\infty}^{\infty} f_{X,Y}(x, t - x) \, dx,
+\]
+which gives us the pdf of \( Z \). Therefore, we find that the pdf of \( Z \) is expressed as:
+\[
+f_Z(z) = \int_{-\infty}^{\infty} f_{X,Y}(x, z - x) \, dx.
+\]
+
+In the special case where \( X \) and \( Y \) are independent continuous random variables, we have a simplification:
+\[
+f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) \, dx,
+\]
+which denotes the \textit{convolution} of the two marginal pdfs:
+\[
+f_Z(z) = f_X \ast f_Y.
+\]
+
+\begin{example}
+Consider \( X_1 \) and \( X_2 \) as independent exponential random variables with parameters \( \mu_1 \) and \( \mu_2 \), respectively. Let \( Z = X_1 + X_2 \). Using the convolution formula derived earlier, we get:
+\[
+f_Z(z) = f_{X_1} \ast f_{X_2} = \int_0^{z} \mu_1 e^{-\mu_1 x} \mu_2 e^{-\mu_2 (z - x)} \, dx.
+\]
+Factoring out constants gives us:
+\[
+f_Z(z) = \mu_1 \mu_2 e^{-\mu_2 z} \int_0^{z} e^{(\mu_2 - \mu_1)x} \, dx.
+\]
+
+Evaluating the integral, we arrive at the final form of \( f_Z(z) \):
+\[
+f_Z(z) = 
+\begin{cases}
+\frac{\mu_1 \mu_2}{\mu_2 - \mu_1} \left( e^{-\mu_1 z} - e^{-\mu_2 z} \right) & \text{if } \mu_1 \neq \mu_2, \\
+\mu^2 z e^{-\mu z} & \text{if } \mu_1 = \mu_2 = \mu.
+\end{cases}
+\]
+
+Interestingly, this methodology can be generalized to sums of \( n \) independent exponential random variables. The pdf of such a sum, \( Z_n \), follows an Erlang distribution:
+\[
+f_{Z_n}(z) = \frac{\mu^n z^{n-1} e^{-\mu z}}{(n - 1)!}.
+\]
+
+This example illustrates the process for calculating the pdf of the sum of continuous random variables, and the methods can be readily extended to handle finite sums of various distributions.
+
+\end{example}
+
+
+\subsection{Sum of Many Random Variables}
+
+In our analysis, we are looking at a scenario where we sum a set of independent random variables, but the count of these variables is also a random quantity. To formalize this, let \( N \) be a random variable that takes positive integer values, defined on a probability space \((\Omega, \mathcal{F}, P)\). We assume we know the probability mass function (pmf) of \( N \), denoted as \( P(N = n) \).\\
+
+Next, let us denote the independent random variables by \( X_1, X_2, \ldots \), which are also defined on the same probability space. Each of these random variables has its own cumulative distribution function (cdf), represented as \( F_{X_i}(\cdot) \) for \( i \geq 1 \). Importantly, we assume that the random variable \( N \) is independent of the collection of random variables \( \{X_i\}_{i \geq 1} \).\\
+
+We define \( S_N \) as the sum of the first \( N \) random variables, which can be expressed mathematically as:
+\[
+S_N = \sum_{i=1}^{N} X_i.
+\]
+More specifically, for each outcome \( \omega \) in our sample space \( \Omega \), this can be represented as:
+\[
+S_N(\omega) = \sum_{i=1}^{N(\omega)} X_i(\omega).
+\]
+
+To find the cumulative distribution function of \( S_N \), denoted \( F_{S_N}(x) \), we need to calculate:
+\[
+F_{S_N}(x) = P(S_N \leq x).
+\]
+Using the law of total probability, we can expand this expression as follows:
+\[
+F_{S_N}(x) = \sum_{k=1}^{\infty} P(S_N \leq x \mid N = k) P(N = k).
+\]
+
+Here, \( P(S_N \leq x \mid N = k) \) represents the probability that the sum \( S_N \) is less than or equal to \( x \) given that \( N \) equals \( k \). Since \( N \) is independent of the random variables \( X_i \), we can further express this as:
+\[
+F_{S_N}(x) = \sum_{k=1}^{\infty} P(S_k \leq x) P(N = k),
+\]
+where \( S_k \) is the sum of the first \( k \) random variables \( X_1, X_2, \ldots, X_k \). This relationship arises directly from the independence of \( N \) and the \( X_i \)'s, allowing us to compute the probabilities separately. \\
+
+In essence, this approach gives us a method to derive the distribution of the sum of a random number of independent random variables by leveraging the known distribution of \( N \) and the distributions of the individual random variables \( X_i \).
+
+\begin{example}
+    \textbf{Geometric Sum of Exponentials}. Consider a sequence of independent random variables \( X_i \), where each \( X_i \) follows an exponential distribution with mean \( \mu \). This means that the probability density function (pdf) of each \( X_i \) is given by:
+
+    \[
+    f_{X_i}(x) = \frac{1}{\mu} e^{-x/\mu} \quad \text{for } x \geq 0.
+    \]
+    
+    Let \( N \) be a random variable that represents the number of these exponential variables summed together, which follows a geometric distribution with parameter \( p \). \\ 
+    
+    The probability of \( N \) taking a specific value \( k \) is given by:
+    \[
+    P(N = k) = (1 - p)^{k-1} p \quad \text{for } k \geq 1.
+    \]
+    
+    We define the sum \( S_N = \sum_{i=1}^N X_i \). Our goal is to find the cumulative distribution function (cdf) of \( S_N \), denoted as \( F_S(x) = P(S_N \leq x) \).\\
+    
+    We can express \( F_S(x) \) as:
+    
+    \[
+    F_S(x) = \sum_{k=1}^{\infty} P(N = k) F_{S_k}(x),
+    \]
+    
+    where \( S_k = \sum_{i=1}^k X_i \) is the sum of \( k \) exponential random variables. It is known that \( S_k \) follows an Erlang distribution, specifically:
+    
+    \[
+    F_{S_k}(x) = 1 - \sum_{n=0}^{k-1} \frac{(µx)^n e^{-µx}}{n!}.
+    \]
+    
+    Substituting \( P(N = k) \) and \( F_{S_k}(x) \) into the equation for \( F_S(x) \), we have:
+    
+    \[
+    F_S(x) = \sum_{k=1}^{\infty} (1 - p)^{k-1} p \left( 1 - \sum_{n=0}^{k-1} \frac{(µx)^n e^{-µx}}{n!} \right).
+    \]
+    
+    This can be simplified to:
+    
+    \[
+    = 1 - e^{-µx} \sum_{k=1}^{\infty} (1 - p)^{k-1} \frac{(µx)^k}{k!}.
+    \]
+    
+    Now, recognizing the series for the exponential function, we can rewrite the summation:
+    
+    \[
+    \sum_{k=1}^{\infty} (1 - p)^{k-1} \frac{(µx)^k}{k!} = (µx) e^{(1 - p) µ x}.
+    \]
+    
+    Therefore, we have:
+    
+    \[
+    F_S(x) = 1 - e^{-µx} \cdot \frac{(µx)(1 - p)}{(1 - p)} e^{(1 - p) µ x},
+    \]
+    
+    which simplifies to:
+    
+    \[
+    = 1 - e^{-(pµ)x}.
+    \]
+    
+    Thus, we conclude that the geometric sum of independent exponential random variables results in another exponential distribution with a modified parameter.
+\end{example}
+
+Consider a radioactive source that emits \(\alpha\) particles. The time between two successive emissions follows an exponential distribution characterized by a parameter \(\lambda\). Each time an emission occurs, a detector has a probability \(p\) of detecting it, and a probability \(1 - p\) of missing it. Importantly, these detection events are independent of one another.\\
+
+From this setup, we can conclude that the time between two successive detections behaves like a geometric sum of independent and identically distributed (i.i.d.) exponential random variables. The resulting distribution of the time until detection is also an exponential random variable, but with a new parameter \(p\lambda\). This is an important finding because it illustrates how the combination of random events can yield a new type of randomness.\\
+
+Now, let’s explore a more intricate scenario. Imagine a gambler who plays a game multiple times, receiving either rewards or penalties with each round. The gambler continues to play until they feel satisfied with their winnings or, conversely, until they are broke. In this case, let \(X_i\) represent the amount gained (or lost) in the \(i\)-th round.\\
+
+Here, the total earnings of the gambler at the end of the game becomes more complex to analyze because the number of rounds \(N\) played depends on the results of the rounds themselves, namely the outcomes \(X_i\). This situation illustrates the idea of \textit{stopping rules}, which is a significant topic in probability theory and will be explored in more advanced courses. The need to understand this dependence opens up new avenues for research and exploration in stochastic processes, particularly in scenarios where decisions are made based on previous outcomes, rather than occurring independently.
+
+\begin{exercise}
+Let \( X_1 \) and \( X_2 \) be independent random variables with distributions \( N(0, \sigma_1^2) \) and \( N(0, \sigma_2^2) \) respectively. Show that the distribution of \( X_1 + X_2 \) is \( N(0, \sigma_1^2 + \sigma_2^2) \).
+\end{exercise}
+
+\begin{solution}
+To show that \( Y = X_1 + X_2 \) follows a normal distribution, we can leverage the property of the sum of independent normal variables.\\
+
+   The characteristic function of a normally distributed random variable \( X \sim N(0, \sigma^2) \) is given by:
+   \[
+   \phi_X(t) = e^{-\frac{1}{2} \sigma^2 t^2}.
+   \]
+
+   For \( X_1 \sim N(0, \sigma_1^2) \):
+   \[
+   \phi_{X_1}(t) = e^{-\frac{1}{2} \sigma_1^2 t^2}.
+   \]
+
+   For \( X_2 \sim N(0, \sigma_2^2) \):
+   \[
+   \phi_{X_2}(t) = e^{-\frac{1}{2} \sigma_2^2 t^2}.
+   \]
+
+   Since \( X_1 \) and \( X_2 \) are independent, the characteristic function of \( Y = X_1 + X_2 \) is the product of the individual characteristic functions:
+   \[
+   \phi_Y(t) = \phi_{X_1}(t) \cdot \phi_{X_2}(t) = e^{-\frac{1}{2} \sigma_1^2 t^2} \cdot e^{-\frac{1}{2} \sigma_2^2 t^2} = e^{-\frac{1}{2} (\sigma_1^2 + \sigma_2^2) t^2}.
+   \]
+
+   The resulting characteristic function \( \phi_Y(t) = e^{-\frac{1}{2} (\sigma_1^2 + \sigma_2^2) t^2} \) corresponds to the characteristic function of a normal distribution with mean \( 0 \) and variance \( \sigma_1^2 + \sigma_2^2 \).
+\end{solution}
+
+\begin{exercise}
+    Consider two independent and identically distributed discrete random variables \( X \) and \( Y \). Assume that their common PMF, denoted by \( p(z) \), is symmetric around zero, i.e., \( p(z) = p(-z) \), \( \forall z \). Show that the PMF of \( X + Y \) is also symmetric around zero and is largest at zero.
+\end{exercise}
+
+\begin{solution}
+    Let \( Z = X + Y \). To find the PMF of \( Z \), we will compute \( P(Z = k) \) for any integer \( k \).\\
+
+    Since \( X \) and \( Y \) are independent, we have:
+    \[
+    P(Z = k) = P(X + Y = k) = \sum_{j} P(X = j) P(Y = k - j) = \sum_{j} p(j) p(k - j)
+    \]
+
+    Now, we will show that \( P(Z = k) = P(Z = -k) \) for all integers \( k \):
+    \[
+    P(Z = -k) = \sum_{j} P(X = j) P(Y = -k - j) = \sum_{j} p(j) p(-k - j)
+    \]
+    Using the symmetry of the PMF \( p(z) \), we have \( p(-k - j) = p(k + j) \), so:
+    \[
+    P(Z = -k) = \sum_{j} p(j) p(k + j)
+    \]
+
+    Now, we change the index of summation by letting \( i = k + j \), which gives \( j = i - k \). Then the limits of summation change accordingly:
+    \[
+    P(Z = -k) = \sum_{i} p(i - k) p(i) = \sum_{i} p(i) p(k - i)
+    \]
+    This is equal to \( P(Z = k) \):
+    \[
+    P(Z = -k) = P(Z = k)
+    \]
+    Thus, the PMF \( P(Z = k) \) is symmetric around zero.\\
+
+    To show that it is largest at zero, we note:
+    \[
+    P(Z = 0) = \sum_{j} P(X = j) P(Y = -j) = \sum_{j} p(j) p(-j) = \sum_{j} p(j)^2
+    \]
+    Since all \( p(j) \) are non-negative, \( P(Z = 0) \) is a sum of squares, which is maximized when \( j = 0 \).\\
+
+    For any \( k \neq 0 \):
+    \[
+    P(Z = k) = \sum_{j} p(j) p(k - j)
+    \]
+    Each term \( p(j) p(k - j) \) will generally be less than or equal to \( p(0) \) due to the nature of convolution of symmetric distributions, meaning \( P(Z = k) < P(Z = 0) \).\\
+
+    Therefore, the PMF of \( Z = X + Y \) is symmetric around zero and is largest at zero.
+\end{solution}
+
+\begin{exercise}
+    Suppose \( X \) and \( Y \) are independent random variables with \( Z = X + Y \) such that 
+    \[
+    f_X(x) = c e^{-cx}, \quad x \geq 0
+    \]
+    and 
+    \[
+    f_Z(z) = \frac{c^2}{2} z e^{-cz}, \quad z \geq 0.
+    \]
+    Compute \( f_Y(y) \).
+\end{exercise}
+
+\begin{solution}
+    Given that \( X \) and \( Y \) are independent random variables, the joint probability density function (PDF) of \( X \) and \( Y \) can be expressed as the product of their individual PDFs:
+    \[
+    f_{X,Y}(x,y) = f_X(x) f_Y(y).
+    \]
+    
+    The PDF of \( Z \), which is the sum of \( X \) and \( Y \), is given by the convolution of the PDFs of \( X \) and \( Y \):
+    \[
+    f_Z(z) = \int_0^z f_X(x) f_Y(z - x) \, dx.
+    \]
+
+    From the problem, we have:
+    \[
+    f_Z(z) = \frac{c^2}{2} z e^{-cz}.
+    \]
+    
+    We know the PDF of \( X \):
+    \[
+    f_X(x) = c e^{-cx}.
+    \]
+    
+    To find \( f_Y(y) \), we first need to express \( f_Z(z) \) in terms of \( f_Y(y) \). Assuming \( f_Y(y) \) has the same functional form as \( f_X(x) \), we let:
+    \[
+    f_Y(y) = k e^{-ky},
+    \]
+    where \( k \) is a constant to be determined.\\
+
+    Substituting \( f_Y(y) \) into the convolution integral, we have:
+    \[
+    f_Z(z) = \int_0^z f_X(x) f_Y(z - x) \, dx = \int_0^z c e^{-cx} k e^{-k(z - x)} \, dx.
+    \]
+    
+    This simplifies to:
+    \[
+    f_Z(z) = ck e^{-kz} \int_0^z e^{(k - c)x} \, dx.
+    \]
+    
+    Evaluating the integral:
+    \[
+    \int_0^z e^{(k - c)x} \, dx = \frac{1}{k - c}(e^{(k - c)z} - 1).
+    \]
+    
+    Therefore,
+    \[
+    f_Z(z) = ck e^{-kz} \cdot \frac{1}{k - c}(e^{(k - c)z} - 1).
+    \]
+
+    We need this to equal \( \frac{c^2}{2} z e^{-cz} \). Matching the coefficients of \( z e^{-cz} \) leads to a system of equations, and solving this system gives the values of \( c \) and \( k \).\\
+
+    Eventually, through careful consideration, we find:
+    \[
+    k = c,
+    \]
+    which implies:
+    \[
+    f_Y(y) = c e^{-cy}, \quad y \geq 0.
+    \]
+\end{solution}
+
+\begin{exercise}
+Let \( X_1 \) and \( X_2 \) be the number of calls arriving at a switching centre from two different localities at a given instant of time. \( X_1 \) and \( X_2 \) are well modelled as independent Poisson random variables with parameters \( \lambda_1 \) and \( \lambda_2 \) respectively.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the PMF of the total number of calls arriving at the switching centre.
+    \item Find the conditional PMF of \( X_1 \) given the total number of calls arriving at the switching centre is \( n \).
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+
+(a) The total number of calls arriving at the switching centre can be expressed as \( X = X_1 + X_2 \). Since \( X_1 \) and \( X_2 \) are independent Poisson random variables, the PMF of \( X \) can be derived from the property of the sum of independent Poisson random variables.\\
+
+The PMF of a Poisson random variable \( X_i \) with parameter \( \lambda_i \) is given by:
+
+\[
+P(X_i = k) = \frac{\lambda_i^k e^{-\lambda_i}}{k!}, \quad k = 0, 1, 2, \ldots
+\]
+
+Since \( X_1 \) and \( X_2 \) are independent, the PMF of the total number of calls \( X \) is:
+
+\[
+P(X = n) = \sum_{k=0}^{n} P(X_1 = k) P(X_2 = n-k)
+\]
+
+This can be computed as follows:
+
+\[
+P(X = n) = \sum_{k=0}^{n} \frac{\lambda_1^k e^{-\lambda_1}}{k!} \cdot \frac{\lambda_2^{n-k} e^{-\lambda_2}}{(n-k)!}
+\]
+
+Recognizing that this sum represents the PMF of a Poisson distribution with parameter \( \lambda_1 + \lambda_2 \), we have:
+
+\[
+P(X = n) = \frac{(\lambda_1 + \lambda_2)^n e^{-(\lambda_1 + \lambda_2)}}{n!}
+\]
+
+Thus, \( X \) is also a Poisson random variable with parameter \( \lambda_1 + \lambda_2 \).\\
+
+(b) To find the conditional PMF of \( X_1 \) given that the total number of calls arriving at the switching centre is \( n \), we apply the formula for conditional probability:
+
+\[
+P(X_1 = k \mid X = n) = \frac{P(X_1 = k, X_2 = n-k)}{P(X = n)}
+\]
+
+Using the independence of \( X_1 \) and \( X_2 \):
+
+\[
+P(X_1 = k, X_2 = n-k) = P(X_1 = k) P(X_2 = n-k) = \frac{\lambda_1^k e^{-\lambda_1}}{k!} \cdot \frac{\lambda_2^{n-k} e^{-\lambda_2}}{(n-k)!}
+\]
+
+Substituting into the conditional probability gives:
+
+\[
+P(X_1 = k \mid X = n) = \frac{\frac{\lambda_1^k e^{-\lambda_1}}{k!} \cdot \frac{\lambda_2^{n-k} e^{-\lambda_2}}{(n-k)!}}{\frac{(\lambda_1 + \lambda_2)^n e^{-(\lambda_1 + \lambda_2)}}{n!}}
+\]
+
+Simplifying this expression yields:
+
+\[
+P(X_1 = k \mid X = n) = \frac{n!}{k!(n-k)!} \cdot \frac{\lambda_1^k \lambda_2^{n-k}}{(\lambda_1 + \lambda_2)^n}
+\]
+
+This shows that \( X_1 \mid (X = n) \) follows a binomial distribution:
+
+\[
+X_1 \mid (X = n) \sim \text{Binomial}(n, p) \quad \text{where } p = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+\]
+\end{solution}
+
+\begin{exercise}
+The random variables \(X\), \(Y\), and \(Z\) are independent and uniformly distributed between zero and one. Find the PDF of \(X + Y + Z\).
+\end{exercise}
+
+\begin{solution}
+To find the probability density function (PDF) of the sum \(S = X + Y + Z\), where \(X\), \(Y\), and \(Z\) are independent random variables uniformly distributed on \([0, 1]\), we can use the convolution of their individual PDFs.\\
+
+The PDF of a uniform random variable \(U\) on \([0, 1]\) is given by:
+
+\[
+f_U(u) = 
+\begin{cases} 
+1 & \text{if } 0 \leq u \leq 1 \\ 
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+The PDF of the sum of two independent random variables can be found using the convolution of their PDFs:
+
+\[
+f_{X+Y}(s) = \int_{0}^{s} f_X(x) f_Y(s - x) \, dx
+\]
+
+Since \(f_X\) and \(f_Y\) are both equal to \(1\) on \([0, 1]\):\\
+
+1. For \(0 \leq s < 1\):
+\[
+f_{X+Y}(s) = \int_{0}^{s} 1 \cdot 1 \, dx = s
+\]
+
+2. For \(1 \leq s < 2\):
+\[
+f_{X+Y}(s) = \int_{s-1}^{1} 1 \cdot 1 \, dx = 2 - s
+\]
+
+The PDF \(f_{X+Y}(s)\) is given by:
+
+\[
+f_{X+Y}(s) = 
+\begin{cases} 
+s & \text{if } 0 \leq s < 1 \\ 
+2 - s & \text{if } 1 \leq s < 2 \\ 
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+Next, we need to find the PDF of \(S = X + Y + Z\). We will convolve \(f_{X+Y}(s)\) with \(f_Z(z)\).\\
+
+The convolution is given by:
+
+\[
+f_{S}(s) = \int_{0}^{s} f_{X+Y}(x) f_Z(s - x) \, dx
+\]
+
+Since \(f_Z(z) = 1\) for \(0 \leq z \leq 1\), we consider two cases for \(s\):\\
+
+1. For \(0 \leq s < 1\):
+\[
+f_S(s) = \int_{0}^{s} x \cdot 1 \, dx = \frac{s^2}{2}
+\]
+
+2. For \(1 \leq s < 2\):
+\[
+f_S(s) = \int_{0}^{1} x \cdot 1 \, dx + \int_{1}^{s} (2 - x) \cdot 1 \, dx = \frac{1}{2} + (2s - \frac{s^2}{2} - 1) = 2 - \frac{s^2}{2}
+\]
+
+3. For \(2 \leq s < 3\):
+\[
+f_S(s) = \int_{s-2}^{1} (2 - x) \cdot 1 \, dx = (2 - (s - 2)) = 4 - s
+\]
+
+Thus, the PDF \(f_S(s)\) is given by:
+
+\[
+f_S(s) = 
+\begin{cases} 
+\frac{s^2}{2} & \text{if } 0 \leq s < 1 \\ 
+2 - \frac{s^2}{2} & \text{if } 1 \leq s < 2 \\ 
+4 - s & \text{if } 2 \leq s < 3 \\ 
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+\end{solution}
+
+
+\begin{exercise}
+Construct an example to show that the sum of a random number of independent normal random variables is not normal.
+\end{exercise}
+
+\begin{solution}
+To demonstrate that the sum of a random number of independent normal random variables can result in a non-normal distribution, consider the following example:\\
+
+Let \(X_1, X_2, \ldots, X_n\) be independent normal random variables, each distributed as \(X_i \sim N(\mu_i, \sigma_i^2)\) for \(i = 1, 2, \ldots, n\). We will sum these variables, but first, we will allow the number of variables \(n\) to be a random variable itself.\\
+
+Let \(N\) be a random variable that follows a Poisson distribution with parameter \(\lambda\), i.e., \(N \sim \text{Poisson}(\lambda)\).\\
+
+Define the sum of the random variables as follows:
+   \[
+   S = \sum_{i=1}^{N} X_i
+   \]
+   where \(N\) is the number of terms in the sum.\\
+
+The random variable \(S\) is conditioned on \(N\), and its distribution can be understood through the law of total probability:
+   \[
+   S | N = n \sim N\left(n \mu, n \sigma^2\right)
+   \]
+
+To find the marginal distribution of \(S\), we need to consider all possible values of \(N\):
+   \[
+   f_S(s) = \sum_{n=0}^{\infty} f_{S | N}(s | n) P(N = n)
+   \]
+   However, since \(N\) follows a Poisson distribution, the total sum \(S\) will have a mixed distribution depending on the realization of \(N\).\\
+
+Suppose each \(X_i \sim N(0, 1)\). If \(N\) is a Poisson random variable with \(\lambda = 2\), the resulting distribution of \(S\) is a mixture of normal distributions, which is not normal overall. This can be shown through simulation or density plots.\\
+
+Thus, the sum \(S = \sum_{i=1}^{N} X_i\) does not follow a normal distribution due to the randomness in the number of summands.
+\end{solution}

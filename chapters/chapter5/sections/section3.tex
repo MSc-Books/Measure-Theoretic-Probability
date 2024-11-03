@@ -1,0 +1,1008 @@
+\section{General Transformation of Random Variables}
+
+We have previously explored some fundamental transformations of random variables, such as the sums of random variables and their maximum and minimum values. Now, we will delve into more general transformations of random variables. The motivation for transforming a random variable can be illustrated with the following example: \\
+
+Imagine we have a particle whose velocity is represented by a random variable \( V \). Each specific realization of the velocity corresponds to a particular value of kinetic energy, denoted as \( E \). Our goal is to understand the distribution of the kinetic energy \( E \), which depends on the original random variable \( V \) through a transformation.\\
+
+Mathematically, this can be expressed as:
+
+\[
+E = f(V)
+\]
+
+where \( f \) is a function that defines how the velocity \( V \) translates into kinetic energy \( E \). In this case, the distribution of the kinetic energy \( E \) is derived from the distribution of the velocity \( V \). \\
+
+Such scenarios are common in practical applications, where we often need to study new random variables that arise from transformations of existing ones. Understanding these transformations not only helps us derive the properties of the new variables but also deepens our insight into the underlying stochastic processes.
+
+\subsection{Transformation of a Single Random Variable}
+
+Consider a random variable \( X : \Omega \to \mathbb{R} \) and a Borel measurable function \( g : \mathbb{R} \to \mathbb{R} \). When we define a new random variable \( Y = g(X) \), we are interested in determining the distribution of \( Y \). Specifically, we want to find the cumulative distribution function (CDF) \( F_Y(y) \) based on the CDF \( F_X(x) \).\\
+
+The CDF of \( Y \) can be expressed as:
+\[
+F_Y(y) = P(g(X) \leq y) = P\{ \omega \in \Omega \mid g(X(\omega)) \leq y \}.
+\]
+To facilitate our calculation, we define the set \( B_y \) as the collection of all \( x \) such that \( g(x) \leq y \). Thus, we have:
+\[
+F_Y(y) = P_X(B_y).
+\]
+
+\begin{example}
+    Let \( X \) be a Gaussian random variable with mean \( 0 \) and variance \( 1 \), denoted as \( X \sim N(0, 1) \). We want to find the distribution of \( Y = X^2 \).\\
+
+    To compute this, we first express the CDF of \( Y \):
+    \[
+    F_Y(y) = P(X^2 \leq y).
+    \]
+    This is equivalent to finding the probabilities for \( X \) being in the interval \( [-\sqrt{y}, \sqrt{y}] \):
+    \[
+    F_Y(y) = P(-\sqrt{y} \leq X \leq \sqrt{y}).
+    \]
+    We can calculate this probability using the CDF of the standard normal distribution, \( \Phi \):
+    \[
+    F_Y(y) = \Phi(\sqrt{y}) - \Phi(-\sqrt{y}).
+    \]
+    Since the CDF of the standard normal distribution is symmetric, we have:
+    \[
+    F_Y(y) = 2 \Phi(\sqrt{y}).
+    \]
+    
+    Next, we differentiate \( F_Y(y) \) with respect to \( y \) to find the probability density function (PDF) \( f_Y(y) \):
+    \[
+    f_Y(y) = \frac{dF_Y(y)}{dy}.
+    \]
+    Calculating \( F_Y(y) \) explicitly, we have:
+    \[
+    F_Y(y) = \int_{-\sqrt{y}}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt = 2 \int_{0}^{\sqrt{y}} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt.
+    \]
+    Changing variables by letting \( t^2 = u \) leads to:
+    \[
+    F_Y(y) = 2 \int_{0}^{y} \frac{1}{2\sqrt{2\pi u}} e^{-\frac{u}{2}} du.
+    \]
+    Consequently, the density function becomes:
+    \[
+    f_Y(y) = \frac{1}{\sqrt{2\pi y}} e^{-\frac{y}{2}}, \quad \text{for } y > 0.
+    \]    
+\end{example}
+
+\textit{Important Notes:}\\
+
+1. The random variable \( Y \) can only take non-negative values since it is derived from squaring the real-valued random variable \( X \).\\
+2. The distribution of \( Y \) as the square of a Gaussian random variable is recognized as the Chi-squared distribution.\\
+
+Thus, we observe that given the distribution of the random variable \( X \), the distribution of any function of \( X \) can be derived using fundamental principles. We now come up with a direct formula to find the distribution of a function of the random variable in the cases where the function is differentiable and monotonic.\\
+
+\textbf{The Generic Formula} \\
+
+Let \( X \) be a random variable with a probability density function \( f_X(x) \), and let \( g \) be a monotonically increasing function. We define a new random variable \( Y \) as follows:
+
+\[
+Y = g(X).
+\]
+
+To find the cumulative distribution function (CDF) of \( Y \), denoted \( F_Y(y) \), we start by expressing it in terms of \( Y \):
+
+\[
+F_Y(y) = P(Y \leq y) = P(g(X) \leq y).
+\]
+
+Since \( g \) is monotonically increasing, the inequality \( g(X) \leq y \) implies that 
+
+\[
+X \leq g^{-1}(y).
+\]
+
+Thus, we can express the CDF of \( Y \) as:
+
+\[
+F_Y(y) = P(X \leq g^{-1}(y)) = \int_{-\infty}^{g^{-1}(y)} f_X(x) \, dx.
+\]
+
+Now, let us substitute \( x = g^{-1}(t) \). By the chain rule of differentiation, we have:
+
+\[
+dg(x) = g'(x) \, dx \Rightarrow dx = \frac{dt}{g'(g^{-1}(t))}.
+\]
+
+Therefore, the CDF can be rewritten as:
+
+\[
+F_Y(y) = \int_{-\infty}^{y} f_X(g^{-1}(t)) \frac{dt}{g'(g^{-1}(t))}.
+\]
+
+Next, to find the probability density function (PDF) \( f_Y(y) \), we differentiate the CDF \( F_Y(y) \):
+
+\[
+f_Y(y) = \frac{d}{dy} F_Y(y) = f_X(g^{-1}(y)) \cdot \frac{1}{g'(g^{-1}(y))}.
+\]
+
+The term \( \frac{1}{g'(g^{-1}(y))} \) is known as the Jacobian of the transformation \( g(\cdot) \). \\
+
+Now, we can also apply a similar logic for a monotonically decreasing function \( g \). In this case, we would find:
+
+\[
+f_Y(y) = f_X(g^{-1}(y)) \cdot \left(-\frac{1}{g'(g^{-1}(y))}\right).
+\]
+
+Thus, for any monotonic function \( g \), the general formula for the probability density function of \( Y \) can be summarized as:
+
+\[
+f_Y(y) = f_X(g^{-1}(y)) \cdot |g'(g^{-1}(y))|.
+\]
+
+\begin{example}
+Let \( X \sim N(0, 1) \). We want to find the distribution of \( Y = e^X \).\\
+
+To start, observe that the function \( g(x) = e^x \) is both differentiable and monotonically increasing. The inverse function of \( g \) is given by:
+
+\[
+g^{-1}(y) = \ln(y)
+\]
+
+Next, we can compute the derivative of \( g \):
+
+\[
+g'(x) = e^x
+\]
+
+Thus, we find:
+
+\[
+g'(g^{-1}(y)) = g'(\ln(y)) = y
+\]
+
+Since \( g'(g^{-1}(y)) \) is positive for all values of \( y > 0 \), we can apply the change of variables formula to find the probability density function (pdf) of \( Y \):
+
+\[
+f_Y(y) = f_X(\ln(y)) \cdot \left| \frac{d}{dy} g^{-1}(y) \right|
+\]
+
+Substituting the known values, we get:
+
+\[
+f_Y(y) = f_X(\ln(y)) \cdot \frac{1}{y}
+\]
+
+Given that \( f_X(x) \) for \( X \sim N(0, 1) \) is:
+
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}},
+\]
+
+we can replace \( x \) with \( \ln(y) \):
+
+\[
+f_Y(y) = \frac{1}{\sqrt{2\pi}} e^{-\frac{(\ln(y))^2}{2}} \cdot \frac{1}{y}
+\]
+
+Therefore, the pdf of \( Y \) is given by:
+
+\[
+f_Y(y) = \frac{1}{y\sqrt{2\pi}} e^{-\frac{(\ln(y))^2}{2}} \quad \text{for } y > 0.
+\]
+
+This result indicates that \( Y \) follows a log-normal distribution.
+\end{example}
+
+
+\begin{example}
+Let \( U \sim \text{Uniform}(0, 1) \), meaning \( U \) is a uniform random variable on the interval \([0, 1]\). We want to find the distribution of \( Y = -\ln(U) \).\\
+
+Here, the function \( g(u) = -\ln(u) \) is differentiable and monotonically decreasing. Its inverse function is:
+
+\[
+g^{-1}(y) = e^{-y}
+\]
+
+Now, we compute the derivative of \( g \):
+
+\[
+g'(u) = -\frac{1}{u}
+\]
+
+Thus, we have:
+
+\[
+g'(g^{-1}(y)) = g'(e^{-y}) = -e^y
+\]
+
+Since \( g'(g^{-1}(y)) \) is negative for all values of \( y \), we compute the absolute value of the Jacobian:
+
+\[
+\left| g'(g^{-1}(y)) \right| = -g'(g^{-1}(y)) = \frac{1}{e^{-y}} = e^y.
+\]
+
+Now, we can use the change of variables formula to find the pdf of \( Y \):
+
+\[
+f_Y(y) = f_U(e^{-y}) \cdot |g'(g^{-1}(y))|.
+\]
+
+Given that \( f_U(u) = 1 \) for \( U \sim \text{Uniform}(0, 1) \):
+
+\[
+f_Y(y) = 1 \cdot e^y = e^{-y} \quad \text{for } y \geq 0.
+\]
+
+This indicates that \( Y \) is an exponential random variable with mean \( 1 \).
+\end{example}
+
+\subsection{Transformation of Many Random Variables}
+
+The generic formula for transformations can indeed be expanded to encompass multiple random variables. To illustrate this, let us consider an n-tuple random variable, denoted as \((X_1, X_2, \ldots, X_n)\). This random variable has a joint density function represented by 
+
+\[
+f_{X_1, X_2, \ldots, X_n}(x_1, x_2, \ldots, x_n).
+\]
+
+Now, we define transformations of these variables as follows:
+
+\[
+Y_1 = g_1(X_1, X_2, \ldots, X_n), \quad Y_2 = g_2(X_1, X_2, \ldots, X_n), \quad \ldots, \quad Y_n = g_n(X_1, X_2, \ldots, X_n.
+\]
+
+For convenience, we can succinctly express this transformation as a vector:
+
+\[
+\mathbf{Y} = \mathbf{g}(\mathbf{X}),
+\]
+
+where \(\mathbf{g}: \mathbb{R}^n \to \mathbb{R}^n\).\\
+
+We proceed with the assumption that the transformation \(\mathbf{g}\) is both invertible and continuously differentiable. Under these conditions, we can derive the joint density of the transformed variables, expressed as:
+
+\[
+f_{Y_1, Y_2, \ldots, Y_n}(y_1, y_2, \ldots, y_n) = f_{X_1, X_2, \ldots, X_n}(g^{-1}(y)) \cdot |J(y)|,
+\]
+
+where \(|J(y)|\) denotes the Jacobian determinant, which is a crucial element in transforming densities. \\
+
+The Jacobian matrix \(J(y)\) is defined as:
+
+\[
+J(y) =
+\begin{bmatrix}
+\frac{\partial x_1}{\partial y_1} & \frac{\partial x_2}{\partial y_1} & \cdots & \frac{\partial x_n}{\partial y_1} \\
+\frac{\partial x_1}{\partial y_2} & \frac{\partial x_2}{\partial y_2} & \cdots & \frac{\partial x_n}{\partial y_2} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial x_1}{\partial y_n} & \frac{\partial x_2}{\partial y_n} & \cdots & \frac{\partial x_n}{\partial y_n}
+\end{bmatrix}.
+\]
+
+The Jacobian serves as a scaling factor that adjusts the volume of the transformed space relative to the original space. When we perform a change of variables in probability, the transformation can stretch or compress areas of the probability density function. The absolute value of the Jacobian determinant captures this effect mathematically. \\
+
+To understand this better, consider a simple two-dimensional example where we transform a shape in the \(XY\)-plane to a new shape in the \(UV\)-plane. If the transformation causes the area of a small rectangle in the \(XY\)-plane to become larger or smaller in the \(UV\)-plane, the Jacobian tells us exactly how much to scale the density of points in that area to preserve the total probability.
+
+\begin{example}
+Consider a particle whose Euclidean coordinates \(X\) and \(Y\) are drawn from independent Gaussian random variables with mean 0 and variance 1, i.e., \(X, Y \sim N(0, 1)\). We aim to find the distribution of the particle's polar coordinates \(R\) and \(\Theta\). \\
+
+The transformations from Cartesian to polar coordinates are given by:
+\[
+X = R \cos \Theta \quad \text{and} \quad Y = R \sin \Theta.
+\]
+To determine the distribution of \(R\) and \(\Theta\), we first calculate the Jacobian of the transformation. The partial derivatives are as follows:
+\[
+\frac{\partial x}{\partial r} = \cos \theta, \quad \frac{\partial y}{\partial r} = \sin \theta,
+\]
+\[
+\frac{\partial x}{\partial \theta} = -r \sin \theta, \quad \frac{\partial y}{\partial \theta} = r \cos \theta.
+\]
+Thus, the Jacobian \(J\) is computed as:
+\[
+J = \begin{vmatrix}
+\frac{\partial x}{\partial r} & \frac{\partial y}{\partial r} \\
+\frac{\partial x}{\partial \theta} & \frac{\partial y}{\partial \theta}
+\end{vmatrix} = \begin{vmatrix}
+\cos \theta & \sin \theta \\
+-r \sin \theta & r \cos \theta
+\end{vmatrix} = r(\cos^2 \theta + \sin^2 \theta) = r.
+\]
+Next, since \(X\) and \(Y\) are independent random variables, their joint probability density function is given by:
+\[
+f_{X,Y}(x, y) = f_X(x) f_Y(y) = \frac{1}{2\pi} e^{-\frac{x^2 + y^2}{2}}, \quad x, y \in \mathbb{R}.
+\]
+Using the transformation to polar coordinates, we find:
+\[
+f_{R,\Theta}(r, \theta) = f_{X,Y}(r \cos \theta, r \sin \theta) \cdot |J| = \frac{1}{2\pi} e^{-\frac{(r \cos \theta)^2 + (r \sin \theta)^2}{2}} \cdot r = \frac{1}{2\pi} e^{-\frac{r^2}{2}} \cdot r,
+\]
+where \(r \geq 0\) and \(\theta \in [0, 2\pi]\).\\
+
+To find the marginal densities of \(R\) and \(\Theta\), we integrate the joint distribution:
+\[
+f_R(r) = \int_0^{2\pi} f_{R,\Theta}(r, \theta) \, d\theta = r e^{-r^2/2}, \quad \text{for } r \geq 0,
+\]
+\[
+f_\Theta(\theta) = \int_0^\infty f_{R,\Theta}(r, \theta) \, dr = \frac{1}{2\pi}, \quad \text{for } \theta \in [0, 2\pi].
+\]
+The distribution \(f_R(r)\) is known as the Rayleigh distribution, which is commonly used in wireless communications to model the gain of a fading channel. 
+\end{example}
+
+It is noteworthy that \(R\) and \(\Theta\) are independent random variables since the joint distribution factors into the product of the marginals:
+\[
+f_{R,\Theta}(r, \theta) = f_R(r) \cdot f_\Theta(\theta).
+\]
+
+\begin{exercise}
+Let \( X \sim \text{Exp}(0.5) \). Prove that \( Y = \sqrt{X} \) is a Rayleigh distributed random variable.
+\end{exercise}
+
+\begin{solution}
+To show that \( Y = \sqrt{X} \) is a Rayleigh distributed random variable, we start with the probability density function (PDF) of the exponential distribution. The PDF of \( X \sim \text{Exp}(\lambda) \) is given by:
+
+\[
+f_X(x) = \lambda e^{-\lambda x} \quad \text{for } x \geq 0.
+\]
+
+In our case, \( \lambda = 0.5 \), so:
+
+\[
+f_X(x) = 0.5 e^{-0.5 x} \quad \text{for } x \geq 0.
+\]
+
+Next, we find the cumulative distribution function (CDF) of \( X \):
+
+\[
+F_X(x) = \int_0^x f_X(t) \, dt = \int_0^x 0.5 e^{-0.5 t} \, dt.
+\]
+
+Evaluating the integral, we have:
+
+\[
+F_X(x) = -e^{-0.5 t} \bigg|_0^x = -e^{-0.5 x} + 1 = 1 - e^{-0.5 x}.
+\]
+
+Now we find the distribution of \( Y = \sqrt{X} \). To do this, we first express \( X \) in terms of \( Y \):
+
+\[
+X = Y^2.
+\]
+
+Next, we need to find the PDF of \( Y \). We can use the transformation method for random variables. The relationship between \( X \) and \( Y \) gives us:
+
+\[
+f_Y(y) = f_X(x) \left| \frac{dx}{dy} \right|,
+\]
+
+where \( x = y^2 \). Calculating the derivative:
+
+\[
+\frac{dx}{dy} = 2y.
+\]
+
+Thus, we can write:
+
+\[
+f_Y(y) = f_X(y^2) \cdot |2y|.
+\]
+
+Substituting for \( f_X(y^2) \):
+
+\[
+f_Y(y) = 0.5 e^{-0.5 y^2} \cdot 2y = y e^{-0.5 y^2}.
+\]
+
+This is the PDF of a Rayleigh distribution. The PDF of a Rayleigh distributed random variable with parameter \( \sigma \) is given by:
+
+\[
+f_Y(y) = \frac{y}{\sigma^2} e^{-\frac{y^2}{2\sigma^2}} \quad \text{for } y \geq 0.
+\]
+
+Setting \( \sigma^2 = 2 \), we get:
+
+\[
+f_Y(y) = \frac{y}{2} e^{-\frac{y^2}{4}}.
+\]
+
+Since this matches the form we derived, we conclude that \( Y = \sqrt{X} \) is indeed Rayleigh distributed with parameter \( \sigma = 1 \).
+\end{solution}
+
+\begin{exercise}
+Let \( X \) be a random variable with a continuous distribution \( F \).
+\begin{enumerate}
+    \item[(i)] Show that the random variable \( Y = F(X) \) is uniformly distributed over \( [0, 1] \). \textit{[Hint: Although \( F \) is the distribution of \( X \), regard it simply as a function satisfying certain properties required to make it a CDF!]}
+    \item[(ii)] Now, given that \( Y = y \), a random variable \( Z \) is distributed as Geometric with parameter \( y \). Find the unconditional PMF of \( Z \). Also, given \( Z = z \) for some \( z \geq 1, z \in \mathbb{N} \), find the conditional PMF of \( Y \).
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+To show that the random variable \( Y = F(X) \) is uniformly distributed over \( [0, 1] \), we start by computing the cumulative distribution function (CDF) of \( Y \). \\
+
+The CDF of \( Y \) is given by:
+\[
+P(Y \leq y) = P(F(X) \leq y.
+\]
+For \( y \in [0, 1] \), this can be rewritten using the properties of \( F \):
+\[
+P(F(X) \leq y) = P(X \leq F^{-1}(y)).
+\]
+Since \( F \) is continuous and strictly increasing, we have:
+\[
+P(X \leq F^{-1}(y)) = F(F^{-1}(y)) = y.
+\]
+Therefore, the CDF of \( Y \) is:
+\[
+P(Y \leq y) = y \quad \text{for } y \in [0, 1].
+\]
+This shows that \( Y \) is uniformly distributed over \( [0, 1] \).\\
+
+Given that \( Y = y \), the random variable \( Z \) follows a Geometric distribution with parameter \( y \). The probability mass function (PMF) of a Geometric random variable is given by:
+\[
+P(Z = z \mid Y = y) = (1 - y)^{z-1} y \quad \text{for } z \in \mathbb{N}, z \geq 1.
+\]
+
+To find the unconditional PMF of \( Z \), we need to use the law of total probability:
+\[
+P(Z = z) = \int_0^1 P(Z = z \mid Y = y) f_Y(y) \, dy.
+\]
+Since \( Y \) is uniformly distributed over \( [0, 1] \), we have \( f_Y(y) = 1 \) for \( y \in [0, 1] \). Thus:
+\[
+P(Z = z) = \int_0^1 (1 - y)^{z-1} y \, dy.
+\]
+
+This integral can be computed using integration by parts or Beta function properties:
+\[
+\int_0^1 (1 - y)^{z-1} y \, dy = \frac{1}{(z+1)(z+2)}.
+\]
+Therefore, the unconditional PMF of \( Z \) is:
+\[
+P(Z = z) = \frac{1}{(z+1)(z+2)} \quad \text{for } z \in \mathbb{N}, z \geq 1.
+\]
+
+Next, we find the conditional PMF of \( Y \) given \( Z = z \):
+\[
+P(Y = y \mid Z = z) = \frac{P(Z = z \mid Y = y) P(Y = y)}{P(Z = z)}.
+\]
+Substituting the known values:
+\[
+P(Y = y \mid Z = z) = \frac{(1 - y)^{z-1} y \cdot 1}{P(Z = z)}.
+\]
+This gives us the conditional PMF of \( Y \) given \( Z = z \).
+
+\end{solution}
+
+\begin{exercise}
+Let \( X \) be a continuous random variable with the pdf
+\[
+f_X(x) = 
+\begin{cases} 
+e^{-x} & x \geq 0 \\ 
+0 & x < 0 
+\end{cases}
+\]
+Find the transformation \( Y = g(X) \) such that the pdf of \( Y \) will be
+\[
+f_Y(y) = 
+\begin{cases} 
+\frac{1}{2} \sqrt{y} & 0 < y < 1 \\ 
+0 & \text{otherwise} 
+\end{cases}
+\]
+\end{exercise}
+
+
+\begin{solution}
+To find the transformation \( Y = g(X) \) such that the pdf of \( Y \) matches the given pdf \( f_Y(y) \), we will first find the cumulative distribution function (CDF) of \( X \).\\
+
+The CDF of \( X \) is given by:
+\[
+F_X(x) = \int_{0}^{x} f_X(t) \, dt = \int_{0}^{x} e^{-t} \, dt = 1 - e^{-x}, \quad x \geq 0.
+\]
+Thus, the CDF can be expressed as:
+\[
+F_X(x) = 
+\begin{cases} 
+0 & x < 0 \\ 
+1 - e^{-x} & x \geq 0 
+\end{cases}
+\]
+
+Now, to find \( g(X) \), we can utilize the relationship between the CDF of \( Y \) and \( X \):
+\[
+F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)).
+\]
+
+Given \( f_Y(y) \), we can find \( F_Y(y) \):
+\[
+F_Y(y) = \int_{0}^{y} f_Y(t) \, dt = \int_{0}^{y} \frac{1}{2} \sqrt{t} \, dt = \frac{1}{2} \cdot \frac{2}{3} t^{3/2} \Big|_{0}^{y} = \frac{1}{3} y^{3/2}, \quad 0 < y < 1.
+\]
+
+Setting this equal to \( F_X(g^{-1}(y)) \):
+\[
+F_X(g^{-1}(y)) = 1 - e^{-g^{-1}(y)}.
+\]
+Thus, we need:
+\[
+1 - e^{-g^{-1}(y)} = \frac{1}{3} y^{3/2}.
+\]
+
+Rearranging gives:
+\[
+e^{-g^{-1}(y)} = 1 - \frac{1}{3} y^{3/2}.
+\]
+Taking the natural logarithm:
+\[
+-g^{-1}(y) = \ln\left(1 - \frac{1}{3} y^{3/2}\right),
+\]
+which implies:
+\[
+g^{-1}(y) = -\ln\left(1 - \frac{1}{3} y^{3/2}\right).
+\]
+
+Therefore, we can express \( g(X) \) as:
+\[
+Y = g(X) = -\ln\left(1 - \frac{1}{3} X^{3/2}\right).
+\]
+Thus, the transformation \( Y = g(X) \) that yields the desired pdf \( f_Y(y) \) is:
+\[
+Y = g(X) = -\ln\left(1 - \frac{1}{3} X^{3/2}\right).
+\]
+\end{solution}
+
+\begin{exercise}
+Suppose \( X \) and \( Y \) are independent Gaussian random variables with zero mean and variance \( \sigma^2 \). Show that the ratio \( \frac{X}{Y} \) follows a Cauchy distribution.
+\end{exercise}
+
+\begin{solution}
+Let \( X \sim \mathcal{N}(0, \sigma^2) \) and \( Y \sim \mathcal{N}(0, \sigma^2) \) be independent Gaussian random variables with mean zero and variance \( \sigma^2 \). We aim to show that the ratio \( Z = \frac{X}{Y} \) has a Cauchy distribution.\\
+
+Since \( X \) and \( Y \) are independent normal random variables, their joint probability density function (PDF) is given by:
+\[
+f_{X,Y}(x, y) = f_X(x) f_Y(y) = \frac{1}{2 \pi \sigma^2} \exp \left( -\frac{x^2 + y^2}{2 \sigma^2} \right).
+\]
+
+We introduce the transformation:
+\[
+Z = \frac{X}{Y} \quad \text{and} \quad W = Y.
+\]
+This implies \( X = ZW \) and \( Y = W \).\\
+
+To find the joint distribution of \( Z \) and \( W \), we need the Jacobian determinant of this transformation:
+\[
+\frac{\partial (X, Y)}{\partial (Z, W)} = 
+\begin{vmatrix}
+\frac{\partial X}{\partial Z} & \frac{\partial X}{\partial W} \\
+\frac{\partial Y}{\partial Z} & \frac{\partial Y}{\partial W}
+\end{vmatrix} = 
+\begin{vmatrix}
+W & Z \\
+0 & 1
+\end{vmatrix} = W.
+\]
+Thus, the absolute value of the Jacobian determinant is \( |W| \).\\
+
+Using the change of variables, the joint PDF of \( Z \) and \( W \) is:
+\[
+f_{Z, W}(z, w) = f_{X,Y}(z w, w) \cdot |w| = \frac{1}{2 \pi \sigma^2} \exp \left( -\frac{z^2 w^2 + w^2}{2 \sigma^2} \right) \cdot |w|.
+\]
+Simplifying the exponent:
+\[
+f_{Z, W}(z, w) = \frac{|w|}{2 \pi \sigma^2} \exp \left( -\frac{w^2 (z^2 + 1)}{2 \sigma^2} \right).
+\]
+
+To obtain the marginal PDF of \( Z \), integrate out \( w \):
+\[
+f_Z(z) = \int_{-\infty}^{\infty} f_{Z, W}(z, w) \, dw = \int_{-\infty}^{\infty} \frac{|w|}{2 \pi \sigma^2} \exp \left( -\frac{w^2 (z^2 + 1)}{2 \sigma^2} \right) \, dw.
+\]
+This integral simplifies by using a standard Gaussian integral:
+\[
+f_Z(z) = \frac{1}{\pi} \frac{\sigma}{\sigma (z^2 + 1)} = \frac{1}{\pi} \frac{1}{z^2 + 1}.
+\]
+
+This is the PDF of Cauchy distribution. 
+\end{solution}
+
+\begin{exercise}
+Particles are subject to collisions that cause them to split into two parts, with each part being a fraction of the parent. Suppose that this fraction is uniformly distributed between \(0\) and \(1\). Following a single particle through several splittings, we obtain a fraction of the original particle \( Z_n = X_1 X_2 \dots X_n \), where each \( X_j \) is uniformly distributed between \(0\) and \(1\). Show that the density for the random variable \( Z_n \) is given by:
+\[
+f_n(z) = \frac{1}{(n - 1)!}(-\log(z))^{n - 1}
+\]
+\end{exercise}
+
+\begin{solution}
+Since \( Z_n \) is the product of \( n \) independent uniform random variables, we can express \( Z_n \) as:
+   \[
+   Z_n = X_1 X_2 \dots X_n.
+   \]
+
+Take the natural logarithm of \( Z_n \):
+   \[
+   \log(Z_n) = \log(X_1) + \log(X_2) + \dots + \log(X_n).
+   \]
+   Each \( \log(X_j) \) is independently and identically distributed. Since \( X_j \sim \text{Uniform}(0, 1) \), the distribution of \( \log(X_j) \) is exponential with parameter \( \lambda = 1 \), and thus has mean \( -1 \) and density:
+   \[
+   f_{\log(X_j)}(x) = e^x \quad \text{for } x < 0.
+   \]
+
+The sum of \( n \) independent exponential random variables with rate \( \lambda = 1 \) follows a gamma distribution with shape parameter \( n \) and rate parameter \( 1 \). Therefore, \( S = -\log(Z_n) \) has the density:
+   \[
+   f_S(s) = \frac{s^{n-1} e^{-s}}{(n-1)!} \quad \text{for } s \geq 0.
+   \]
+
+To obtain the density function \( f_{Z_n}(z) \), we perform a change of variables from \( S \) to \( Z_n \) using \( z = e^{-s} \) or equivalently \( s = -\log(z) \). The Jacobian of this transformation is:
+   \[
+   \left| \frac{ds}{dz} \right| = \frac{1}{z}.
+   \]
+
+Substituting, we get:
+   \[
+   f_{Z_n}(z) = f_S(-\log(z)) \cdot \left| \frac{ds}{dz} \right| = \frac{(-\log(z))^{n-1} e^{\log(z)}}{(n-1)!} \cdot \frac{1}{z}.
+   \]
+   Simplifying, we obtain:
+   \[
+   f_{Z_n}(z) = \frac{(-\log(z))^{n-1}}{(n-1)!} \quad \text{for } 0 < z < 1.
+   \]
+Thus, we have shown that the density function for \( Z_n \) is:
+\[
+f_n(z) = \frac{1}{(n - 1)!}(-\log(z))^{n - 1}.
+\]
+\end{solution}
+
+\begin{exercise}
+Suppose \( X \) and \( Y \) are independent exponential random variables with the same parameter \( \lambda \). Derive the probability density function (pdf) of the random variable 
+\[
+Z = \frac{\min(X,Y)}{\max(X,Y)}.
+\]
+\end{exercise}
+
+\begin{solution}
+Since \( X \) and \( Y \) are independent exponential random variables with parameter \( \lambda \), their pdfs are given by:
+\[
+f_X(x) = \lambda e^{-\lambda x} \quad \text{and} \quad f_Y(y) = \lambda e^{-\lambda y}, \quad x, y \geq 0.
+\]
+
+Define \( Z = \frac{\min(X, Y)}{\max(X, Y)} \). To find the pdf of \( Z \), we analyze the probability \( P(Z \leq z) \) for \( 0 \leq z \leq 1 \).\\
+
+   Without loss of generality, suppose \( X \leq Y \) (the case \( Y \leq X \) will be symmetric). Then:
+   \[
+   Z = \frac{X}{Y}.
+   \]
+   
+   Now, we need to calculate the probability \( P\left( \frac{X}{Y} \leq z \right) \) under this assumption.
+
+   \[
+   P\left( Z \leq z \right) = P\left( \frac{X}{Y} \leq z \right) = P\left( X \leq zY \right).
+   \]
+   
+   Using the independence of \( X \) and \( Y \), we can express this probability as:
+   \[
+   P(X \leq zY) = \int_0^{\infty} P(X \leq zy) f_Y(y) \, dy.
+   \]
+   
+   Since \( X \sim \text{Exp}(\lambda) \), we have \( P(X \leq zy) = 1 - e^{-\lambda zy} \). Thus,
+   \[
+   P(Z \leq z) = \int_0^{\infty} \left(1 - e^{-\lambda zy}\right) \lambda e^{-\lambda y} \, dy.
+   \]
+   
+   Splitting the integral, we get:
+   \[
+   P(Z \leq z) = \int_0^{\infty} \lambda e^{-\lambda y} \, dy - \int_0^{\infty} \lambda e^{-\lambda(1+z)y} \, dy.
+   \]
+   
+   Evaluating each term:
+   \[
+   \int_0^{\infty} \lambda e^{-\lambda y} \, dy = 1,
+   \]
+   and
+   \[
+   \int_0^{\infty} \lambda e^{-\lambda(1+z)y} \, dy = \frac{\lambda}{\lambda(1+z)} = \frac{1}{1+z}.
+   \]
+   
+   Therefore,
+   \[
+   P(Z \leq z) = 1 - \frac{1}{1+z} = \frac{z}{1+z}.
+   \]
+
+   To obtain the pdf \( f_Z(z) \), differentiate \( P(Z \leq z) \) with respect to \( z \):
+   \[
+   f_Z(z) = \frac{d}{dz} \left( \frac{z}{1+z} \right) = \frac{1}{(1+z)^2}.
+   \]
+
+Thus, the pdf of \( Z = \frac{\min(X, Y)}{\max(X, Y)} \) is
+\[
+f_Z(z) = \frac{1}{(1+z)^2}, \quad 0 \leq z \leq 1.
+\]
+\end{solution}
+
+\begin{exercise}
+A random variable \( Y \) has the pdf \( f_Y(y) = K y^{-(b+1)} \), \( y \geq 2 \) (and zero otherwise), where \( b > 0 \). This random variable is obtained as the monotonically increasing transformation \( Y = g(X) \) of the random variable \( X \) with pdf \( e^{-x} \), \( x \geq 0 \).\\
+
+(a) Determine \( K \) in terms of \( b \).\\
+(b) Determine the transformation \( g(\cdot) \) in terms of \( b \).
+\end{exercise}
+
+\begin{solution}
+
+We know that the total area under the probability density function \( f_Y(y) \) must equal 1. Therefore, we can write:
+
+\[
+\int_{2}^{\infty} f_Y(y) \, dy = 1.
+\]
+
+Substituting the expression for \( f_Y(y) \):
+
+\[
+\int_{2}^{\infty} K y^{-(b+1)} \, dy = 1.
+\]
+
+\[
+K \int_{2}^{\infty} y^{-(b+1)} \, dy = K \left[ \frac{y^{-b}}{-b} \right]_{2}^{\infty} = K \left( 0 + \frac{2^{-b}}{b} \right) = \frac{K}{b \cdot 2^b}.
+\]
+
+Setting this equal to 1 gives us:
+
+\[
+\frac{K}{b \cdot 2^b} = 1.
+\]
+
+\[
+K = b \cdot 2^b.
+\]
+
+\vspace{10pt}
+Next, we will find the transformation \( g(\cdot) \). We know that \( Y = g(X) \) is a monotonically increasing transformation of \( X \), which has the pdf:
+
+\[
+f_X(x) = e^{-x}, \quad x \geq 0.
+\]
+
+The cumulative distribution function (CDF) of \( X \) is:
+
+\[
+F_X(x) = \int_{0}^{x} e^{-t} \, dt = 1 - e^{-x}.
+\]
+
+To relate \( Y \) and \( X \), we use the fact that \( F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) \). Therefore, we can express this in terms of the CDF of \( X \):
+
+\[
+F_Y(y) = F_X(g^{-1}(y)) = 1 - e^{-g^{-1}(y)}.
+\]
+
+Since we have \( f_Y(y) = K y^{-(b+1)} \), we can differentiate to find the CDF:
+
+\[
+F_Y(y) = \int_{2}^{y} K t^{-(b+1)} \, dt = K \left[ \frac{t^{-b}}{-b} \right]_{2}^{y} = K \left( \frac{2^{-b}}{b} - \frac{y^{-b}}{b} \right).
+\]
+
+Substituting \( K \) from part (a):
+
+\[
+F_Y(y) = \frac{b \cdot 2^b}{b} \left( 2^{-b} - y^{-b} \right) = 2^b \left( 2^{-b} - y^{-b} \right) = 1 - \frac{2^b}{y^b}.
+\]
+
+Setting this equal to \( 1 - e^{-g^{-1}(y)} \):
+
+\[
+1 - e^{-g^{-1}(y)} = 1 - \frac{2^b}{y^b}.
+\]
+
+Thus, we have:
+
+\[
+e^{-g^{-1}(y)} = \frac{2^b}{y^b}.
+\]
+
+Taking the natural logarithm of both sides:
+
+\[
+-g^{-1}(y) = \ln\left(\frac{2^b}{y^b}\right).
+\]
+
+Hence,
+
+\[
+g^{-1}(y) = -b \ln\left(\frac{2}{y}\right).
+\]
+
+Finally, inverting the function gives us the transformation:
+
+\[
+g(x) = 2 e^{-\frac{x}{b}}.
+\]
+\end{solution}
+
+\begin{exercise}
+Two particles start from the same point on a two-dimensional plane and move with speed \( V \) each, such that the angle between them is uniformly distributed in \([0, 2\pi]\). Find the distribution of the magnitude of the relative velocity between the two particles.
+\end{exercise}
+
+\begin{solution}
+Let the velocities of the two particles be represented as vectors. Let \(\vec{v_1}\) and \(\vec{v_2}\) be the velocity vectors of the first and second particle, respectively. We can express these velocity vectors in terms of their magnitudes and the angle \(\theta\) between them:
+
+\[
+\vec{v_1} = V \begin{pmatrix} \cos(\phi_1) \\ \sin(\phi_1) \end{pmatrix}, \quad \vec{v_2} = V \begin{pmatrix} \cos(\phi_2) \\ \sin(\phi_2) \end{pmatrix}
+\]
+
+where \(\phi_1\) and \(\phi_2\) are the angles of the velocities of the two particles. The angle between the two velocities is given by:
+
+\[
+\theta = \phi_2 - \phi_1
+\]
+
+The relative velocity \(\vec{v_{rel}}\) of particle 2 with respect to particle 1 is given by:
+
+\[
+\vec{v_{rel}} = \vec{v_2} - \vec{v_1} = V \begin{pmatrix} \cos(\phi_2) - \cos(\phi_1) \\ \sin(\phi_2) - \sin(\phi_1) \end{pmatrix}
+\]
+
+The magnitude of the relative velocity \( |\vec{v_{rel}}| \) is:
+
+\[
+|\vec{v_{rel}}| = V \sqrt{(\cos(\phi_2) - \cos(\phi_1))^2 + (\sin(\phi_2) - \sin(\phi_1))^2}
+\]
+
+Using the trigonometric identity for the cosine of the difference of two angles, we can rewrite the expression as follows:
+
+\[
+|\vec{v_{rel}}| = V \sqrt{2 - 2\cos(\theta)} = V \sqrt{2(1 - \cos(\theta))} = V \sqrt{2} \sqrt{1 - \cos(\theta)} = V \sqrt{2} \sin\left(\frac{\theta}{2}\right)
+\]
+
+Since \(\theta\) is uniformly distributed in \([0, 2\pi]\), the probability density function (pdf) of \(\theta\) is:
+
+\[
+f_{\Theta}(\theta) = \frac{1}{2\pi}, \quad \text{for } 0 \leq \theta < 2\pi
+\]
+
+To find the distribution of the magnitude of the relative velocity \(R = |\vec{v_{rel}}|\), we can use the transformation method. We know:
+
+\[
+R = V \sqrt{2} \sin\left(\frac{\theta}{2}\right)
+\]
+
+To find the cumulative distribution function (CDF) of \(R\), we can find \(P(R \leq r)\):
+
+\[
+P(R \leq r) = P\left(V \sqrt{2} \sin\left(\frac{\theta}{2}\right) \leq r\right) = P\left(\sin\left(\frac{\theta}{2}\right) \leq \frac{r}{V \sqrt{2}}\right)
+\]
+
+Let \(x = \frac{r}{V \sqrt{2}}\). The sine function maps the interval \([0, 2\pi]\) to the interval \([0, 1]\), and hence:
+
+\[
+P\left(\sin\left(\frac{\theta}{2}\right) \leq x\right) = P\left(\frac{\theta}{2} \leq \arcsin(x)\right) = P\left(\theta \leq 2\arcsin(x)\right)
+\]
+
+The corresponding angles must be within the bounds of \(\theta\):
+
+\[
+P\left(\theta \leq 2\arcsin(x)\right) = \frac{2\arcsin(x)}{2\pi} = \frac{\arcsin(x)}{\pi}
+\]
+
+Thus, the cumulative distribution function of \(R\) is:
+
+\[
+F_R(r) = P(R \leq r) = \frac{1}{\pi} \arcsin\left(\frac{r}{V \sqrt{2}}\right)
+\]
+
+Differentiating \(F_R(r)\) gives us the probability density function \(f_R(r)\):
+
+\[
+f_R(r) = \frac{d}{dr} F_R(r) = \frac{1}{\pi} \cdot \frac{1}{\sqrt{1 - \left(\frac{r}{V \sqrt{2}}\right)^2}} \cdot \frac{1}{V \sqrt{2}}
+\]
+
+This simplifies to:
+
+\[
+f_R(r) = \frac{1}{\pi V \sqrt{2}} \cdot \frac{1}{\sqrt{1 - \left(\frac{r}{V \sqrt{2}}\right)^2}}, \quad \text{for } 0 < r < V \sqrt{2}
+\]
+
+Thus, the distribution of the magnitude of the relative velocity between the two particles is given by:
+
+\[
+f_R(r) = \frac{1}{\pi V \sqrt{2}} \cdot \frac{1}{\sqrt{1 - \left(\frac{r}{V \sqrt{2}}\right)^2}}, \quad 0 < r < V \sqrt{2}
+\]
+\end{solution}
+
+\begin{exercise}
+A point is picked uniformly from inside a unit circle. What is the density of \( R \), the distance of the point from the center?
+\end{exercise}
+
+\begin{solution}
+To find the density of \( R \), the distance from the center of the unit circle, we start by noting that the area of a circle is given by the formula \( A = \pi r^2 \), where \( r \) is the radius of the circle. In our case, the radius is 1, so the area of the unit circle is \( \pi \).\\
+
+When we choose a point uniformly inside the circle, the probability density function (pdf) must be proportional to the area element in polar coordinates. In polar coordinates, a point in the circle can be described by coordinates \( (r, \theta) \), where \( r \) is the distance from the center (the value of \( R \)) and \( \theta \) is the angle.\\
+
+The area element in polar coordinates is given by:
+
+\[
+dA = r \, dr \, d\theta
+\]
+
+To find the density function of \( R \), we need to consider how the area is distributed with respect to \( R \). The cumulative distribution function (CDF) for \( R \) can be expressed as the probability that the distance \( R \) is less than or equal to some value \( r \):
+
+\[
+P(R \leq r) = \text{Area of the circle with radius } r = \pi r^2
+\]
+
+Since \( R \) is uniformly distributed over the unit circle, the total area of the unit circle is \( \pi \). Therefore, the CDF can be normalized:
+
+\[
+P(R \leq r) = \frac{\pi r^2}{\pi} = r^2 \quad \text{for } 0 \leq r \leq 1
+\]
+
+To find the probability density function (pdf), we take the derivative of the CDF with respect to \( r \):
+
+\[
+f_R(r) = \frac{d}{dr} P(R \leq r) = \frac{d}{dr} (r^2) = 2r \quad \text{for } 0 \leq r \leq 1
+\]
+
+Thus, the density of \( R \) is given by:
+
+\[
+f_R(r) = 2r \quad \text{for } 0 \leq r \leq 1
+\]
+\end{solution}
+
+
+\begin{exercise}
+Let \( X \) and \( Y \) be independent exponentially distributed random variables with parameter \( 1 \). Find the joint density of \( U = X + Y \) and \( V = \frac{X}{X+Y} \), and show that \( V \) is uniformly distributed.
+\end{exercise}
+
+\begin{solution}
+To solve this problem, we will first find the joint distribution of \( U \) and \( V \) and then show that \( V \) is uniformly distributed.\\
+
+The random variables \( X \) and \( Y \) are independent and exponentially distributed with parameter \( 1 \), so their probability density functions (pdf) are given by:
+\[
+f_X(x) = e^{-x} \quad \text{for } x \geq 0,
+\]
+\[
+f_Y(y) = e^{-y} \quad \text{for } y \geq 0.
+\]
+
+
+Since \( X \) and \( Y \) are independent, the joint pdf is:
+\[
+f_{X,Y}(x,y) = f_X(x) f_Y(y) = e^{-x} e^{-y} = e^{-(x+y)} \quad \text{for } x \geq 0, y \geq 0.
+\]
+
+Now we define the transformation:
+\[
+U = X + Y,
+\]
+\[
+V = \frac{X}{X + Y} = \frac{X}{U}.
+\]
+
+The inverse transformation is:
+\[
+X = UV, \quad Y = U(1 - V).
+\]
+
+Next, we calculate the Jacobian of the transformation from \( (X, Y) \) to \( (U, V) \):
+\[
+\begin{bmatrix}
+\frac{\partial X}{\partial U} & \frac{\partial X}{\partial V} \\
+\frac{\partial Y}{\partial U} & \frac{\partial Y}{\partial V}
+\end{bmatrix}
+=
+\begin{bmatrix}
+V & U \\
+1 - V & -U
+\end{bmatrix}.
+\]
+The determinant of this Jacobian matrix is:
+\[
+J = \left| \begin{array}{cc}
+V & U \\
+1 - V & -U
+\end{array} \right| = -UV + U(1 - V) = U.
+\]
+Taking the absolute value gives us \( |J| = U \).\\
+
+Using the change of variables formula, we have:
+\[
+f_{U,V}(u,v) = f_{X,Y}(x,y) \cdot |J| = f_{X,Y}(uv, u(1-v)) \cdot |J|.
+\]
+Substituting for \( f_{X,Y}(x,y) \):
+\[
+f_{U,V}(u,v) = e^{-(uv + u(1-v))} \cdot u = e^{-u} \cdot u = u e^{-u} \quad \text{for } u \geq 0, \; 0 \leq v \leq 1.
+\]
+
+To find the marginal distribution of \( V \), we integrate out \( U \):
+\[
+f_V(v) = \int_0^\infty f_{U,V}(u,v) \, du = \int_0^\infty u e^{-u} \, du.
+\]
+This integral is recognized as the Laplace transform of \( u \) with \( s = 1 \):
+\[
+\int_0^\infty u e^{-u} \, du = 1 \quad \text{(by integration by parts or gamma function)}.
+\]
+
+The limits on \( v \) are \( 0 \leq v \leq 1 \), and since we integrate over all possible values of \( U \) and find that \( f_V(v) \) integrates to \( 1 \) over this range, it follows that \( V \) has a uniform distribution.
+\end{solution}
